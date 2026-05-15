@@ -209,7 +209,7 @@ export const Project: ProjectItem[] = [
             { name: '手機 (375px)', img: ['rest-phone-w', 'rest-phone-b'] },
         ],
         links: [
-            { name: 'GITHUB', link: 'https://github.com/Trista25411/public/tree/main/REST%20Countries%20API' },
+            { name: 'GITHUB', link: 'https://github.com/Trista25411/porfolio/tree/main/source-code/REST%20Countries%20API' },
             { name: 'DEMO', link: '' },
         ],
     },
@@ -294,7 +294,7 @@ export const Project: ProjectItem[] = [
             { name: '手機 (375px)', img: [''] },
         ],
         links: [
-            { name: 'GITHUB', link: 'https://github.com/Trista25411/public/tree/main/space-tourism%20completed' },
+            { name: 'GITHUB', link: 'https://github.com/Trista25411/porfolio/tree/main/source-code/space-tourism%20completed' },
             { name: 'DEMO', link: '' },
         ],
     },
@@ -434,7 +434,7 @@ export const Project: ProjectItem[] = [
             { name: '手機 (375px)', img: ['microsoft-phone'] },
         ],
         links: [
-            { name: 'GITHUB', link: 'https://github.com/Trista25411/public/tree/main/Microsoft-index%20RWD' },
+            { name: 'GITHUB', link: 'https://github.com/Trista25411/porfolio/tree/main/source-code/Microsoft-index%20RWD' },
             { name: 'DEMO', link: '' },
         ],
     },
@@ -517,7 +517,7 @@ export const Project: ProjectItem[] = [
         ],
         links: [
             { name: 'Figma', link: 'https://www.figma.com/design/NUSFnOzYqcr6h4z3hhVRQw/Portfolio-website?node-id=807-9074&t=pPUb9uPevY8yr3PN-1' },
-            { name: 'GITHUB', link: 'https://github.com/Trista25411/Portfolio' },
+            { name: 'GITHUB', link: 'https://github.com/Trista25411/porfolio/tree/main/porfolio-vue' },
         ],
     },
 ];
