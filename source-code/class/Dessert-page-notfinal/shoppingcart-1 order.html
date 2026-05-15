@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bootstrap demo</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+</head>
+
+<style>
+  body {
+    background-color: rgb(240, 241, 234);
+    margin: 0;
+    padding: 0;
+  }
+
+  a {
+    text-decoration: none;
+    font-size: 16px;
+    color: black;
+  }
+
+  a:hover,
+  .nav-link:hover,
+  .nav-link.active:hover {
+    color: lightcoral;
+  }
+
+  nav i {
+    font-size: 30px;
+    padding: 5px;
+  }
+
+  hr {
+    width: 90%;
+    margin: auto;
+  }
+
+  /* nav-------------------------------------- */
+  .navbar {
+    background-color: lemonchiffon;
+  }
+
+
+  .nav-item {
+    padding-top: 8px;
+  }
+
+  .logo {
+    border-radius: 20px;
+  }
+
+  .dropdown-toggle::after {
+    display: none;
+  }
+
+  .dropdown-menu[data-bs-popper] {
+    top: 80%;
+    left: -136px;
+  }
+
+  /* container------------------------------- */
+  .box {
+    background-color: rgb(251, 250, 240);
+    width: 1021px;
+    /* height: 934px; */
+    margin: 50px 0;
+  }
+
+  .step-circle {
+    background-color: rgb(236, 236, 236);
+    width: 40px;
+    height: 40px;
+  }
+
+  .my-progress {
+    height: 8px;
+    width: calc(100% - 20px * 2 - 8px);
+    /* 扣掉一個圓的意思，把w-100刪掉，再微調一下位置 */
+  }
+
+  .order button {
+    background-color: white;
+    width: 40px;
+    border-color: lightgray;
+  }
+
+  .bi {
+    cursor: pointer;
+  }
+
+  /* footer----------------------------- */
+  footer {
+    background-color: lemonchiffon;
+  }
+
+  .com-name {
+    /* background-color: lightpink; */
+    font-size: 28px;
+    font-weight: bold;
+    display: flex;
+    padding: 15px 0;
+  }
+</style>
+
+<body>
+  <!-- 頁首 -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <img class="logo" src="./img/logo.png" alt="" width="100px">
+      </a>
+
+      <!-- 漢堡條 -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- 功能列 -->
+      <div class="collapse navbar-collapse fs-5" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Product</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+          </li>
+
+          <!-- 購物車 -->
+          <li class="nav-item-icon">
+            <a href="#" class="nav-link"><i class="bi bi-cart3"></i></a>
+          </li>
+
+          <!-- 點選人像圖會出現下拉選單 -->
+          <li class="nav-item-icon dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+              <i class="bi bi-person-circle"></i>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">會員登入與註冊</a></li>
+              <li><a class="dropdown-item" href="#">訂單查詢</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+  <main>
+    <div class="container d-flex justify-content-center">
+      <div class="box bg-light-subtle shadow p-3 mb-5 bg-body-tertiary rounded">
+        <div class="h1 p-5">購物車</div>
+        <!-- 進度條 -->
+        <div class="w-100 bg-light-subtle p-5">
+          <div class="row">
+            <div class="col-3 px-0 text-center">
+              <div class="mb-2 position-relative">
+                <div class="progress my-progress position-absolute top-50 start-100 translate-middle">
+                  <div class="progress-bar" style="width: 30%"></div>
+                </div>
+                <div
+                  class="step-circle rounded-circle mx-auto text-bg-success lead d-flex justify-content-center align-items-center">
+                  1
+                </div>
+              </div>
+              <div class="">確認購物車</div>
+            </div>
+            <div class="col-3 px-0 text-center">
+              <div class="mb-2 position-relative">
+                <div class="progress my-progress position-absolute top-50 start-100 translate-middle">
+                  <div class="progress-bar" style="width: 0%"></div>
+                </div>
+                <div class="step-circle rounded-circle mx-auto lead d-flex justify-content-center align-items-center">
+                  2
+                </div>
+              </div>
+              <div class="">付款與運送方式</div>
+            </div>
+            <div class="col-3 px-0 text-center">
+              <div class="mb-2 position-relative">
+                <div class="progress my-progress position-absolute top-50 start-100 translate-middle">
+                  <div class="progress-bar" style="width: 0%"></div>
+                </div>
+                <div class="step-circle rounded-circle mx-auto lead d-flex justify-content-center align-items-center">
+                  3
+                </div>
+              </div>
+              <div class=""> 填寫資料</div>
+            </div>
+            <div class="col-3 px-0 text-center">
+              <div class="step-circle rounded-circle mx-auto lead d-flex justify-content-center align-items-center">
+                4
+              </div>
+              <div class="">完成訂購</div>
+            </div>
+
+          </div>
+        </div>
+        <hr>
+
+        <!-- 訂單 -->
+        <div class="fs-4 fw-bold px-5 py-4">訂單明細</div>
+        <!-- 第一項商品 -->
+        <div class="order d-flex px-5 pb-4 pt-2">
+          <img class="rounded-circle object-fit-cover" src="./img/canelé.JPEG" alt=""
+            style="width: 90px; height: 90px;">
+          <!-- 商品名 -->
+          <div class="d-flex flex-column ps-4 pt-2">
+            <span class="fs-5">可麗露</span>
+            <span class="opacity-50">canelé</span>
+            <span class="opacity-50">常溫 / 冷凍品項</span>
+          </div>
+          <!-- 數量、價格、垃圾桶 -->
+          <div class="ms-auto my-auto d-flex justify-content-end align-items-center" style="min-width: 200px;">
+            <button class="fs-5" type="button">-</button>
+            <input class="text-center fs-5" type="text" style="width: 50px; border: none;" value="1" min="1" disabled>
+            <button class="fs-5 me-2" type="button">+</button>
+            <span class="fs-5 ms-2 pe-2 text-center" style="min-width: 60px;">$80</span>
+            <span class="fs-5 px-3"><i class="bi bi-trash"></i></span>
+          </div>
+        </div>
+        <hr>
+        <!-- 第二項商品 -->
+        <div class="order d-flex px-5 p-4">
+          <img class="rounded-circle object-fit-cover" src="./img/choco cake.JPEG" alt=""
+            style="width: 90px; height: 90px;">
+          <!-- 商品名 -->
+          <div class="d-flex flex-column ps-4 pt-3">
+            <span class="fs-5">巧克力卡士達小蛋糕 (2入)</span>
+            <span class="opacity-50">Chocolate cake</span>
+            <span class="opacity-50">冷藏品項</span>
+          </div>
+          <!-- 數量及價格 -->
+          <div class="ms-auto my-auto d-flex justify-content-end align-items-center" style="min-width: 200px;">
+            <button class="fs-5" type="button">-</button>
+            <input class="text-center fs-5" type="text" style="width: 50px; border: none;" value="1" min="1" disabled>
+            <button class="fs-5 me-2" type="button">+</button>
+            <span class="fs-5 ms-2 pe-2 text-center" style="min-width: 60px;">$100</span>
+            <span class="fs-5 px-3"><i class="bi bi-trash"></i></span>
+          </div>
+        </div>
+        <hr>
+        <!-- 第三項商品 -->
+        <div class="order d-flex px-5 p-4">
+          <img class="rounded-circle object-fit-cover" src="./img/chestnut cake.JPEG" alt=""
+            style="width: 90px; height: 90px;">
+          <!-- 商品名 -->
+          <div class="d-flex flex-column ps-4 pt-3">
+            <span class="fs-5">栗子蛋糕 1片</span>
+            <span class="opacity-50">chestnut cake</span>
+            <span class="opacity-50">冷藏品項</span>
+          </div>
+          <!-- 數量及價格 -->
+          <div class="ms-auto my-auto d-flex justify-content-end align-items-center" style="min-width: 200px;">
+            <button class="fs-5" type="button">-</button>
+            <input class="text-center fs-5" type="text" style="width: 50px; border: none;" value="1" min="1" disabled>
+            <button class="fs-5 me-2" type="button">+</button>
+            <span class="fs-5 ms-2 pe-2 text-center" style="min-width: 60px;">$120</span>
+            <span class="fs-5 px-3"><i class="bi bi-trash"></i></span>
+          </div>
+        </div>
+        <hr>
+
+        <!-- 結算 -->
+        <div class="count ms-auto fs-5 me-5 pt-4 pb-3 px-3" style="width: 200px;">
+          <div class="d-flex justify-content-between mb-2">
+            <span> 數量: </span>
+            <span>3</span>
+          </div>
+          <div class="d-flex justify-content-between mb-2">
+            <span> 小計: </span><span>$300</span>
+          </div>
+          <div class="d-flex justify-content-between mb-2">
+            <span> 運費: </span><span>$150</span>
+          </div>
+          <div class="d-flex justify-content-between mb-2">
+            <span class="lead"> 總金額: </span><span>$450</span>
+          </div>
+        </div>
+        <hr>
+
+        <!-- 上下頁 -->
+        <div class="change-page d-flex justify-content-between m-5">
+          <a class="fs-4 fw-bold pt-2" href="index.html"> ← 返回購物 </a>
+          <button class="text-bg-primary border border-dark-subtle px-5 py-2 rounded" type="button"><a
+              class="text-light fs-5" href="shoppingcart-2 pay and transport.html">下一步</a></button>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+
+  <footer>
+    <!-- 頁尾 -->
+    <div class="container" style="max-width: 90%;">
+      <div class="row pt-5 align-items-start">
+        <!-- 左邊 -->
+        <div class="col-12 col-lg-4">
+          <div class="row">
+            <!-- log區 -->
+            <div class="col-12 d-flex  com-wrap">
+              <img class="logo" src="./img/logo.png" alt="" width="80px">
+              <!-- 系統預設margin，設0將圖跟文字對齊置中 -->
+              <p class="col-12 com-name mt-2 mb-0 ms-3 fw-bold">迴游製作</p>
+            </div>
+            <div class="mt-4 mb-4">
+              <p class="small">Bring a beautiful day to every customer.</p>
+              <p class="small">お客様に良い一日をお届けします</p>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- 右邊 -->
+        <div class="col-12 col-lg-8 mb-3">
+          <div class="row ">
+            <!-- 第一區塊 -->
+            <div class="col-lg-6 col-xxl mb-4">
+              <p class="h5 pb-2 fw-bold">關於我們</p>
+              <p><a href="">品牌故事</a></p>
+              <p><a href="">團隊介紹</a></p>
+              <p><a href="">我們的旅程</a></p>
+              <p><a href="">媒體報導</a></p>
+            </div>
+
+            <!-- 第二區塊 -->
+            <div class="col-lg-6 col-xxl mb-4">
+              <p class="h5 pb-2 fw-bold">產品項目</p>
+              <p><a href="">經典口味</a></p>
+              <p><a href="">人氣推薦</a></p>
+              <p><a href="">季節限定</a></p>
+              <p><a href="">客製化</a></p>
+            </div>
+
+            <!-- 第三區塊 -->
+            <div class="col-lg-6 col-xxl mb-4">
+              <p class="h5 pb-2 fw-bold">問題與理論</p>
+              <p><a href="">甜點知識</a></p>
+              <p><a href="">訂購流程</a></p>
+              <p><a href="">包裝說明與保存方式</a></p>
+              <p><a href="">常見問題</a></p>
+            </div>
+
+            <!-- 第四區塊 -->
+            <div class="col-lg-6 col-xxl-4 mb-4">
+              <p class="h5 pb-2 fw-bold">聯絡我們</p>
+              <div class="row change">
+                <div class="col-xl-12 col-xxl-6 ">
+                  <p><a href="" class="fs-6"><i class="bi bi-line"></i> Line </a></p>
+                  <p><a href="" class="fs-6"><i class="bi bi-envelope-open"></i> Email </a></p>
+                  <p><a href="" class="fs-6"><i class="bi bi-facebook"></i> Facebook </a></p>
+                </div>
+                <div class="col-xl-12 col-xxl-6">
+                  <p><a href="" class="fs-6"><i class="bi bi-instagram"></i> Instagram </a></p>
+                  <p><a href="" class="fs-6"><i class="bi bi-twitter-x"></i> Twitter </a></p>
+                  <p><a href="" class="fs-6"><i class="bi bi-youtube"></i> Youtube </a></p>
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 最下方 -->
+      <div class="row">
+        <div class="col">
+          <p class="name">© 2025 Migration Make Co., Ltd. ‧ <a href="" style="color: blue; text-decoration:underline">
+              privacy </a> ‧ <a href="#" style="color: blue; text-decoration:underline"> Terms </a></p>
+        </div>
+      </div>
+    </div>
+
+    </div>
+  </footer>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

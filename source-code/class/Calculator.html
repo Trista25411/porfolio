@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> js 計算器</title>
+</head>
+
+<body>
+    任務: input + - x ÷ input = xxx
+    <br><br>
+
+    <input id="num-1" type="number" value="50">
+    <button id="plus" type="button"> + </button>
+    <button id="minus" type="button"> - </button>
+    <button id="times" type="button"> x </button>
+    <button id="dividedby" type="button"> ÷ </button>
+    <input id="num-2" type="number" value="2">
+    <br><br>
+    結果:<span id="result"></span>
+    <br><br>
+
+
+    <script>
+        var input1 = document.querySelector('#num-1')
+        var plus = document.querySelector('#plus')
+        var minus = document.querySelector('#minus')
+        var times = document.querySelector('#times')
+        var dividedby = document.querySelector('#dividedby')
+        var input2 = document.querySelector('#num-2')
+        var result = document.querySelector('#result')
+
+
+        plus.addEventListener('click', function () {
+            inputValue1 = input1.value * 1
+            inputValue2 = input2.value * 1
+            result.textContent = inputValue1 + inputValue2;
+        })
+
+        minus.addEventListener('click', function () {
+            inputValue1 = input1.value * 1
+            inputValue2 = input2.value * 1
+            result.textContent = inputValue1 - inputValue2;
+        })
+
+        times.addEventListener('click', function () {
+            inputValue1 = input1.value * 1
+            inputValue2 = input2.value * 1
+            result.textContent = inputValue1 * inputValue2;
+        })
+
+        dividedby.addEventListener('click', function () {
+            inputValue1 = input1.value * 1
+            inputValue2 = input2.value * 1
+            result.textContent = inputValue1 / inputValue2;
+        })
+
+    </script>
+
+
+
+
+
+
+    <!-- 加法 -->
+    <!-- <input id="num-1" type="number" value="100">
+    +
+    <input id="num-2" type="number" value="200">
+    <br><br>
+    <button id="count-btn" type="button"> 計算 </button>
+    <br>結果:<span id="result"></span> -->
+
+
+    <!-- <br><br><br> -->
+    <!-- 減法 -->
+
+
+    <script>
+        // var input1 = document.querySelector('#num-1');
+        // var input2 = document.querySelector('#num-2');
+        // var countBtn = document.querySelector('#count-btn');
+        // var result = document.querySelector('#result');
+        // var inputValue1;
+        // var inputValue2;
+        // countBtn.addEventListener('click', function () {
+        //     inputValue1 = input1.value * 1;
+        //     inputValue2 = input2.value * 1;
+        //     result.textContent = inputValue1 + inputValue2;
+        // })
+
+
+
+
+
+    </script>
+
+</body>
+
+</html>

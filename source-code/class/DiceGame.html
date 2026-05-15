@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .container {
+      display: flex;
+      gap: 8px;
+    }
+
+    .dice {
+      width: 50px;
+      height: 50px;
+      border: 2px solid #000;
+      border-radius: 8px;
+      margin-top: 10px;
+
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .red {
+      background-color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <button type="button" id="play">擲骰子</button>
+
+  <p>歷程結果</p>
+  <div class="result"></div>
+
+  <body>
+    <script>
+      // 做一顆按鈕，當按下按鈕後，會自動骰20次骰子
+      // 每次結果都需要被記錄下來(歷程結果)
+      // 如果當骰到豹子(三顆數字都一樣時)，印出後停止骰骰子
+      // 可利用innerHTML插入html標籤
+      // +=可用在字串
+
+      const play = document.querySelector('#play');
+      const result = document.querySelector('.result');
+
+      // 找到按鈕並綁上(binding)監聽器 => 監聽是否有人點擊他
+      play.addEventListener('click', function () {
+        result.innerHTML ="" ; //每次要執行前，要清空
+
+        for (let i = 0; i < 20; i++) {
+          let content = ''; // 每次執行擲骰子都要先清空，不然每按一次數值會越來越長
+
+          const diceA = Math.floor(Math.random() * 6) + 1; //骰子有1-6個數 => 從1~6，原先是0~5所以要+1
+          const diceB = Math.floor(Math.random() * 6) + 1;
+          const diceC = Math.floor(Math.random() * 6) + 1;
+          console.log(diceA, diceB, diceC); //目前還是自己按一次出一次結果 => 要做按一次自己執行20次 => 最上面設for迴圈
+          content += `第${i + 1}次 &nbsp; <span class="dice">${diceA}</span> &nbsp;`; //做幾次由i控制，但i原先為0，所以要+1
+          content += `<span class="dice">${diceB}</span> &nbsp;`; // += 因為會清空，要把原先的加進來
+          content += `<span class="dice">${diceC}</span> <br>`;
+          result.innerHTML += content; //擲一次要看到結果一次
+          // 顯示在<div>在這</div> => innerHTML
+
+          // 測三顆一樣要分兩次，沒辦法直接三個一起相同
+          if (diceA === diceB && diceB === diceC) {
+            break
+          }
+        }
+        
+
+      })
+
+
+
+
+
+
+    </script>
+
+  </body>
+
+</html>

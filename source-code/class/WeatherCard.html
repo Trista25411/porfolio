@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>天氣卡 css</title>
+  <!-- 氣象資料開放平台: https://opendata.cwa.gov.tw/index -->
+  <!-- 註冊會員登入 → API授權碼(按取得授權碼) → 開發指南: 資料擷取API線上說明文件 -->
+  <!-- 點36小時天氣預報 → 輸入剛剛取得的授權碼 → 要做限制性的再填寫其他東西，現在先不動 → 最下面點選 execute → 下方會產生一個網址url，複製那個，下面的response body是指說他會給那些資料  -->
+</head>
+
+<style>
+  
+</style>
+
+<body>
+  <!-- 此作業要做CSS分離與JS分離，要做RWD -->
+  <div class="btn-area">
+      <button type="button" class="btn">全部</button>
+      <button type="button" class="btn">北部</button>
+      <button type="button" class="btn">中部</button>
+      <button type="button" class="btn">南部</button>
+      <button type="button" class="btn">東部</button>
+      <button type="button" class="btn">離島</button>
+  </div>
+  <hr>
+  <div class="card-region"></div>
+
+
+  <script>
+    const regionAll = [
+      ['基隆市', '新北市', '臺北市', '桃園市', '新竹市', '新竹縣', '苗栗縣', '臺中市', '南投縣', '彰化縣', '雲林縣', '嘉義市', '嘉義縣', '臺南市', '高雄市', '屏東縣',
+        '宜蘭縣', '花蓮縣', '臺東縣', '澎湖縣', '金門縣', '連江縣'
+      ], // 全部
+      ['基隆市', '新北市', '臺北市', '桃園市', '新竹市', '新竹縣', '苗栗縣'], // 北部
+      ['臺中市', '南投縣', '彰化縣', '雲林縣', '嘉義市', '嘉義縣'], // 中部
+      ['臺南市', '高雄市', '屏東縣'], // 南部
+      ['宜蘭縣', '花蓮縣', '臺東縣'], // 東部
+      ['澎湖縣', '金門縣', '連江縣'], // 離島
+    ]
+    // 補充 ---------------------
+    // 一維陣列
+    // const arr1 = [1, 2, 3];
+    // // 二維陣列
+    // const arr2 = [
+    //   [1, 2, 3],
+    //   [4, 5, 6],
+    //   [7, 8, 9]
+    // ]
+    // console.log(arr2[0][0]);
+    // console.log(arr2[0][1]);
+    // console.log(arr2[0][2]);
+    // console.log(arr2[1]);
+    // console.log(arr2[2]);
+
+    
+    // -------------------------
+    // 授權碼: CWA-43449DD4-2620-4AFF-80B8-D39076A
+    // 複製網址到這裡
+    const url =
+      'https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=CWA-43449DD4-2620-4AFF-80B8-D39076A15728'
+
+    const btnAll = document.querySelectorAll('.btn');
+    const cardRegion = document.querySelector('.card-region');
+
+    let orginalData; // 存放氣象局拿到的資料 => 在外面宣告，可以讓這整個資料都可以使用，不會只限至於某個function裡面使用
+    let orgData = {}; // 整理後的資料 (取22縣市中所需要的某些縣市)
+    let region = regionAll[0]; // 預設全部
+    let content = '';
+
+    // 1. 取得資料
+    fetchData();
+    // 利用foreach每一btn加入addEventListener
+    // 當按下後決定要顯示的區域
+    // rerion = regionAll[index] 
+    // -------------------------------
+    function fetchData() {
+      // 1. 從url取得資料 
+      fetch(url) // (公訂的)
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (data) {
+          // console.log(3, data);
+          orginalData = data;
+          // 2. 處理資料
+          // 給一個變數專門存取資料 => 在上面宣告
+          organizationData();
+          arrangeCities();  // 拿出來要顯示在畫面上
+        });
+    }
+
+    // 2. 處理資料
+    // 將要做的事情都放到另一個function裡面，就不會列太多東西，最後再把名稱放入fetchData裡面執行就好
+    function organizationData() {
+      const locationAll = orginalData.records.location;
+      // console.log(locationAll);
+      locationAll.forEach(location => {
+        console.log(location);
+        const locationName = location.locationName;
+        //                                        現在時段
+        const wEl0T0 = location.weatherElement[0].time[0];
+        // console.log(9, wEl0T0);
+        let startTime = wEl0T0.startTime;
+        console.log(startTime);
+        // 天氣狀況
+        const wxCondition = wEl0T0.parameter.parameterName;
+        // 天氣晴陰雨那些圖
+        let wxImgCode = wEl0T0.parameter.parameterValue;
+        if (Number(wxImgCode) < 10) {
+          wxImgCode = `0${wxImgCode}`;
+        }
+        // console.log(wxCondition, wxImgCode);
+        const maxT = location.weatherElement[4].time[0].parameter.parameterName;
+        // console.log(maxT);
+
+        // 做完一個縣資料 就要放入 組織後的資料物件 orgData
+        // orgData['台中市'] = {};
+        //  新增一個 key 為 locationName的字串 的 物件 到 orgData
+        orgData[locationName] = {
+          'Wx': wxCondition,
+          'WxCode': wxImgCode,
+          'startTime': startTime,
+          'maxT': maxT,
+        };
+        console.log(orgData);
+      });
+    }
+
+    // 處理各(區域)縣市
+    function arrangeCities() {
+      content = ''; // 顯示每個區域前都要清空
+      region.forEach(city => {
+        const cityData = orgData[city];
+        // console.log(100, cityData);
+        showCard(city, cityData);
+        // showCard(city, orgData[city]);
+      });
+      // 最後顯示在網頁上
+      cardRegion.innerHTML = content;
+    }
+
+    function showCard(city, cityData) {
+      content +=
+        `
+         <div class="card">
+            ${city}
+            ${cityData.Wx}
+            ${cityData.maxT}<sup>。</sup>C
+            ${cityData.startTime.replaceAll('-', '/')}
+            <span class="icon">
+              <img src="https://www.cwa.gov.tw/V8/assets/img/weather_icons/weathers/svg_icon/day/${cityData.WxCode}.svg" alt="${cityData.Wx}" title="${cityData.Wx}">
+            </span>
+          </div>
+        `
+    }
+  </script>
+
+  <!-- https://www.cwa.gov.tw/V8/assets/img/weather_icons/weathers/svg_icon/day/11.svg -->
+</body>
+
+</html>
+
+<!-- <img src="https://www.cwa.gov.tw/V8/assets/img/weather_icons/weathers/svg_icon/day/${cityData.WxCode}.svg" alt="${cityData.Wx}" title="${cityData.Wx}"> -->

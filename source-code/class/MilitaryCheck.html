@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+
+            background-image: url(https://images.pexels.com/photos/3880225/pexels-photo-3880225.jpeg?auto=compress&cs=tinysrgb&w=600);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        p {
+            /* background-color: lightslategrey; */
+            width: auto;
+            height: 40px;
+            line-height: 40px;
+        }
+
+        button{
+            margin-bottom: 30px;
+        }
+
+
+        .box {
+            background-color: antiquewhite;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 5px 5px gray;
+            opacity: 0;
+            animation: in 3s linear forwards;
+        }
+
+        @keyframes in {
+            0%{
+                opacity: 0;
+            }
+            100%{
+                opacity: 1;
+            }
+            
+        }
+
+        .gender-container {
+            /* background-color: lightpink; */
+            display: flex;
+            align-items: center;
+        }
+
+        .gender-input-container {
+            /* background-color: lightblue; */
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .age-container {
+            /* background-color: lemonchiffon; */
+            margin-bottom: 16px;
+        }
+
+        .green {
+            color: green;
+        }
+
+        .red {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <section>
+        <div class="box">
+            <h1>兵役檢查</h1>
+            <hr>
+            <div class="gender-container">
+                <p>生理性別：</p>
+                <div class="gender-input-container">
+                    <label for="male">
+                        <input id="male" type="radio" name="gender" value="男">
+                        生理男性
+                    </label>
+                    <label for="female">
+                        <input id="female" type="radio" name="gender" value="女">
+                        生理女性
+                    </label>
+                </div>
+            </div>
+
+            <div class="age-container">
+                <label for="age">年齡：</label>
+                <select id="age">
+                    <option value="" hidden>請選擇年齡</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                    <option value="21">21</option>
+                    <option value="22">22</option>
+                    <option value="23">23</option>
+                    <option value="24">24</option>
+                    <option value="25">25</option>
+                    <option value="26">26</option>
+                    <option value="27">27</option>
+                    <option value="28">28</option>
+                    <option value="29">29</option>
+                    <option value="30">30</option>
+                </select>
+            </div>
+
+            <button id="btn" type="button">送出</button>
+            <hr>
+
+            <p>
+                兵役資格：
+                <b id="result"></b>
+            </p>
+        </div>
+    </section>
+
+    <script>
+        // 題目:
+        // 選擇生理性別及年齡後，按下送出，判斷是否符合兵役資格
+        // 如果沒有選擇生理性別及年齡就按下送出，則跳出通知提醒，提醒使用者
+        // 只有18歲(含)以上生理男性才<符合>資格
+        // 符合文字用綠色，不符合文字用紅色
+
+        // 假設都找好元件了
+        // 方法1
+        //   if (!gender) {
+        //     alert('');
+        //   }else if (!age.value) {
+        //     alert('');
+        //   }else {
+        //     if ('女') {
+        //       alert('');
+        //     }else { // 一定是男
+        //       if( age.value >= 18 ) {
+        //         alert('要....要....')
+        //       }else {
+        //         alert('不要.....')
+        //       }
+        //     }
+        //   }
+
+        //   // 方法2
+        //   if (!gender || !age.value ) {
+        //     alert('    ')
+        //   }else {
+        //     if (男 && >= 18) {
+        //       alert('當');
+        //     }else {
+        //       alert('不用');
+
+        const age = document.querySelector('#age')
+        const btn = document.querySelector('#btn');
+        const result = document.querySelector('#result')
+
+        btn.addEventListener('click', function () {
+            const gender = document.querySelector('input[name="gender"]:checked')
+            console.log(gender);
+            if (!gender) {
+                alert('請先選擇性別')
+
+            } else if (!age.value) {
+                alert('請先選擇年齡')
+                return
+            }
+
+            if (gender.value === '男' && age.value >= 18) {
+                console.log('符合');
+                result.textContent = '長大了，該來囉！';
+                result.style.color = 'green';
+
+            } else if (gender.value === '男' && age.value < 18) {
+                console.log('不符合');
+                result.textContent = '還有幾年多多享受，下次再來~';
+                result.style.color = 'red';
+            }
+        })
+
+        const femaleinput = document.querySelector('#female')
+        femaleinput.addEventListener('click', function () {
+            if (femaleinput.checked) {
+                alert('生理女生就不用填寫囉~')
+                result.textContent = '不符合';
+                result.style.color = 'red';
+                return
+            }
+        })
+
+    </script>
+
+</body>
+
+</html>

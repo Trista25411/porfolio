@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI計算機</title>
+    <!-- BMI計算機: 
+     兩個按鈕 一個計算、一個清空、數值出來至少要一位小數、沒輸入要跳出提醒 -->
+    
+     <!-- 身體質量指數(Body Mass Index, BMI) 來衡量肥胖程度 -->
+    <!-- BMI = 體重(公斤) / 身高的平方(公尺) -->
+    <!-- 整個不用div，用tab切 -->
+
+    <style>
+        body {
+            background-color: darkseagreen;
+            margin: 0;
+            padding: 0;
+
+            height: 100vh;
+            font-size: 18px;
+
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 80px;
+
+        }
+
+        table {
+            background-color: white;
+            border-collapse: collapse;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        input {
+            padding: 5px;
+            margin: 10px;
+            font-size: 18px;
+        }
+
+        button {
+            padding: 5px;
+            margin: 15px 10px;
+            font-size: 18px;
+        }
+
+        span {
+            line-height: 40px;
+        }
+
+        .box {
+            background-color: aliceblue;
+            width: 400px;
+            border-radius: 20px;
+            padding: 20px 50px;
+        }
+
+        .red {
+            color: red;
+        }
+
+        .green {
+            color: green;
+        }
+
+        .bold {
+            font-weight: bold;
+            font-size: 28px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="box">
+        <h1>BMI計算器</h1>
+        <hr>
+        <br>
+
+        性別:
+        <label for="male">
+            <input id="male" type="radio" name="gender" value="男">生理男</input>
+        </label>
+
+        <label for="female">
+            <input id="female" type="radio" name="gender" value="女">生理女</input>
+        </label>
+        <br>
+
+        我的身高: <input id="height" type="number" mix="0" max="500">
+        <br>
+        我的體重: <input id="weight" type="number" mix="0" max="500">
+
+        <button class="btn btn-c" type="button"> 計算 </button>
+        <button class="btn btn-r" type="button"> 重新填寫 </button>
+        <br>
+        <hr>
+
+        BMI值: <span id="bmi"></span>
+        <br>
+        結果: <span id="result"></span>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th colspan="2"> BMI值 </th>
+                <th colspan="2"> 腰圍 </th>
+            </tr>
+            <tr>
+                <th> 定義 </th>
+                <th> BMI </th>
+                <th> 男性 </th>
+                <th> 女性 </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td> 體重過輕 </td>
+                <td> &lt; 18.5 </td>
+                <td colspan="2"> x </td>
+
+            </tr>
+            <tr>
+                <td> 正常範圍 </td>
+                <td> 18.5 &lt; = BMI &lt; 24 </td>
+                <td colspan="2"> x </td>
+
+            </tr>
+            <tr>
+                <td> 體重過重 </td>
+                <td> 24 &lt; = BMI &lt; 27 </td>
+                <!-- rowspan: 向下合併儲存格 -->
+                <td rowspan="4"> &gt; = 90 </td>
+                <td rowspan="4"> &gt; = 80 </td>
+            </tr>
+            <tr>
+                <td> 輕度肥胖 </td>
+                <td> 27 &lt; = BMI &lt; 30 </td>
+            </tr>
+            <tr>
+                <td> 中度肥胖 </td>
+                <td> 30 &lt; = BMI &lt; 35 </td>
+            </tr>
+            <tr>
+                <td> 重度肥胖 </td>
+                <td> BMI &gt; = 35 </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <script>
+        let height = document.querySelector('#height');
+        let weight = document.querySelector('#weight');
+        let btnC = document.querySelector('.btn-c');
+        let btnR = document.querySelector('.btn-r')
+        let bmi = document.querySelector('#bmi');
+        let result = document.querySelector('#result');
+        const male = document.querySelector('#male');
+        const female = document.querySelector('#female');
+
+        btnC.addEventListener('click', function () {
+            // 身體質量指數(Body Mass Index, BMI) 來衡量肥胖程度 
+            // BMI = 體重(公斤) / 身高的平方(公尺)
+            let bmiValue = (Number(weight.value) / ((Number(height.value) / 100) * Number(height.value) / 100)).toFixed(2);
+            bmi.textContent = bmiValue
+
+            // 未輸入警示
+            let gender = document.querySelector('input[name="gender"]:checked');
+            if (!gender || !height.value || !weight.value) {
+                alert('請輸入性別、身高及體重');
+                return;
+            }
+
+            // 輸入值不超過範圍
+            if (Number(height.value) <= 1 || Number(height.value) > 300 ||
+                Number(height.value) <= 1 || Number(height.value) > 500) {
+                alert('請輸入實際數值');
+                return;
+            }
+
+            // 設定結果
+            if (bmiValue < 18.5) {
+                result.textContent = ('體重過輕，加油多吃點！');
+                result.classList.add('red');
+                result.classList.add('bold');
+
+            } else if (bmiValue >= 18.5, bmiValue < 24) {
+                result.textContent = ('正常，要繼續保持哦~');
+                result.classList.add('green');
+
+            } else if (bmiValue >= 24, bmiValue < 27) {
+                result.textContent = ('體重過重，該走走路運動啦！');
+                result.classList.add('red');
+                result.classList.add('bold');
+
+            } else if (bmiValue >= 27, bmiValue < 30) {
+                result.textContent = ('輕度肥胖，要多運動囉！');
+                result.classList.add('red');
+                result.classList.add('bold');
+
+            } else if (bmiValue >= 30, bmiValue < 35) {
+                result.textContent = ('中度肥胖，要多運動控制飲食啦！');
+                result.classList.add('red');
+                result.classList.add('bold');
+
+            } else if (bmiValue >= 35) {
+                result.textContent = ('重度肥胖，不能再下去啦！注意身體健康');
+                result.classList.add('red');
+                result.classList.add('bold');
+            }
+        });
+
+        // 重新填寫，將值都改為空字串
+        btnR.addEventListener('click', function () {
+            height.value = ""
+            weight.value = ""
+            result.textContent = ""
+        });
+
+    </script>
+
+
+</body>
+
+</html>

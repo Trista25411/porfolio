@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>js 作業 成績計算器</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        section {
+            /* background-color: darkturquoise; */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        h1 {
+            display: flex;
+            justify-content: center;
+            padding-top: 20px;
+        }
+
+        label {
+            /* background-color: lightsalmon; */
+            width: 100%;
+            font-size: 20px;
+            display: block;
+            flex-wrap: wrap;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+
+
+        .container {
+            background-image: url(https://images.pexels.com/photos/1764436/pexels-photo-1764436.jpeg);
+            background-size: cover;
+
+            width: 100%;
+            height: 100vh;
+            font-size: 22px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        .box {
+            background-color: lightsteelblue;
+            width: 30%;
+            height: 500px;
+            border-radius: 20px;
+            box-shadow: 2px 2px gray;
+            padding: 0 30px;
+        }
+
+        .subject {
+            /* background-color: lightseagreen; */
+            width: 40%;
+            height: 30px;
+            padding-left: 10px;
+            margin-left: 10px;
+        }
+
+
+        .result {
+            background-color: lemonchiffon;
+            width: 100%;
+            height: 40px;
+            margin: 20px 0;
+            border: 1px solid gray;
+            box-shadow: 1px 1px gray;
+        }
+    </style>
+</head>
+
+<body>
+    <section>
+        <div class="container">
+            <div class="box">
+                <h1>成績計算器</h1>
+                <label for="chinese">
+                    國文 <input class="subject subject-1" type="number" value="" min="0" max="100">
+                </label>
+                <label for="english">
+                    英文 <input class="subject subject-2" type="number" value="" min="0" max="100">
+                </label>
+                <label for="math">
+                    數學 <input class="subject subject-3" type="number" value="" min="0" max="100">
+                </label>
+                <button class="result" type="button"> 平均結果 </button>
+                <br>
+                = <span id="end"></span>
+                <br>
+                是否及格: <span id="pass"> </span>
+            </div>
+
+            <script>
+                var subject1 = document.querySelector('.subject-1');
+                var subject2 = document.querySelector('.subject-2');
+                var subject3 = document.querySelector('.subject-3');
+                var result = document.querySelector('.result');
+                var end = document.querySelector('#end');
+                var container = document.querySelector('.container');
+
+
+                result.addEventListener('click', function () {
+                    chinese = subject1.value * 1;
+                    english = subject2.value * 1;
+                    math = subject3.value * 1;
+
+                    // 增加輸入才能作動
+                    if (!chinese || !english || !math) {
+                        console.log('請輸入所有科目的成績');
+                        alert('請輸入所有科目的成績');
+                        return // 阻止後續執行
+                    }
+                    if (
+                        chinese < 0 || chinese > 100 ||
+                        english < 0 || english > 100 ||
+                        math < 0 || math > 100
+                    ) {
+                        alert('請輸入 0 到 100 之間的數字');
+                        return;
+                    }
+
+                    end.textContent = (chinese + english + math) / 3;
+
+                    // 增加及格否的格子
+                    // 方法一
+                    var pass = document.querySelector('#pass');
+
+                    if (end.textContent >= 60) {
+                        console.log('及格啦~');
+                        pass.textContent = '及格啦~';
+                        pass.style.color = 'green';
+                        container.style.backgroundImage = "url(https://t3.ftcdn.net/jpg/01/67/35/96/360_F_167359634_LJgkDWr9rNIROdIJ5Jka6HU75PgC28GD.jpg)"
+
+
+                    } else {
+                        console.log('回家要打屁股了QQ');
+                        pass.textContent = '回家要打屁股了QQ'
+                        pass.style.color = 'red';
+                        container.style.backgroundImage = "url(https://pic.pimg.tw/meteor24443/1407662400-307950831.gif)"
+                    }
+
+                    // 方法二
+                    // 先預設
+                    // var passstr = '及格啦~'
+                    // if (end.textContent >= 60) {
+                    //     // console.log('及格啦~');
+                    //     passstr = '及格啦~'
+                    //     pass.textContent = passstr
+                    // }
+
+                });
+
+            </script>
+        </div>
+    </section>
+</body>
+
+</html>

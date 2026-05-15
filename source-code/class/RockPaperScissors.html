@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>猜拳遊戲</title>
+
+  <style>
+    * {
+      font-size: 20px;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+
+      background-image: url(https://colanekojp.com.tw/upload/ckfiles/images/content-22e0708f-81831-lg.jpg);
+      background-size: 60%;
+      background-repeat: no-repeat;
+      background-position: right;
+
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      overflow: hidden;
+
+    }
+
+
+    .content {
+      background-color: lightblue;
+      padding: 50px;
+      border-radius: 10px;
+    }
+
+
+    .btn {
+      font-size: 30px;
+      cursor: pointer;
+    }
+
+    .container {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .active {
+      background-color: orangered;
+    }
+
+    #action {
+      margin-bottom: 14px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .font {
+      font: bold;
+    }
+
+    .green {
+      color: green;
+    }
+
+    .red {
+      color: red;
+
+    }
+  </style>
+</head>
+
+<body>
+  <section>
+    <div class="content">
+      <h1>vs 電腦 —— 猜拳大賽</h1>
+
+      <div class="container">
+        <button type="button" class="btn btn-2">✌️</button>
+        <button type="button" class="btn btn-0">✊</button>
+        <button type="button" class="btn btn-5">🖐️</button>
+      </div>
+
+      <button type="button" id="action">確認出拳</button>
+
+      <div>
+        <b>👤你出:</b>
+        <span id="user-result"></span>
+      </div>
+
+      <div>
+        <b>🤖電腦出:</b>
+        <span id="computer-result"></span>
+      </div>
+
+      <hr>
+      <div>
+        <b>🏆結果:</b>
+        <span id="result"></span>
+      </div>
+    </div>
+
+  </section>
+
+  <script>
+    // 題目：
+    // 1.有剪刀、石頭、布的按鈕、確認出拳的按鈕
+    // 2.點擊按鈕會改變CSS
+    // 3.點擊要出拳按鈕，電腦會隨機選擇(剪刀、石頭、布)
+    // 4.電腦和自己選擇的的進行判斷
+    // 5.顯示電腦出什麼，以及是誰獲勝
+
+    // 大綱
+    // 先找DOM元素
+    // let you;
+    // let cpu;
+    // 你按出拳 => you = ? 要決定這個值
+    // 顏色變化 => 例如按 剪刀 => 要把剪刀變紅(classList.add)，並且也要把石頭跟布清空(各別去除紅色 => classList.remove)
+    // cpu = random 產生 1、2、3
+    // 判斷誰贏 => 用if、else if處理
+
+    // you === cpu => 平手
+
+    let btn2 = document.querySelector('.btn-2');
+    let btn0 = document.querySelector('.btn-0');
+    let btn5 = document.querySelector('.btn-5');
+    let action = document.querySelector('#action');
+    let you = document.querySelector('#user-result');
+    let cpu = document.querySelector('#computer-result');
+    let result = document.querySelector('#result');
+    let btn = document.querySelector('.btn');
+    let body = document.querySelector('body');
+
+
+    // 剪刀btn2、石頭btn0、布btn5被點選 => 出現在you裡面 => 設不同名稱和值給系統判斷
+    btn2.addEventListener('click', function () {
+      btn2.classList.add('active');
+      btn0.classList.remove('active');
+      btn5.classList.remove('active');
+      your = 1;
+    });
+
+    btn0.addEventListener('click', function () {
+      btn0.classList.add('active');
+      btn2.classList.remove('active');
+      btn5.classList.remove('active');
+      your = 2;
+    });
+
+    btn5.addEventListener('click', function () {
+      btn5.classList.add('active');
+      btn2.classList.remove('active');
+      btn0.classList.remove('active');
+      your = 3;
+    });
+
+
+    // 點選確認出拳，帶出 電腦出、結果 文字
+    action.addEventListener('click', function () {
+      // 要重新清除才會再執行
+      result.classList.remove('green', 'red');
+
+      let btn2 = 1;
+      let btn0 = 2;
+      let btn5 = 3;
+
+
+      // 設'你出'的值和顯示名稱做連結 => 結果可用圖案做
+      if (your === 1) {
+        you.innerHTML = '剪刀';
+      } else if (your === 2) {
+        you.innerHTML = '石頭';
+      } else if (your === 3) {
+        you.innerHTML = '布';
+      }
+
+
+      // 電腦亂數產生
+      // 原先設cpu，會蓋過之前設document的值，所以不會連結到 => 換設置的名稱就可  => 結果可用圖案做
+      const cpuchoice = Math.floor(Math.random() * 3) + 1;
+      if (cpuchoice === 1) {
+        cpu.innerHTML = '剪刀';
+      } else if (cpuchoice === 2) {
+        cpu.innerHTML = '石頭';
+      } else if (cpuchoice === 3)
+        cpu.innerHTML = '布';
+
+
+      // 輸贏
+      if (your === cpuchoice) {
+        result.innerHTML = '平手，再試試看吧！';
+        result.classList.add('font');
+        body.style.backgroundImage = 'url(https://t3.ftcdn.net/jpg/00/53/91/40/360_F_53914090_5KcDUqYSRWIuoGrIEmXaHm3tarwpNABI.jpg)'
+
+        
+      } else if ((your === 1 && cpuchoice === 3) || (your === 2 && cpuchoice === 1) || (your === 3 && cpuchoice === 2)) {
+        result.innerHTML = '贏啦 ~~~';
+        result.classList.add('green');
+        body.style.backgroundImage = 'url(https://plus.unsplash.com/premium_photo-1664303110668-f68ed2d9c4db?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8d2lufGVufDB8fDB8fHww)'
+
+
+      } else {  // 可直接寫就不用再判斷一次，原先: else if ((your === 1 && cpuchoice === 2) || (your === 2 && cpuchoice === 3) || (your === 3 && cpuchoice === 1)) {
+        result.innerHTML = '運氣不夠哦 *^* ';
+        result.classList.add('red');
+        body.style.backgroundImage = 'url(https://as2.ftcdn.net/jpg/00/56/91/89/1000_F_56918934_aZ3XkVJk3vDDMRWzHdHwDpOWs9are6T4.jpg)';
+      }
+    })
+
+
+  </script>
+</body>
+
+</html>

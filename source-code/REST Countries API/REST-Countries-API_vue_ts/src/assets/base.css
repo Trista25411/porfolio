@@ -1,0 +1,71 @@
+:root {
+    --font-base: 'Nunito Sans', sans-serif;
+    --size-base: 14px;
+    --size-detail: 16px;
+
+    --weight-h1: 800;
+    --weight-h2: 600;
+    --weight-h3: 300;
+
+    /* 無論深色淺色模式，取的名字要一樣，這樣才知道要切換哪個 */
+    /* 預設淺色模式 */
+    --color-back: hsl(0, 0%, 99%);
+    --color-ele: hsl(0, 100%, 100%);
+    --color-text: hsl(200, 15%, 8%);
+    --color-input: hsl(0, 0%, 50%);
+    /* 設定淺色 hover 效果 */
+    --color-hover-bg: hsl(207, 26%, 17%);
+    --color-hover-text: hsl(0, 100%, 100%);
+    --shadow: 0 3px 6px rgba(128, 128, 128, 0.1);
+}
+
+/* 設定深色模式 */
+[data-theme='dark-mode'] {
+    --color-back: hsl(207, 26%, 17%);
+    --color-ele: hsl(209, 23%, 22%);
+    --color-text: hsl(0, 100%, 100%);
+    /* 設定深色 hover 效果 */
+    --color-hover-bg: hsl(0, 0%, 99%);
+    --color-hover-text: hsl(200, 15%, 8%);
+    --shadow: 0 3px 10px rgba(0, 0, 0, 0.4)
+}
+
+@media (max-width:570px) {
+    h1 {
+        font-size: 14px;
+    }
+
+    :root {
+        --size-base: 10px;
+        --size-detail: 12px;
+    }
+}
+
+body {
+    background-color: var(--color-back);
+    font-family: var(--font-base);
+    font-size: var(--size-base);
+    color: var(--color-text);
+}
+
+card {
+    background-color: var(--color-ele);
+}
+
+h1 {
+    font-weight: var(--weight-h1);
+    color: var(--color-text);
+}
+
+h2 {
+    font-weight: var(--weight-h2);
+}
+
+h3 {
+    font-weight: var(--weight-h3);
+}
+
+.name {
+    font-weight: 600;
+    margin-right: 5px;
+}

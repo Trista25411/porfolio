@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>創造玩家</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    .container {
+      font-size: 18px;
+    }
+
+    .options {
+      display: flex;
+      gap: 40px;
+      margin: 40px 0;
+    }
+
+    #customize {
+      font-size: 18px;
+    }
+
+    .role-btn {
+      font-size: 5rem;
+      border-radius: 8px;
+      cursor: pointer;
+      border: 2px solid black;
+      background-color: rgb(240, 239, 239);
+    }
+
+    #change-role-btn {
+      padding: 8px 16px;
+      margin-bottom: 20px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .active:hover {
+      background-color: orange;
+      color: white;
+    }
+
+    /* 按input後面的label */
+    input[name="role"]:checked+label {
+      background-color: orange;
+    }
+  </style>
+</head>
+
+<body>
+  <form class="container">
+    <label class="options">
+      玩家名稱：
+      <input type="text" id="name">
+    </label>
+
+    <div class="options">
+      <p>選擇種族：</p>
+      <label for="human">
+        <input type="radio" id="human" class="race" name="race" value="1">
+        人類
+      </label>
+      <label for="orc">
+        <input type="radio" id="orc" class="race" name="race" value="2">
+        獸人
+      </label>
+      <label for="elf">
+        <input type="radio" id="elf" class="race" name="race" value="3">
+        精靈
+      </label>
+    </div>
+
+    <hr>
+
+    <div class="options">
+      <p>選擇職業：</p>
+      <!-- <button type="button" class="role-btn active" title="戰士">⚔️</button>
+      <button type="button" class="role-btn active" title="弓箭手">🏹</button>
+      <button type="button" class="role-btn active" title="魔法師">🔮</button> -->
+      <!-- 原先 ↑ 用button+hover處理，改成按下去就定住 ↓ -->
+
+      <!-- 1.改成radio(單選)控制 -->
+      <input type="radio" name="role" id="role-1" class="role" hidden>
+      <!-- 2.能點選，加入label，加入原先class、title -->
+      <label for="role-1" class="role-btn active" title="戰士">⚔️</label>
+
+      <input type="radio" name="role" id="role-2" class="role" hidden>
+      <label for="role-2" class="role-btn active" title="弓箭手">🏹</label>
+
+      <input type="radio" name="role" id="role-3" class="role" hidden>
+      <label for="role-3" class="role-btn active" title="魔法師">🧙‍♂️</label>
+    </div>
+    <button type="button" id="change-role-btn" class="active">確定轉職</button>
+
+    <hr>
+    <br>
+
+    <p>
+      姓名：
+      <span id="name-output"></span>
+    </p>
+    <p>種族：
+      <span id="race-output"></span>
+    </p>
+    <p>職業：
+      <span id="job-output">初心者</span>
+    </p>
+  </form>
+
+  <script>
+    // 創造ㄧ個玩家的物件(object)，屬性有名稱、種族、職業
+    // 玩家的初始職業為初心者
+    // 玩家的職業有戰士、弓箭手、魔法師
+    // 只要輸入名稱、選擇種族，就立馬改變玩家的資訊並顯示在畫面上
+    // 當玩家選擇職業後，按下確定轉職按鈕，就會改變玩家的職業並顯示在畫面上
+
+
+    // ---------------------------------------------------------------
+    // 設定玩家屬性
+    const player = {
+      name: '',
+      race: '',
+      job: '初心者',
+    }
+
+
+    // ---------------------------
+    // 輸入姓名 id設為name
+
+    const nameInput = document.querySelector('#name');
+    //                         輸入事件, function
+    nameInput.addEventListener('input', () => {
+      player.name = nameInput.value; // 紀錄player的name
+      render(); // 呼叫顯示的function => 馬上顯示出來
+    });
+
+
+    // ---------------------------
+    // 選擇種族                       找到全部
+    const raceInputAll = document.querySelectorAll('.race');
+    // 不知道要找哪一個種族 => forEach or 一個一個加addEventListener
+    raceInputAll.forEach((raceInput, index) => {
+      //                         事情變化
+      raceInput.addEventListener('change', () => { // change要取得input的value
+        //     if (raceInput.value === '1'){  // html設置的是字元，要寫'1'，不能直接寫1
+        //       player.race = "人類";
+        //     } else if (raceInput.value === '2'){
+        //       player.race = "獸人";
+        //     }else {
+        //       player.race = "精靈";
+        //     }
+        //     render();
+
+        // or 另一種寫法
+        switch (raceInput.value) {
+          case '1':
+            player.race = '人類';
+            break;
+          case '2':
+            player.race = '獸人';
+            break;
+          case '3':
+            player.race = '精靈';
+            break;
+        };
+        render();
+      });
+    });
+
+
+    // ---------------------------
+    // 選擇職業
+    let selectedJob = '';
+    const roleBtnAll = document.querySelectorAll('input[name = "role"]');
+    roleBtnAll.forEach((btn) => {
+      btn.addEventListener('change', () => {
+        switch (btn.id) {
+          case 'role-1':
+            selectedJob = '戰士';
+            break;
+          case 'role-2':
+            selectedJob = '弓箭手';
+            break;
+          case 'role-3':
+            selectedJob = '魔法師';
+            break;
+        }
+      });
+      
+    });
+
+
+    // 按了確定轉職再做render
+    const checkChange = document.querySelector('#change-role-btn');
+    checkChange.addEventListener('click', () => {
+      if (selectedJob) {
+        player.job = selectedJob;
+        render();
+      }
+    });
+
+
+
+
+    // ---------------------------
+    // 顯示區
+    const nameOutput = document.querySelector('#name-output');
+    const raceOutput = document.querySelector('#race-output');
+    const jobOutput = document.querySelector('#job-output');
+    // 執行顯示在下方的功能 => 定義render 顯示在nameoutput裡
+    function render() {
+      nameOutput.textContent = player.name;
+      raceOutput.textContent = player.race;
+      jobOutput.textContent = player.job;
+
+    };
+
+    // 輸入姓名部分函式執行順序: 
+    // 1.執行const nameInput跟const nameOutput，等到有人要輸入nameInput的時候才執行render
+
+
+  </script>
+</body>
+
+</html>

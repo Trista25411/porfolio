@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>space-tourism-navbar-hamburger</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<style>
+    body {
+        background-color: black;
+    }
+
+    .line {
+        background-color: #D0D6F9;
+        width: 24px;
+        height: 3px;
+        position: absolute;
+    }
+
+    .line-1 {
+        top: 25%;
+    }
+
+    .line-2 {
+        top: 50%;
+    }
+
+    .line-3 {
+        top: 75%;
+    }
+
+    #ham-switch:checked+.ham-btn .line-1 {
+        top: 50%;
+        transform: translateY(-50%) rotate(45deg);
+    }
+
+    #ham-switch:checked+.ham-btn .line-2 {
+        display: none;
+    }
+
+    #ham-switch:checked+.ham-btn .line-3 {
+        top: 50%;
+        transform: translateY(-50%) rotate(-45deg);
+    }
+
+    #ham-switch:checked~.ham-b-all {
+        display: block;
+    }
+
+    .nav-item{
+        display: flex;
+        gap: 8px;
+    }
+</style>
+
+<body>
+    <div class="navbar w-full h-[90px] flex justify-between items-center px-[24px] relative">
+        <img src="./Logo.png" alt="logo" class="w-[48px] h-[48px]">
+        <input type="checkbox" id="ham-switch" hidden>
+        <label for="ham-switch" class="ham-btn w-[24px] h-[21px] block relative cursor-pointer z-20">
+            <div class="line line-1"></div>
+            <div class="line line-2"></div>
+            <div class="line line-3"></div>
+        </label>
+        <div class="ham-b-all bg-blue-300 fixed top-0 right-0 w-[264px] h-full p-[118px_32px] hidden">
+            <ul id="menu-list" class="flex flex-col gap-[32px]"></ul>
+        </div>
+    </div>
+
+    <script>
+        // getElementByID => get取得_Element元素_By透過_Id這個id名稱
+        const menuList = document.getElementById('menu-list');
+        const navName = [
+            { name: 'HOME', path: '/' },
+            { name: 'DESTINATION', path: '/dest' },
+            { name: 'CREW', path: '/crew' },
+            { name: 'TECHNOLOGY', path: '/tech' }
+        ];
+
+        navName.forEach((item, index) => {
+            const li = document.createElement('li');
+            li.className = 'nav-item';
+            const num = String(index).padStart(2, '0');
+            // 因num直接寫在forEach裡面，電腦知道是什麼，
+            // 但name在navName裡面有好幾個，電腦不知道要哪一個，所以要用item跟他說要物件裡的那個屬性
+            li.innerHTML = `<span class="nav-part">${num}</span>
+                <span class="nav-name">${item.name}<span>`;
+            // appendChild => append掛載_Child孩子 => 把我創的兒子li，放到爸爸menuList的ul裡面
+            menuList.appendChild(li);
+        });
+    </script>
+
+</body>
+
+</html>

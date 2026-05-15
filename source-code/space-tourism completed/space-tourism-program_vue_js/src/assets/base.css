@@ -1,0 +1,129 @@
+/* base.css => 定義細節規範 */
+/* 匯入tailwind，讓系統可以載入 */
+@tailwind base;
+/* 用來放 :root 變數與 body 設定 */
+@tailwind components;
+/* 將預設的 text-preset-1 到 9 寫在這裡 => 會根據在 base.css 寫的 @media 自動切換手機/桌機大小*/
+@tailwind utilities;
+
+@layer base {
+/* 變數僅定義數值 */
+    :root {
+        /* 字體 */
+        --fonts-1: "Bellefair", serif;
+        --fonts-2: "Barlow Condensed", sans-serif;
+        --fonts-3: "Barlow", sans-serif;
+
+        /* 粗體 */
+        --font-weight-regular: 400;
+        --font-weight-bold: 700;
+
+        /* 手機版字體大小 */
+        --text-preset-1: 80px;
+        --text-preset-2: 56px;
+        --text-preset-3: 24px;
+        --text-preset-4: 18px;
+        --text-preset-5: 28px;
+        --text-preset-6: 16px;
+        --text-preset-7: 14px;
+        --text-preset-8: 14px;
+        --text-preset-8-bold: 16px;
+        --text-preset-9: 15px;
+    }
+
+    /* 平板 */
+    @media (min-width:768px) {
+        :root {
+            --text-preset-2: 80px;
+            --text-preset-3: 40px;
+            --text-preset-4: 24px;
+            --text-preset-5: 20px;
+            --text-preset-9: 16px;
+        }
+    }
+
+    /* 桌機 */
+    @media (min-width:1440px) {
+        :root {
+            --text-preset-1: 144px;
+            --text-preset-2: 96px;
+            --text-preset-3: 56px;
+            --text-preset-4: 32px;
+            --text-preset-6: 28px;
+            --text-preset-8: 16px;
+            --text-preset-9: 18px;
+        }
+    }
+
+    body {
+        font-family: var(--fonts-1);
+    }
+}
+
+@layer components {
+    /* 在這裡定義「性格」：字體、字距、大小寫 */
+    .text-preset-1, .text-preset-2, .text-preset-3, .text-preset-4, .text-preset-6{
+        font-family: var(--fonts-1);
+    }
+
+    .text-preset-1 {
+        font-size: var(--text-preset-1);
+    }
+
+    .text-preset-2 {
+        font-size: var(--text-preset-2);
+    }
+
+    .text-preset-3 {
+        font-size: var(--text-preset-3);
+    }
+
+    .text-preset-4 {
+        font-size: var(--text-preset-4);
+    }
+
+    .text-preset-5 {
+        font-size: var(--text-preset-5);
+        font-family: var(--fonts-2);
+        letter-spacing: 4px;
+    }
+
+    .text-preset-6 {
+        font-size: var(--text-preset-6);
+    }
+
+    .text-preset-7 {
+        font-size: var(--text-preset-7);
+        font-family: var(--fonts-1);
+        letter-spacing: 2px;
+    }
+
+    .text-preset-8 {
+        font-size: var(--text-preset-8);
+        font-family: var(--fonts-2);
+        letter-spacing: 2px;
+    }
+
+    .text-preset-8-bold {
+        font-size: var(--text-preset-8-bold);
+        font-family: var(--fonts-2);
+        font-weight: var(--font-weight-bold);
+        letter-spacing: 2.7px;
+    }
+
+    .text-preset-9 {
+        font-size: var(--text-preset-9);
+        font-family: var(--fonts-3);
+        /* line-height: 百分比 / 100，設計稿 180% */
+        line-height: 1.8;
+    }
+
+    /* 顏色 */
+    .blue-900 {
+        color: #0B0D17;
+    }
+
+    .blue-300 {
+        color: #D0D6F9;
+    }
+}

@@ -1,0 +1,2 @@
+// 要把base.css的樣式表也一併匯入到main.ts不只是main.css，不然不會執行
+@import './assets/base.css';

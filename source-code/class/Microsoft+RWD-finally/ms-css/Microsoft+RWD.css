@@ -1,0 +1,732 @@
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", SegoeUI, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #000;
+  background-color: #fff;
+  overflow-x: hidden;
+}
+
+html {
+  width: 100%;
+  height: 100vh;
+  overflow-x: hidden;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+h1 {
+  margin: 0 0 15px 0;
+}
+
+main{
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.container-normal {
+  width: 88%;
+  margin: auto;
+  max-width: 1600px;
+}
+
+@media (max-width:1083px) {
+  .container-normal {
+    width: 90%;
+  }
+}
+
+@media (max-width:859px) {
+  .container-normal {
+    width: 100%;
+    padding: 20px;
+  }
+}
+
+.container-full {
+  width: 100%;
+  margin: auto;
+  max-width: 1920px;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.h-80 {
+  height: 80%;
+}
+
+img {
+  /* 圖片的垂直對齊 */
+  vertical-align: bottom;
+}
+
+button {
+  background-color: #0067b8;
+  padding: 5px 10px;
+  color: white;
+  font-weight: bold;
+  font-size: 15px;
+  cursor: pointer;
+  text-align: start;
+}
+
+button:focus {
+  outline: 2px dashed rgb(255, 255, 255);
+  outline-offset: -5px;
+}
+
+/* ======================================================== */
+ul li a {
+  /* 影響框框大小 */
+  padding: 13px 6px 18px 6px;
+}
+
+ul a:focus {
+  /* 加入虛線 */
+  outline: 1px dashed gray;
+  /* 調整寬度，正的往外展，負的往內縮 */
+  outline-offset: -2px;
+}
+
+ul a:focus span,
+ul a:hover span {
+  /* hover才會產生 => 用border-bottom做底線 */
+  border-bottom: 2px solid black;
+}
+
+ul .hand:hover {
+  cursor: pointer;
+  border-bottom: 2px solid black;
+}
+
+ul .hand:focus {
+  outline: 1px dashed gray;
+  outline-offset: 5px;
+}
+
+nav {
+  height: 54px;
+  /* 原先設置了pc-menu li但沒出現字 => display:flew才會出現 */
+  display: flex;
+  position: relative;
+}
+
+/* ========================nav左邊功能列=================================== */
+nav .logo {
+  /* nav 54px，img23px => 54-23=31，上下只能31不然會超出 */
+  padding: 13px 6px 18px 6px;
+  margin-right: 15px;
+  cursor: pointer;
+}
+
+nav .logo img {
+  /* 看官網大小做 */
+  width: 108px;
+  height: 23px;
+}
+
+nav .logo img:focus {
+  outline: 1px dashed gray;
+  outline-offset: 5px;
+}
+
+nav ul.pc-menu {
+  /* background-color: palegoldenrod; */
+  display: flex;
+  width: 400px;
+}
+
+@media (max-width:859px) {
+  nav ul.pc-menu {
+    display: none;
+  }
+
+  nav .logo img {
+    transform: translateY(-70%);
+  }
+}
+
+/* =============nav右邊功能列============================== */
+nav ul.func-menu {
+  /* background-color: lightblue; */
+  display: flex;
+  width: 400px;
+  flex: 1;
+  justify-content: end;
+  gap: 5px;
+}
+
+@media (max-width:1400px) {
+  .hide-text {
+    display: none;
+  }
+
+  nav ul .func-menu {
+    min-width: 300px;
+  }
+}
+
+@media (max-width:890px) {
+
+  /* 不要視窗變化時互相擠壓到 */
+  nav ul.pc-menu {
+    min-width: 400px;
+  }
+
+  nav ul.pc-menu .hide-text {
+    display: none;
+  }
+}
+
+@media (max-width:859px) {
+
+  /* logo要position置中 */
+  nav .logo {
+    /* display: none; */
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
+
+  nav .func-menu .all-ms-365 {
+    display: none;
+  }
+
+  nav .func-menu .search {
+    margin-right: auto;
+  }
+}
+
+nav ul.func-menu .login {
+  transform: translatey(-2px);
+}
+
+.fa-circle-user {
+  font-size: 24px;
+  transform: translate(0, 3px);
+}
+
+/* ================ 下拉式選單 dropdown-menu ================== */
+.dropdown-menu {
+  background-color: #f2f2f2;
+  width: 100%;
+  height: auto;
+  position: absolute;
+  left: 50%;
+  top: 54px;
+  transform: translateX(-50%);
+  display: flex;
+  /* 因設了會整個跑掉，所以ul要設寬度 */
+  flex-wrap: wrap;
+  display: none;
+  z-index: 3;
+}
+
+nav .func-menu .dropdown-menu li {
+  padding-top: 20px;
+}
+
+nav ul.func-menu .dropdown-menu ul {
+  width: calc(100% / 6);
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  padding: 20px;
+}
+
+@media (max-width:1230px) {
+  nav ul.func-menu .dropdown-menu ul {
+    width: calc(100% / 5);
+  }
+}
+
+@media (max-width:1083px) {
+  nav ul.func-menu .dropdown-menu ul {
+    width: calc(100% / 4);
+  }
+}
+
+/* all-ms-365被按得時候，會出現dropdown-menu */
+#all-ms-365-switch:checked+label+.dropdown-menu {
+  display: flex;
+}
+
+nav .func-menu .dropdown-menu .review {
+  background-color: lightgrey;
+  opacity: 0.8;
+  width: 100%;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+nav .dropdown-menu ul li a {
+  padding: 13px 6px 18px 6px;
+}
+
+ul a .dropdown-menu span {
+  outline: none;
+}
+
+ul a:focus {
+  outline: 1px dashed gray;
+  outline-offset: -2px;
+}
+
+/* ======================== swiper ====================== */
+header.container-full {
+  position: relative;
+}
+
+.banner-block {
+  width: 620px;
+  position: absolute;
+  left: 5%;
+  top: 50%;
+  transform: translate(0, -50%);
+  padding: 48px;
+}
+
+.banner-block-2 {
+  width: 620px;
+  position: absolute;
+  right: 5%;
+  top: 50%;
+  transform: translate(0, -50%);
+  padding: 38px 48px;
+}
+
+.banner-block .text {
+  margin-bottom: 30px;
+}
+
+.banner-block-2 .check {
+  height: 40px;
+  display: flex;
+  margin-top: 20px;
+  gap: 20px;
+}
+
+.banner-block-2 .know {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.line:hover {
+  text-decoration: underline;
+}
+
+header .icon,
+.icon-right {
+  display: flex;
+  justify-content: center;
+  font-size: 13px;
+  background-color: transparent;
+  border: none;
+  padding: 15px 20px;
+  color: black;
+  font-size: 18px;
+}
+
+header .black, .white {
+  font-size: 12px;
+  padding: 15px 20px;
+}
+
+@media (max-width:1532px) {
+  .banner-block-2 .check {
+    display: block;
+    height: auto;
+  }
+}
+
+@media (max-width:1399px) {
+  .banner-block,
+  .banner-block-2 {
+    width: 480px;
+  }
+}
+
+@media (max-width:1083.9px) {
+  swiper-slide {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .banner-block,
+  .banner-block-2 {
+    background-color: rgb(255, 255, 255);
+    width: calc(100% - 24px);
+    box-shadow: 0 .1875rem .4375rem 0 rgba(0, 0, 0, .13), 0 .0625rem .125rem 0 rgba(0, 0, 0, .11);
+    left: 12px;
+    position: static;
+    margin: auto;
+    transform: translate(0, -25%);
+  }
+
+  header .icon, .black, .white {
+    transform: translateY(-60%);
+  }
+}
+
+/* ================ three-choces ==================== */
+main .three-choices a {
+  color: #0067b8;
+}
+
+main .three-choices {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 30px 0 80px 0;
+}
+
+main .three-choices .one-choice {
+  width: auto;
+  text-align: center;
+  padding: 0 30px;
+}
+
+main .three-choices .one-choice img {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 10px;
+}
+
+main .three-choices .one-choice .text {
+  text-decoration: underline;
+  font-weight: 600;
+  width: auto;
+}
+
+/* ================== four-cards ===================== */
+main .four-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  /* 可以設 ↓ w25%，然後直接用gap做，就不用還要calc */
+  /* 但因在變化視窗大小會變得很奇怪，還是用回calc */
+  /* column-gap: 20px */
+  /* 下面有空隙，可用row-gap處理 */
+  row-gap: 10px;
+}
+
+main .four-cards .one-card {
+  width: calc((100% - 20px * 3) / 4);
+  /* 100%分四張，因系統會自己考慮空隙的問題，將剩餘的分給圖，所以才不用calc */
+  /* width: 25%; */
+  height: 500px;
+  box-shadow: 0 .1875rem .4375rem 0 rgba(0, 0, 0, .13), 0 .0625rem .125rem 0 rgba(0, 0, 0, .11);
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+@media (max-width:1083px) {
+  main .four-cards .one-card {
+    width: calc((100% - 20px) / 2);
+  }
+}
+
+@media (max-width:539px) {
+  main .four-cards .one-card {
+    width: 100%;
+  }
+}
+
+main .four-cards .one-card .sub-img {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0px 20px;
+}
+
+main .four-cards .one-card .title {
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+main .four-cards .one-card .btn-area {
+  padding: 20px 0;
+}
+
+/* ============================大圖========================== */
+main .big-img {
+  position: relative;
+   margin: 100px 0;
+}
+
+main .big-img .banner-block-3 {
+  width: 600px;
+  position: absolute;
+  left: 5%;
+  top: 50%;
+  transform: translate(0, -50%);
+}
+
+main .big-img .text {
+  margin-bottom: 20px;
+}
+
+/* =============== 商務 four-cards ============== */
+main .four-cards .one-card-2 {
+  height: 530px;
+}
+
+@media (max-width:1374px) {
+  main .four-cards .one-card-2 {
+    height: 600px;
+  }
+}
+
+main .four-cards .info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  padding: 0 20px;
+}
+
+main .four-cards .text-area {
+  flex-grow: 1;
+  margin-bottom: 20px;
+}
+
+main .four-cards .know {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.know a,
+.know .icon {
+  color: #0067b8;
+  font-weight: bold;
+}
+
+/* ============ 新上市 ================ */
+main .four-cards .one-card .new-product {
+  width: 60px;
+  height: 25px;
+  text-align: center;
+  line-height: 25px;
+  margin-top: 30px;
+}
+
+main .four-cards .one-card .visible {
+  background-color: orange;
+}
+
+/* =============== 其他資訊 =============== */
+main .others {
+  height: auto;
+  display: flex;
+  position: relative;
+  padding: 0 0 30px 0;
+  margin-bottom: 100px;
+}
+
+main .text-icon {
+  display: flex;
+  gap: 10px;
+}
+
+main .text-m {
+  margin: 3px 10px;
+}
+
+main .icon {
+  width: 32px;
+  height: 32px;
+  background-size: cover;
+  background-position: center;
+  display: inline-block;
+}
+
+main .others a:focus {
+  outline: 2px dashed deepskyblue;
+  outline-offset: 3px;
+}
+
+main .icon-fb {
+  background-image: url(../ms-img/icon/Facebook\ 2x.avif);
+}
+
+main .icon-yt {
+  background-image: url(../ms-img/icon/YouTube\ 2x.avif);
+}
+
+main .others .text {
+  position: absolute;
+  left: 0;
+  top: 70px;
+}
+
+/* ===========================回首頁================================= */
+main .go-top {
+  background-image: linear-gradient(rgba(0, 0, 0, .15), rgba(0, 0, 0, .15));
+  color: black;
+  width: 120px;
+  height: auto;
+  font-size: 16px;
+  font-weight: bold;
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+}
+
+main .fa-solid {
+  padding: 10px;
+}
+
+main .go-top:hover {
+  background-color: white;
+}
+
+/* =========================最下方功能列======================== */
+footer {
+  background-color: #f2f2f2;
+  width: 100%;
+  padding: 10px 0;
+  font-size: 11px;
+}
+
+footer .container-normal {
+  background-color: #f2f2f2;
+  height: 100%;
+}
+
+footer h3 {
+  font-size: 15px;
+}
+
+footer .footer-menu {
+  /* 用元件要記得margin 0、padding 0 */
+  /* 因start會自己出現空隙，無法控制，要在元件ul裡事先寫 */
+  display: flex;
+  justify-content: start;
+  flex-wrap: wrap;
+}
+
+footer .footer-menu ul {
+  /* 這個就不需寫colum-gap，因寬度無法整數整除計算 */
+  width: calc(100% / 6);
+  display: block;
+}
+
+@media (max-width:1083px) {
+  footer .footer-menu ul {
+    width: calc(100% / 3);
+    /* 寫了之後發現沒有掉下去 → 在footer-menu設置flex-wrap才會掉 */
+  }
+}
+
+@media (max-width:539px) {
+  footer .footer-menu ul {
+    width: 100%;
+  }
+}
+
+footer .footer-menu ul li {
+  /* 向下推，要flex才能做gap，或是直接用margin */
+  margin-bottom: 10px;
+}
+
+footer .footer-menu ul li a {
+  /* 影響框框大小 */
+  padding: 5px 3px 6px;
+}
+
+footer .footer-menu ul a:focus {
+  /* 加入虛線 */
+  outline: 1px dashed red;
+  outline-offset: -2px;
+}
+
+/* =============== 最底部文字 =========== */
+footer .footer-btm {
+  /* background-color: lightpink; */
+  width: 100%;
+  height: auto;
+  margin: 20px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+footer .footer-btm .left {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+footer .footer-btm a:hover {
+  border-bottom: 1px solid black;
+}
+
+@media (max-width:1082px) {
+  footer .footer-btm {
+    flex-direction: column;
+  }
+
+  footer .footer-btm .btm-le {
+    width: 100%;
+  }
+
+  footer .footer-btm .right ul {
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width:766px) {
+  footer .footer-btm .right ul {
+    justify-content: flex-start;
+    margin-top: 10px;
+  }
+}
+
+/* ================= 手機版 ==================== */
+nav .mobile-menu {
+  background-color: #f2f2f2;
+  width: 100%;
+  height: 800px;
+
+  position: absolute;
+  left: 0;
+  top: 100%;
+
+  display: none;
+}
+
+#ham-btn-switch:checked+label+.mobile-menu {
+  display: flex;
+}

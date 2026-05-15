@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      border-radius: 10px;
+    }
+
+    #container {
+      background-color: #2c2b2b;
+      width: 100%;
+      height: 100vh;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #cube-box {
+      background-color: #ddd;
+      width: 300px;
+      height: 300px;
+
+      padding: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      cursor: pointer;
+    }
+
+    .cube {
+      background: rgb(37, 61, 184);
+      width: 50%;
+      height: 50%;
+      border: #ddd 5px solid;
+    }
+
+    .answer {
+      opacity: 0.7;
+    }
+  </style>
+</head>
+
+<body>
+  <section id="container">
+    <div id="cube-box">
+      <!-- 原先 模擬 => 改電腦產出
+      <div class="cube answer"></div>
+      <div class="cube"></div>
+      <div class="cube"></div>
+      <div class="cube"></div> -->
+    </div>
+  </section>
+
+  <script>
+    // 畫面上印出 2 * 2 的顏色自訂的方塊
+    // 隨機一個方塊的顏色較透明，表示這是答案
+    // 使用者點擊答案方塊後，跳出提示視窗，告知使用者答對了
+    // 每次答對後，重新產生新的答案方塊再次進行遊戲
+
+    const cubeBox = document.querySelector('#cube-box');
+
+
+    let level = 2;
+    // 產生下一關
+    creatCube();
+
+
+    // 變色
+    function randomColor() {
+      const r = Math.floor(Math.random() * 200);
+      const g = Math.floor(Math.random() * 200);
+      const b = Math.floor(Math.random() * 200);
+      return `rgb(${r},${g},${b})`;
+    }
+
+
+    // 亂數
+    function creatCube() {
+      // 設定每一關都換不同顏色
+      const Color = randomColor();
+      // 設定數量變化
+      const levelNum = (level * level);
+      const cubeNum = 100 / level;
+      // 會產生四塊, 隨機產生0~3的數字 當答案
+      const randomIndex = Math.floor(Math.random() * 4);
+      let content = '';
+      for (let i = 0; i < level ** 2; i++) {
+        const isAnswer = i === randomIndex;
+        content += `<div class="cube ${isAnswer ? 'answer' : ''}" style = "
+        width: ${cubeNum}% ;
+        height: ${cubeNum}% ;
+        background-color: ${Color}; "></div>`
+      }
+
+      cubeBox.innerHTML = content;
+      // 要玩
+      play();
+    }
+
+
+    // 開始玩
+    function play() {
+      const answerCube = document.querySelector('.answer');
+      answerCube.addEventListener('click', function () {
+        level++; // 每次答對增加一級
+        creatCube(); //產生下一關
+      })
+    }
+  </script>
+</body>
+
+</html>

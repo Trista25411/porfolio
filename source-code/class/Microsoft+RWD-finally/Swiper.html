@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Swiper demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+
+    <style>
+        .swiper {
+            width: 100%;
+            height: 100%;
+        }
+
+        .mySwiper {
+            padding-bottom: 80px;
+        }
+
+        .swiper-slide {
+            /* text-align: center;
+            font-size: 18px;
+            background: #fff; */
+            display: flex;
+            /* justify-content: center; */
+            /* align-items: center; */
+        }
+
+        .swiper-slide img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* 輪播控制器 =====================  */
+        .swiper-pagination-horizontal {
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* 輪播小圓點 */
+        .swiper-pagination-bullet {
+            flex-shrink: 1;
+            width: 15px;
+            height: 15px;
+            text-align: center;
+            line-height: 15px;
+            font-size: 12px;
+            opacity: 1;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        /* 輪播小圓點 - 激活狀態(當前的輪播) */
+        .swiper-pagination-bullet-active {
+            color: #fff;
+            background: black;
+        }
+
+        .swiper-button-next,
+        .swiper-button-prev,
+        .swiper-pagination {
+            position: unset;
+            width: unset;
+            height: unset;
+            margin-top: unset;
+        }
+
+        .swiper-pagination-bullets.swiper-pagination-horizontal {
+            width: unset;
+        }
+
+        .swiper-button-next::after,
+        .swiper-button-prev::after {
+            width: 20px;
+            height: 20px;
+            font-size: 20px;
+            color: #000;
+            justify-content: center;
+            align-items: center;
+            transition: 0.3s;
+            display: flex;
+        }
+
+        .swiper-button-prev:hover::after {
+            transform: translateX(-5px);
+        }
+
+        .swiper-button-next:hover::after {
+            transform: translateX(5px);
+        }
+    </style>
+</head>
+
+<body>
+    <header class="container-full">
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <!-- 輪播1 -->
+                    <section class="img-text white">
+                        <h2>驚奇不斷的收穫</h2>
+                        <span class="text">Microsoft 365 在您喜愛的應用程式中提供雲端儲存空間、安全性及 Microsoft
+                            Copilot——購買一個方案，就可享有這一切。</span>
+                        <div class="btn-box">
+                            <!-- swiper套件只能用 <button> 做按鈕，其他的會出問題 -->
+                            <button type="button" class="btn-normal" href="#">
+                                選購 Microsoft 365
+                            </button>
+                        </div>
+                    </section>
+                    <picture>
+                        <source media="(min-width: 1400px)" srcset="./ms-img/swiper/1-1920x600.avif">
+                        <source media="(min-width: 1084px)" srcset="./ms-img/swiper/1-1399x600.avif">
+                        <source media="(min-width: 860px)" srcset="./ms-img/swiper/1-1083x600.avif">
+                        <source media="(min-width: 540px)" srcset="./ms-img/swiper/1-859x540.avif">
+                        <img class="w-100" src="./ms-img/swiper/1-859x540.avif" alt="">
+                    </picture>
+                </div>
+                <div class="swiper-slide">
+                    <!-- 輪播2 -->
+                    <section class="img-text white">
+                        <h2>驚奇不斷的收穫</h2>
+                        <span class="text">Microsoft 365 在您喜愛的應用程式中提供雲端儲存空間、安全性及 Microsoft
+                            Copilot——購買一個方案，就可享有這一切。</span>
+                        <div class="btn-box">
+                            <!-- swiper套件只能用 <button> 做按鈕，其他的會出問題 -->
+                            <button type="button" class="btn-normal" href="#">
+                                選購 Microsoft 365
+                            </button>
+                        </div>
+                    </section>
+                    <picture>
+                        <source media="(min-width: 1400px)" srcset="./ms-img/swiper/2-1920x600.avif">
+                        <source media="(min-width: 1084px)" srcset="./ms-img/swiper/2-1399x600.avif">
+                        <source media="(min-width: 860px)" srcset="./ms-img/swiper/2-1083x600.avif">
+                        <source media="(min-width: 540px)" srcset="./ms-img/swiper/2-859x540.avif">
+                        <img class="w-100" src="./ms-img/swiper/2-859x540.avif" alt="">
+                    </picture>
+                </div>
+            </div>
+            <!-- banner圖片控制 -->
+            <section class="banner-controller">
+                <div class="btn icon playBtn">
+                    <i class="fa-solid fa-circle-pause"></i>
+                </div>
+                <div class="btn icon stopBtn">
+                    <i class="fa-solid fa-circle-play"></i>
+                </div>
+                <!-- <input type="checkbox" name="" id="header-play" hidden>
+            <label for="header-play" class="btn icon" tabindex="0">
+                <i class="fa-solid fa-circle-play"></i>
+                <i class="fa-solid fa-circle-pause"></i>
+            </label> -->
+
+                <div class="btn icon swiper-button-prev"></div>
+                <div class="btn icon swiper-pagination"></div>
+                <div class="btn icon swiper-button-next"></div>
+                <!-- <div class="btn icon" tabindex="0"><i class="fa-solid fa-chevron-left"></i>
+            </div> -->
+                <!-- <div class="btn icon"><i class="fa-solid fa-circle"></i></div> -->
+                <!-- <div class="btn icon"><i class="fa-solid fa-circle-dot"></i></div>
+            <div class="btn icon" tabindex="0"><i class="fa-solid fa-chevron-right"></i></div> -->
+            </section>
+        </div>
+        </div>
+    </header>
+</body>
+
+</html>
