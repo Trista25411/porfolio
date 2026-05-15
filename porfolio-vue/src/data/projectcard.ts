@@ -210,7 +210,7 @@ export const Project: ProjectItem[] = [
         ],
         links: [
             { name: 'GITHUB', link: 'https://github.com/Trista25411/porfolio/tree/main/source-code/REST%20Countries%20API' },
-            { name: 'DEMO', link: '' },
+            { name: 'DEMO', link: 'https://trista25411.github.io/porfolio/porfolio-pages/projects/REST-Countries-API_vue_ts/' },
         ],
     },
     {
