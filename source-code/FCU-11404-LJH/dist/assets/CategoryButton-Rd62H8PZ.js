@@ -1,0 +1,1 @@
+import{_ as e,c as o,t as r,o as a}from"./index-BynkbrkS.js";const c={type:"button",class:"category-button c-bg-orange-500 c-text-white-base text-p"},s={__name:"CategoryButton",props:{text:{type:String,required:!0}},setup(t){return(n,_)=>(a(),o("button",c,r(t.text),1))}},u=e(s,[["__scopeId","data-v-586bc587"]]);export{u as C};
