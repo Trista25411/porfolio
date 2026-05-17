@@ -1,0 +1,38 @@
+{
+  "color": {
+    "orange": {
+      "500": { "value": "#FC8458" }
+    },
+    "blue": {
+      "500": { "value": "#16B4D6" }
+    },
+    "white": {
+      "base": { "value": "#FDFDFD" }
+    }
+  },
+  "font": {
+    "family": {
+      "sans": { "value": "'Gen Jyuu Gothic X', sans-serif" }
+    },
+    "size": {
+      "h0": { "value": "50px" },
+      "h1": { "value": "45px" },
+      "h2": { "value": "37px" },
+      "h3": { "value": "30px" },
+      "h4": { "value": "24px" },
+      "p": { "value": "22px" },
+      "small": { "value": "14px" }
+    },
+    "weight": {
+      "bold": { "value": "700" },
+      "normal": { "value": "400" }
+    },
+    "color": {
+      "black": { "value": "#2C3E50" },
+      "white": { "value": "#FDFDFD" }
+    }
+  },
+  "spacing": {
+    "4": { "value": "1rem" }
+  }
+}

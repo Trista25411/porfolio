@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>活動卡片 Vue 元件</title>
+
+    <!-- 引入 Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- 引入 Google Fonts - Noto Sans TC (更廣泛支援的字體) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- 引入 Vue.js -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <style>
+        /* 根據 JSON 規範定義的設計變數 */
+        :root {
+            /* Colors */
+            --color-orange-500: #FC8458;
+            --color-blue-500: #16B4D6;
+            --color-white-base: #FDFDFD;
+            --font-color-black: #2C3E50;
+
+            /* Fonts */
+            --font-family-sans: 'Noto Sans TC', 'Gen Jyuu Gothic X', sans-serif;
+            --font-size-h3: 30px;
+            --font-size-p: 22px;
+            --font-weight-bold: 700;
+            --font-weight-normal: 400;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f2f5;
+            font-family: var(--font-family-sans);
+        }
+
+        /* 活動卡片主容器樣式 */
+        .activity-card {
+            /* (a) 元件整體大小為:width: 447px;height: 763px;border-radius: 80px; */
+            width: 447px;
+            height: 763px;
+            border-radius: 80px;
+            background-color: var(--color-white-base);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden; /* 確保圖片圓角正確顯示 */
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* (b)(1) 上方為img大小為:width: 447px;height:333px; */
+        .card-img-top {
+            width: 100%;
+            height: 333px;
+            object-fit: cover; /* 確保圖片填滿容器且不變形 */
+            display: block;
+        }
+
+        /* (c) 資訊顯示區內容在整體內 (1)下方padding:48px (2)上左右padding:44px */
+        .card-body {
+            padding: 44px 44px 48px 44px;
+            color: var(--font-color-black);
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1; /* 讓 body 填滿剩餘空間 */
+        }
+        
+        /* (b)(2).1 活動卡片元件分類 */
+        .category-badge {
+            display: inline-block;
+            padding: 8px 18px;
+            background-color: var(--color-orange-500);
+            color: var(--color-white-base);
+            font-size: var(--font-size-p);
+            font-weight: var(--font-weight-normal);
+            border-radius: 18px;
+            align-self: flex-start; /* 讓按鈕靠左 */
+            margin-bottom: 24px; /* 與下方標題的間距 */
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+        .category-badge:hover {
+            color: var(--color-white-base);
+            opacity: 0.9;
+        }
+
+
+        /* (b)(2).2 文字顯示區塊 (a)標題 */
+        .card-title {
+            font-size: var(--font-size-h3);
+            font-weight: var(--font-weight-bold);
+            color: var(--font-color-black);
+            
+            /* -webkit-line-clamp 是用於實現多行文字截斷最廣泛支援的 CSS 屬性。 */
+            /* 編輯器中的黃色警告可忽略，它在主流瀏覽器中皆可正常運作。 */
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.4; /* 調整行高以避免文字被切到 */
+            min-height: calc(var(--font-size-h3) * 1.4 * 2); /* 確保標題區塊佔據兩行的高度 */
+        }
+        
+        .card-title-link {
+            color: inherit; /* 繼承父層顏色 */
+            text-decoration: none; /* 移除底線 */
+        }
+        .card-title-link:hover {
+            color: inherit;
+            opacity: 0.8;
+        }
+
+
+        /* (b)(2).2 (b)內文 & 標題與內文上下距離:24px */
+        .card-text {
+            font-size: var(--font-size-p);
+            font-weight: var(--font-weight-normal);
+            color: var(--font-color-black);
+            margin-top: 24px; /* 標題與內文上下距離 */
+        }
+
+        /* 新增：地址文字樣式，最多顯示一行 */
+        .location-text {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-top: 2px; /* 與上方時間的間距 */
+        }
+
+        /* (b)(2).3 標籤區塊 */
+        .card-tags {
+            margin-top: auto; /* 將標籤推到卡片底部 */
+            padding-top: 24px; /* 與上方內容的間距 */
+            display: flex;
+            flex-wrap: wrap; /* 標籤過多時換行 */
+        }
+
+        .tag {
+            font-size: var(--font-size-p);
+            color: var(--color-blue-500);
+            font-weight: var(--font-weight-normal);
+            /* 個別標籤左右間距16px */
+            margin-right: 16px; 
+            /* margin-bottom: 8px; 處理換行時的垂直間距 */
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+        .tag:hover {
+            color: var(--color-blue-500);
+            opacity: 0.8;
+        }
+        
+        /* #距離文字4px */
+        .tag .hash {
+            margin-right: 4px;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="app">
+        <activity-card :card-data="activityData"></activity-card>
+    </div>
+
+    <script>
+        const { createApp, ref } = Vue;
+
+        // 1. 定義 ActivityCard 元件
+        const ActivityCard = {
+            props: {
+                cardData: {
+                    type: Object,
+                    required: true
+                }
+            },
+            template: `
+                <div class="activity-card">
+                    <!-- 已修改: 圖片嵌入連結 -->
+                    <a :href="cardData.cardUrl" target="_blank">
+                        <img :src="cardData.imageUrl" class="card-img-top" alt="活動圖片">
+                    </a>
+                    
+                    <div class="card-body">
+                        <!-- 已修改: 分類按鈕嵌入連結 -->
+                        <a :href="cardData.categoryUrl" target="_blank" class="category-badge">
+                            {{ cardData.category }}
+                        </a>
+                        
+                        <!-- 已修改: 標題嵌入連結 -->
+                        <a :href="cardData.titleUrl" target="_blank" class="card-title-link">
+                            <h3 class="card-title">{{ cardData.title }}</h3>
+                        </a>
+                        
+                        <!-- 內文區塊 -->
+                        <div class="card-text">
+                            <p class="event-time">{{ cardData.eventTime }}</p>
+                            <p class="location-text">{{ cardData.location }}</p>
+                        </div>
+                        
+                        <!-- 已修改: 標籤嵌入連結 -->
+                        <div class="card-tags">
+                            <a v-for="tag in cardData.tags" :key="tag.text" :href="tag.url" target="_blank" class="tag">
+                                <span class="hash">#</span>{{ tag.text }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `
+        };
+
+        // 2. 建立 Vue 應用
+        const app = createApp({
+            setup() {
+                // 已修改：為可點擊的元素增加 url 屬性
+                const activityData = ref({
+                    imageUrl: 'https://ljh.taichung.gov.tw/media/1270774/%E4%B8%BB%E8%A6%96%E8%A6%BA%E5%AE%A3%E5%82%B3%E6%B5%B7%E5%A0%B1-%E7%A2%BA%E8%AA%8D%E7%89%88.jpg', // 請替換成您的圖片 URL
+                    cardUrl: '#', // 整張卡片的連結
+                    category: '技藝 / 興趣培養',
+                    categoryUrl: '#', // 分類按鈕的連結
+                    title: '活動名稱 打工陷阱別亂闖，手機代刷付款父母賠…',
+                    titleUrl: '#', // 標題的連結
+                    eventTime: '活動時間：2025-06-07 ~ 2025-07-07',
+                    location: '活動地點：台中市南屯區北北陸西北巷9樓之8888888888888888888', // 加長地址以測試截斷效果
+                    tags: [
+                        { text: '青少年', url: '#' }, // 標籤1的連結
+                        { text: '開放報名', url: '#' } // 標籤2的連結
+                    ]
+                });
+
+                return {
+                    activityData
+                };
+            }
+        });
+
+        // 3. 註冊 ActivityCard 元件
+        app.component('activity-card', ActivityCard);
+
+        // 4. 掛載 Vue 應用
+        app.mount('#app');
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue 活動橫幅元件</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <style>
+        /* 全局樣式設定 */
+        body {
+            font-family: 'Noto Sans TC', 'Gen Jyuu Gothic X', sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        /* 設計變數 */
+        :root {
+            --color-orange-500: #FC8458;
+            --color-blue-500: #16B4D6;
+            --color-white-base: #FDFDFD;
+            --font-color-black: #2C3E50;
+        }
+
+        /* 活動橫幅元件根樣式 */
+        .event-banner {
+            width: 1400px;
+            height: 547px;
+            border-radius: 80px;
+            background-color: #ffffff;
+            overflow: hidden;
+            display: flex;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 左側資訊區 */
+        .event-info {
+            padding: 44px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: calc(1400px - 944px);
+            color: #2C3E50;
+        }
+
+        /* 1. 活動卡片元件分類 */
+        .event-category {
+            background-color: #FC8458;
+            color: #FDFDFD;
+            font-size: 22px;
+            letter-spacing:2px;
+            padding: 8px 18px;
+            border-radius: 18px;
+            display: inline-block;
+            align-self: flex-start;
+            border: none;
+            transition: opacity 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .event-category:hover {
+            opacity: 0.9;
+            color: #FDFDFD;
+        }
+        
+        /* 2. 文字顯示區塊 */
+        .event-text {
+            margin-top: 24px;
+        }
+
+        .event-title {
+            font-size: 30px;
+            font-weight: 700;
+            color: #2C3E50;
+            text-decoration: none;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.5;
+            min-height: calc(30px * 1.5 * 2);
+        }
+
+        .event-title:hover {
+            text-decoration: underline;
+        }
+
+        .event-description {
+            font-size: 22px;
+            font-weight: 400;
+            color: #2C3E50;
+            letter-spacing:2px;
+            margin-top: 24px;
+        }
+        
+        .info-line {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .info-line:last-child {
+            margin-bottom: 0;
+        }
+        .info-line .icon {
+            color: var(--font-color-black, #2C3E50);
+            margin-right: 8px;
+            font-size: 22px;
+        }
+        .info-line a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .info-line a:hover {
+            color: var(--color-blue-500, #16B4D6);
+            text-decoration: underline;
+        }
+
+        /* 3. 標籤區塊 */
+        .event-tags {
+            margin-top: 40px;
+            padding-top: 24px;
+        }
+
+        .event-tag {
+            font-size: 22px;
+            letter-spacing:2px;
+            color: #16B4D6;
+            text-decoration: none;
+            font-weight: 700;
+            transition: color 0.3s ease, opacity 0.3s ease;
+        }
+
+        .event-tag:not(:last-child) {
+            margin-right: 16px;
+        }
+        
+        .event-tag .hash {
+            margin-right: 4px;
+        }
+
+        /* 右側圖片區 */
+        .event-image {
+            width: 944px;
+            height: 547px;
+            object-fit: cover;
+            display: block; /* 修正圖片在 a 標籤中可能產生的額外空間 */
+            /* --- 修改/新增開始 --- */
+            transition: opacity 0.3s ease; /* 為 hover 效果增加過渡動畫 */
+            /* --- 修改/新增結束 --- */
+        }
+
+        /* --- 修改/新增開始 --- */
+        /* 當滑鼠移到圖片連結上時，讓圖片稍微變暗 */
+        .event-banner > a:hover .event-image {
+            opacity: 0.9;
+        }
+        /* --- 修改/新增結束 --- */
+
+    </style>
+</head>
+<body>
+    <div id="app">
+        <event-banner 
+            :category="eventData.category"
+            :title="eventData.title"
+            :title-link="eventData.titleLink"
+            :event-time="eventData.eventTime"
+            :location="eventData.location"
+            :tags="eventData.tags"
+            :image-url="eventData.imageUrl"
+        ></event-banner>
+        </div>
+
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    // ==========================================================
+                    //  所有內容修改請在此處進行
+                    // ==========================================================
+                    eventData: {
+                        // --- 1. 分類按鈕 ---
+                        category: {
+                            text: '技藝 / 興趣培養',
+                            url: '#'
+                        },
+                        
+                        // --- 2. 主要標題 ---
+                        title: '活動名稱 打工陷阱別亂闖，手機代刷付款父母賠償！',
+                        // --- 修改/新增開始 ---
+                        titleLink: '#', // (可修改) 標題和右側圖片點擊後前往的網址
+                        // --- 修改/新增結束 ---
+
+                        // --- 3. 時間與地點 ---
+                        eventTime: '2025-06-07 ~ 2025-07-07',
+                        location: {
+                            text: '台中市南屯區北北陸西巷94號',
+                            url: 'http://googleusercontent.com/maps.google.com/4'
+                        },
+
+                        // --- 4. 底部標籤 ---
+                        tags: [
+                            { text: '青少年', link: '#' },
+                            { text: '開放報名', link: '#' }
+                        ],
+
+                        // --- 5. 右側圖片 ---
+                        imageUrl:'https://ljh.taichung.gov.tw/media/1224653/2025%E5%B9%B4%E8%87%BA%E4%B8%AD%E5%B8%82%E9%9D%92%E5%B0%91%E5%B9%B4%E5%9F%B9%E5%8A%9B%E7%A4%BE%E5%9C%98.png'
+                    }
+                }
+            }
+        });
+
+        app.component('event-banner', {
+            props: {
+                category: Object,
+                title: String,
+                titleLink: String,
+                eventTime: String,
+                location: Object,
+                tags: Array,
+                imageUrl: String
+            },
+            template: `
+                <div class="event-banner">
+                    <div class="event-info">
+                        
+                        <a :href="category.url" target="_blank" rel="noopener noreferrer" class="event-category">
+                            {{ category.text }}
+                        </a>
+                        
+                        <div class="event-text">
+                            <a :href="titleLink" class="event-title">{{ title }}</a>
+                            
+                            <div class="event-description">
+                               <div class="info-line">
+                                   <i class="bi bi-calendar3 icon"></i>
+                                   <span>{{ eventTime }}</span>
+                               </div>
+                               <div class="info-line">
+                                   <i class="bi bi-geo-alt-fill icon"></i>
+                                   <a :href="location.url" target="_blank" rel="noopener noreferrer">
+                                       {{ location.text }}
+                                   </a>
+                               </div>
+                            </div>
+                        </div>
+
+                        <div class="event-tags">
+                            <a v-for="(tag, index) in tags" :key="index" :href="tag.link" class="event-tag">
+                                <span class="hash">#</span>{{ tag.text }}
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <a :href="titleLink" target="_blank" rel="noopener noreferrer">
+                        <img :src="imageUrl" alt="活動圖片" class="event-image">
+                    </a>
+                    </div>
+            `
+        });
+
+        app.mount('#app');
+    </script>
+</body>
+</html>

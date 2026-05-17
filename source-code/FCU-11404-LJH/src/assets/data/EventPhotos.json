@@ -1,0 +1,151 @@
+[
+    {
+        "id": "bear",
+        "title": "113年度暑期青少年反詐騙宣導活動「當我們熊在一起」活動圓滿成功",
+        "category": "宣導與展覽",
+        "photos": [
+            "01-bear.jpg",
+            "02-bear.jpg",
+            "03-bear.jpg",
+            "04-bear.jpg",
+            "05-bear.jpg"
+        ]
+    },
+    {
+        "id": "show_young",
+        "title": "臺中市政府警察局113年度「show出青春的模young」",
+        "category": "學習與成長",
+        "photos": [
+            "01-show_young.jpg",
+            "02-show_young.jpg",
+            "03-show_young.jpg",
+            "04-show_young.jpg",
+            "05-show_young.jpg",
+            "06-show_young.jpg",
+            "07-show_young.jpg",
+            "08-show_young.jpg"
+        ]
+    },
+    {
+        "id": "dog",
+        "title": "臺中市青少年福利服務中心「攜伴未來 旺我前行」",
+        "category": "公益與志工服務",
+        "photos": [
+            "01-dog.jpg",
+            "02-dog.jpg",
+            "03-dog.jpg",
+            "04-dog.jpg"
+        ]
+    },
+    {
+        "id": "art_competition",
+        "title": "運動局2024全國表演藝術大賽",
+        "category": "競賽與體育",
+        "photos": [
+            "01-art_competition.jpg",
+            "02-art_competition.jpg",
+            "03-art_competition.jpg",
+            "04-art_competition.jpg",
+            "05-art_competition.jpg",
+            "06-art_competition.jpg",
+            "07-art_competition.jpg"
+        ]
+    },
+    {
+        "id": "wonderful",
+        "title": "少年輔導委員會113年寒假活動「Wonderful！玩桌遊」",
+        "category": "休閒娛樂",
+        "photos": [
+            "01-wonderful.jpg",
+            "02-wonderful.jpg",
+            "03-wonderful.jpg",
+            "04-wonderful.jpg",
+            "05-wonderful.jpg",
+            "06-wonderful.jpg",
+            "07-wonderful.jpg",
+            "08-wonderful.jpg"
+        ]
+    },
+    {
+        "id": "BBQ",
+        "title": "臺中市政府警察局「113年寒假反詐騙宣導活動，『玩樂，BBQ了！』」",
+        "category": "宣導與展覽",
+        "photos": [
+            "01-BBQ.jpg",
+            "02-BBQ.jpg",
+            "03-BBQ.jpg",
+            "04-BBQ.jpg",
+            "05-BBQ.jpg",
+            "06-BBQ.jpg",
+            "07-BBQ.jpg",
+            "08-BBQ.jpg",
+            "09-BBQ.jpg",
+            "10-BBQ.jpg"
+        ]
+    },
+    {
+        "id": "Don’t",
+        "title": "「當我們串在一起，Don’t 毒 it」─反毒短片徵選頒獎典禮",
+        "category": "宣導與展覽",
+        "photos": [
+            "01-Don’t.jpg",
+            "02-Don’t.jpg",
+            "03-Don’t.jpg",
+            "04-Don’t.jpg",
+            "05-Don’t.jpg",
+            "06-Don’t.jpg",
+            "07-Don’t.jpg"
+        ]
+    },
+    {
+        "id": "ball",
+        "title": "113 年第九屆「青春無毒 守護家園」Young臺中3對3籃球競賽",
+        "category": "競賽與體育",
+        "photos": [
+            "01-ball.jpg",
+            "02-ball.jpg",
+            "03-ball.jpg"
+        ]
+    },
+    {
+        "id": "child",
+        "title": "中區兒童之家宣導",
+        "category": "宣導與展覽",
+        "photos": [
+            "01-child.png",
+            "02-child.png",
+            "03-child.png",
+            "04-child.png"
+        ]
+    },
+    {
+        "id": "game",
+        "title": "夏日創意冒險-生存遊戲體驗營",
+        "category": "休閒娛樂",
+        "photos": [
+            "01-game.jpg",
+            "02-game.jpg",
+            "03-game.jpg",
+            "04-game.jpg",
+            "05-game.jpg",
+            "06-game.jpg",
+            "07-game.jpg",
+            "08-game.jpg",
+            "09-game.jpg"
+        ]
+    },
+    {
+        "id": "time",
+        "title": "臺中市青少年福利服務中心「莓好時光」雪Q餅製作活動",
+        "category": "學習與成長",
+        "photos": [
+            "01-time.jpg",
+            "02-time.jpg",
+            "03-time.jpg",
+            "04-time.jpg",
+            "05-time.jpg",
+            "06-time.jpg",
+            "07-time.jpg"
+        ]
+    }
+]

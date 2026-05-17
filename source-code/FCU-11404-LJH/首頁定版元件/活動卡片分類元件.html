@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>活動卡片分類按鈕 - Vue 元件</title>
+    
+    <!-- 引入 Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- 引入 Google Fonts - Gen Jyuu Gothic X (根據 JSON 規範) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* 根據 JSON 規範定義的設計變數 */
+        :root {
+            --font-family-sans: 'Noto Sans TC', 'Gen Jyuu Gothic X', sans-serif;
+            --color-orange-500: #FC8458;
+            --color-white-base: #FDFDFD;
+            --font-size-p: 22px;
+            --font-weight-normal: 400;
+        }
+
+        /* 全局樣式設定 */
+        body {
+            font-family: var(--font-family-sans);
+            background-color: #f0f2f5;
+            padding: 2rem;
+        }
+
+        /* 元件樣式 */
+        .category-button {
+            /* (c) 背景顏色為橘色，字體顏色為白色 */
+            background-color: var(--color-orange-500);
+            color: var(--color-white-base);
+            
+            /* (b)(1) 內容文字大小為: p */
+            font-size: var(--font-size-p);
+            font-weight: var(--font-weight-normal);
+
+            /* (b)(2) 距離邊框: 左右為18px, 上下為8px */
+            padding: 8px 18px;
+
+            /* (a) border-radius: 18px */
+            border-radius: 18px;
+
+            /* (a) 元件整體大小為: 依照字體的寬高去做延伸 (Hug) */
+            /* 使用 inline-flex 讓按鈕寬度自適應內容，且內容垂直置中 */
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            
+            /* 移除按鈕預設邊框 */
+            border: none;
+
+            /* 增加滑鼠懸停效果 */
+            transition: opacity 0.3s ease;
+        }
+
+        .category-button:hover {
+            opacity: 0.9;
+            color: var(--color-white-base); /* 確保懸停時文字顏色不變 */
+        }
+    </style>
+</head>
+<body>
+
+    <div id="app">
+        <h4>元件預覽：</h4>
+        <category-button text="技藝 / 興趣培養"></category-button>
+        <category-button text="運動"></category-button>
+        <category-button text="其他"></category-button>
+    </div>
+
+    <!-- 引入 Vue.js -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <script>
+        // 建立 Vue 應用
+        const app = Vue.createApp({});
+
+        // 定義 'category-button' 元件
+        app.component('category-button', {
+            props: {
+                // 定義一個 text 屬性，讓外部可以傳入按鈕文字
+                text: {
+                    type: String,
+                    required: true
+                }
+            },
+            // 元件的 HTML 模板
+            // 使用 <button> 標籤並綁定 class
+            // 透過 {{ text }} 顯示傳入的文字
+            template: `
+                <button type="button" class="category-button">
+                    {{ text }}
+                </button>
+            `
+        });
+
+        // 掛載 Vue 應用到 #app 元素上
+        app.mount('#app');
+    </script>
+
+</body>
+</html>

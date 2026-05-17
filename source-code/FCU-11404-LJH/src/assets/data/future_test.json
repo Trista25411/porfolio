@@ -1,0 +1,78 @@
+[
+  {
+    "sectionTitle": "職涯測評",
+    "sectionDescription": "我是誰？未來適合做什麼？測測看就知道！\n這裡提供多種有趣的心理測驗，從興趣、性向到職能特質，幫你一步步釐清自我，發掘潛力！\n測完還有專人幫你分析，讓你更了解自己，找到最閃亮的道路！\n立刻開始你的自我探索",
+    "items": [
+      {
+        "id": "t01",
+        "title": "國中職涯測驗系統",
+        "category": "職涯測評",
+        "link": "https://career.ntnu.edu.tw/junior/",
+        "imageUrl": "t01.png",
+        "description": "專為國中生設計，為升學和職涯規劃做準備。"
+      },
+      {
+        "id": "t02",
+        "title": "大學入學考試中心 (興趣量表)",
+        "category": "職涯測評",
+        "link": " https://career.ceec.edu.tw/",
+        "imageUrl": "t02.png",
+        "description": "適合高中職生，對職涯探索有興趣。"
+      },
+      {
+        "id": "t03",
+        "title": "UCAN 職涯輔導系統",
+        "category": "職涯測評",
+        "link": "https://ucan.moe.edu.tw/",
+        "imageUrl": "t03.png",
+        "description": "專為大專院校學生設計的職涯診斷平台。"
+      },
+      {
+        "id": "t04",
+        "title": "台灣就業通 - Youth職涯 (職涯測評專區)",
+        "category": "職涯測評",
+        "link": "https://coach.taiwanjobs.gov.tw/wdaecPublic/front/extraInfo",
+        "imageUrl": "t04.png",
+        "description": "適合所有年齡層的求職者和在職者。"
+      }
+    ]
+  },
+  {
+    "sectionTitle": "心情量表",
+    "sectionDescription": "你今天「心」情幾分？來幫自己量量溫！\n有時候，我們可能沒發現自己的情緒已經有點「發燒」了。\n這裡提供一些簡單的心理健康評估量表，幫助你了解自己的情緒狀態、壓力指數。\n它不是診斷，而是讓你更關心自己！如果發現分數偏高，別擔心，還有專業資源可以協助喔！\n為你的心情把脈",
+    "items": [
+      {
+        "id": "t05",
+        "title": "衛生福利部心理健康司",
+        "category": "心情量表",
+        "link": "https://dep.mohw.gov.tw/domhaoh/mp-107.html",
+        "imageUrl": "t05.png",
+        "description": "提供心裡健康相關資訊與自我評估工具。"
+      },
+      {
+        "id": "t06",
+        "title": "心快活心理健康學習平台",
+        "category": "心情量表",
+        "link": "https://wellbeing.mohw.gov.tw/nor/main",
+        "imageUrl": "t06.png",
+        "description": "透過簡單測驗，快速評估自己的身心狀況。"
+      },
+      {
+        "id": "t07",
+        "title": "衛生福利部心理健康司 (心情健康諮詢)",
+        "category": "心情量表",
+        "link": "https://dep.mohw.gov.tw/DOMHAOH/np-326-107.html",
+        "imageUrl": "t07.png",
+        "description": "提供心理諮詢服務與資源，協助解決情緒困擾。"
+      },
+            {
+        "id": "t08",
+        "title": "一般性心理健康評估量表 (衛福部)",
+        "category": "心情量表",
+        "link": "https://www.health.taichung.gov.tw/26198/26327/26844/1961332/1961335/1969518/post",
+        "imageUrl": "t08.png",
+        "description": "透過簡易量表，初步評估自己的情緒與壓力。"
+      }
+    ]
+  }
+]

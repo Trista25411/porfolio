@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>活動影片卡片 - Vue 元件</title>
+
+    <!-- 引入 Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- 引入 Google Fonts - Noto Sans TC (更廣泛支援的字體) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* 根據 JSON 規範和設計稿定義的 CSS 變數 */
+        :root {
+            /* 顏色 */
+            --color-orange-500: #FC8458;
+            --color-blue-500: #16B4D6;
+            --color-white-base: #FDFDFD;
+            --color-font-black: #2C3E50;
+            --color-video-placeholder: #C4C4C4; /* 影片佔位背景色 */
+
+            /* 字體 */
+            --font-family-sans: 'Noto Sans TC', 'Gen Jyuu Gothic X', sans-serif;
+            --font-size-h3: 30px;
+            --font-size-p: 22px;
+            --font-weight-bold: 700;
+            --font-weight-normal: 400;
+        }
+
+        body {
+            font-family: var(--font-family-sans);
+            background-color: #e9ecef; /* 頁面背景色，突顯元件 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        /* 活動卡片主容器樣式 */
+        .activity-card {
+            /* (a) 元件整體大小 */
+            width: 686px;
+            height: 711px;
+            border-radius: 80px;
+            
+            background-color: var(--color-white-base);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden; /* 確保子元素的圓角裁切正確 */
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 上方影片區域 */
+        .activity-card .video-container {
+            /* (b)(1) 影片嵌入位置大小 */
+            width: 100%; /* 寬度設為100%以符合容器 */
+            height: 386px;
+            background-color: var(--color-video-placeholder);
+            /* 移除舊的 flex 佈局，因為 iframe 會填滿此空間 */
+        }
+        
+        .activity-card .video-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none; /* 移除 iframe 預設邊框 */
+        }
+
+        /* 下方資訊顯示區 */
+        .activity-card .info-container {
+            /* (c) 資訊顯示區內容在整體內 (1) 上下左右 padding: 44px */
+            padding: 44px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1; /* 讓此區塊填滿剩餘空間 */
+        }
+
+        /* 1. 活動卡片元件分類 */
+        .activity-card .category-tag {
+            background-color: var(--color-orange-500);
+            color: var(--color-white-base);
+            font-size: var(--font-size-p);
+            font-weight: var(--font-weight-normal);
+            padding: 8px 18px;
+            border-radius: 18px;
+            display: inline-block; /* 讓寬度自適應內容 */
+            align-self: flex-start; /* 靠左對齊 */
+            text-decoration: none;
+            transition: opacity 0.3s;
+            /* (b)(2)1. 距離下方文字顯示區塊 32px */
+            margin-bottom: 32px;
+        }
+        .activity-card .category-tag:hover {
+            color: var(--color-white-base);
+            opacity: 0.9;
+        }
+
+        /* 2. 文字顯示區塊 (a) 標題 */
+        .activity-card .title-link {
+            text-decoration: none;
+        }
+        .activity-card .activity-title {
+            font-size: var(--font-size-h3);
+            font-weight: var(--font-weight-bold);
+            color: var(--color-font-black);
+            line-height: 1.5; /* 設置行高以避免文字重疊 */
+            
+            /* (b)(2)2. 文字最多顯示 2 行，超出部分顯示省略號 */
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            height: calc(var(--font-size-h3) * 1.5 * 2); /* 計算兩行的高度 */
+        }
+        .activity-card .title-link:hover .activity-title {
+            color: var(--color-blue-500); /* 滑鼠懸停時變色 */
+        }
+
+        /* 3. 標籤區塊 (了解更多) */
+        .activity-card .learn-more-link {
+            /* (b)(2)2. 與下方標籤區塊距離 auto (透過 margin-top: auto) */
+            margin-top: auto;
+            align-self: flex-end; /* 靠右對齊 */
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        
+        .activity-card .learn-more-text {
+            /* (b)(2)3. 字體大小為 p，顏色為藍色 */
+            font-size: var(--font-size-p);
+            color: var(--color-blue-500);
+            font-weight: var(--font-weight-bold);
+            /* (b)(2)3. 文字距離 icon: 12px */
+            margin-right: 12px;
+        }
+
+        .activity-card .learn-more-icon {
+            /* (b)(2)3. icon 大小為 42*42px(白底藍框) */
+            width: 42px;
+            height: 42px;
+            background-color: var(--color-white-base);
+            border: 2px solid var(--color-blue-500);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.3s;
+            position: relative; /* 【改善】設定相對定位，作為箭頭定位的基準 */
+        }
+
+        /* 【改善】使用偽元素製作 icon 內的箭頭，並確保置中 */
+        .activity-card .learn-more-icon::after {
+            content: '';
+            position: absolute; /* 使用絕對定位 */
+            top: 50%; /* 垂直置中 */
+            left: 50%; /* 水平置中 */
+            width: 12px; /* 箭頭寬度 */
+            height: 12px; /* 箭頭高度 */
+            border-top: 2px solid var(--color-blue-500);
+            border-right: 2px solid var(--color-blue-500);
+            /* 使用 transform 將箭頭的中心點對準容器的中心點後再旋轉 */
+            transform: translate(-60%, -50%) rotate(45deg);
+            transition: border-color 0.3s;
+        }
+        
+        /* 互動效果 */
+        .activity-card .learn-more-link:hover .learn-more-text {
+            text-decoration: underline;
+        }
+        .activity-card .learn-more-link:hover .learn-more-icon {
+            background-color: var(--color-blue-500);
+        }
+        .activity-card .learn-more-link:hover .learn-more-icon::after {
+            border-color: var(--color-white-base);
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="app">
+        <!-- Vue 元件使用 -->
+        <activity-video-card
+            :video-id="cardData.videoId"
+            :category="cardData.category"
+            :category-url="cardData.categoryUrl"
+            :title="cardData.title"
+            :title-url="cardData.titleUrl"
+            :learn-more-url="cardData.learnMoreUrl"
+        ></activity-video-card>
+    </div>
+
+    <!-- 引入 Vue.js -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <script>
+        // 取得 Vue 的 createApp 方法
+        const { createApp, ref, computed } = Vue;
+
+        // 建立 Vue 應用
+        const app = createApp({
+            setup() {
+                // 使用 ref 創建響應式資料
+                const cardData = ref({
+                    // 【改善】提供一個 YouTube 影片的 ID
+                    videoId: 'MUu3nfPmEOY', // 範例影片 ID
+                    category: '技藝 / 興趣培養', // 活動分類文字
+                    categoryUrl: '#category-link', // 分類連結
+                    title: '活動名稱 打工陷阱別亂闖，手機代付款父母賠償！', // 標題文字
+                    titleUrl: '#title-link', // 標題連結
+                    learnMoreUrl: '#learn-more' // 了解更多連結
+                });
+
+                // 回傳資料供模板使用
+                return {
+                    cardData
+                };
+            }
+        });
+
+        // 定義 'activity-video-card' 全局元件
+        app.component('activity-video-card', {
+            // 定義元件可接收的 props
+            props: {
+                // 【改善】將 videoUrl 改為 videoId，更符合用途
+                videoId: { type: String, required: true },
+                category: { type: String, required: true },
+                categoryUrl: { type: String, default: '#' },
+                title: { type: String, required: true },
+                titleUrl: { type: String, default: '#' },
+                learnMoreUrl: { type: String, default: '#' }
+            },
+            setup(props) {
+                // 使用 computed 屬性來動態生成完整的 YouTube 嵌入網址
+                const videoEmbedUrl = computed(() => {
+                    return `https://www.youtube.com/embed/${props.videoId}`;
+                });
+                
+                return {
+                    videoEmbedUrl
+                }
+            },
+            // 元件的 HTML 模板
+            template: `
+                <div class="activity-card">
+                    <!-- 【改善】1. 上方影片嵌入位置，使用 iframe 播放影片 -->
+                    <div class="video-container">
+                        <iframe :src="videoEmbedUrl" 
+                                title="YouTube video player" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+            
+                    <!-- 2. 下方資訊顯示區 -->
+                    <div class="info-container">
+                        <!-- (1) 活動卡片元件分類 -->
+                        <a :href="categoryUrl" class="category-tag">{{ category }}</a>
+            
+                        <!-- (2) 文字顯示區塊 (標題) -->
+                        <a :href="titleUrl" class="title-link">
+                            <h3 class="activity-title" :title="title">{{ title }}</h3>
+                        </a>
+            
+                        <!-- (3) 標籤區塊 (了解更多) -->
+                        <a :href="learnMoreUrl" class="learn-more-link">
+                            <p class="learn-more-text mb-0">了解更多</p>
+                            <div class="learn-more-icon"></div>
+                        </a>
+                    </div>
+                </div>
+            `
+        });
+
+        // 掛載 Vue 應用到 #app 元素上
+        app.mount('#app');
+    </script>
+
+</body>
+</html>

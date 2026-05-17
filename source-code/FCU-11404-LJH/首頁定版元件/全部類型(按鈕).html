@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>按鈕元件可視化</title>
+
+    <!-- 引入 Bootstrap v5 CSS 以使用其網格和基礎樣式 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- 引入設計規範中指定的字體 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* * 使用 :root 來定義全域的 CSS 變數，
+         * 這些變數來自於您提供的 JSON 設計規範。
+         * 這樣做可以方便未來統一管理和修改設計參數。
+        */
+        :root {
+            /* --- 顏色 --- */
+            --btn-default-bg: #FDFDFD;
+            --btn-default-text: #2C3E50;
+            --btn-hover-bg: #FC8458;
+            --btn-hover-text: #FDFDFD;
+
+            /* --- 尺寸與間距 --- */
+            --btn-width: 221px;
+            --btn-height: 76px;
+            --btn-border-radius: 73px;
+            --btn-padding: 16px;
+
+            /* --- 字體 --- */
+            --font-family: 'Noto Sans TC', 'Gen Jyuu Gothic X', sans-serif;
+            --font-size-h3: 30px;
+            --font-weight-bold: 700;
+
+            /* --- 過渡動畫 --- */
+            --transition-duration: 200ms;
+            --transition-easing: cubic-bezier(0.16, 1, 0.3, 1);
+            /* 對應 Figma 的 "Ease Out" */
+        }
+
+        /* * 設定頁面背景和基本排版，
+         * 模擬 Vue App 的容器效果，讓按鈕在頁面中置中。
+        */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f2f5;
+            /* 使用一個柔和的背景色 */
+            margin: 0;
+            font-family: var(--font-family);
+        }
+
+        /* * 主要的按鈕樣式
+        */
+        .custom-button {
+            /* --- 尺寸與間距 --- */
+            width: var(--btn-width);
+            height: var(--btn-height);
+            padding: var(--btn-padding);
+            border-radius: var(--btn-border-radius);
+
+            /* --- 顏色 --- */
+            background-color: var(--btn-default-bg);
+            color: var(--btn-default-text);
+
+            /* --- 其他樣式 --- */
+            cursor: pointer;
+            /* 滑鼠懸停時顯示指標手勢 */
+            border: 2px solid #B0B6BC;
+
+            /* 使用 Flexbox 讓內容完美置中 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            /* --- 過渡動畫 --- */
+            transition-property: background-color, color;
+            transition-duration: var(--transition-duration);
+            transition-timing-function: var(--transition-easing);
+        }
+
+        .custom-button h3 {
+            /* --- 字體 --- */
+            font-size: var(--font-size-h3);
+            font-weight: var(--font-weight-bold);
+            margin: 0;
+            /* 移除 h3 的預設 margin */
+        }
+
+        /* * :hover 偽類選擇器用於定義滑鼠懸停時的樣式
+        */
+        .custom-button:hover {
+            background-color: var(--btn-hover-bg);
+            color: var(--btn-hover-text);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 這就是我們的按鈕元件 -->
+    <button class="custom-button">
+        <h3>全部類型</h3>
+    </button>
+
+</body>
+
+</html>

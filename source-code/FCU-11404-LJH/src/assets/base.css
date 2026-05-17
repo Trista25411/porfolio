@@ -1,0 +1,651 @@
+/* color palette from <https://github.com/vuejs/theme> */
+:root {
+  --color-orange-500: #FF7F50;
+  --color-orange-light: #FFB398;
+  --color-blue-500: #16B4D6;
+  /* 基本取代基礎白 */
+  --color-white-base: #FDFDFD;
+  /* 白底上區塊灰色的顏色 */
+  --color-gray-area: #F5F5F5;
+  --color-gray-line: #e9ecef;
+  /* 特殊處 & icon使用 */
+  --color-gray-icon: #B0B6BC;
+  --color-text-primary: #2C3E50;
+  --font-family-sans: 'GenJyuuGothicX', 'Noto Sans TC', sans-serif;
+  --font-main: 'GenJyuuGothicX', sans-serif;
+
+  /* 建議將 px 單位改為 rem，以便全站縮放 */
+  /* 計算公式: 目標px / 基礎16px */
+  --font-size-h0: 3rem;
+  /* 48px  banner */
+  --font-size-h1: 2.6875rem;
+  /* 43px */
+  --font-size-h2: 2.1875rem;
+  /* 35px */
+  --font-size-h3: 1.75rem;
+  /* 28px */
+  --font-size-h4: 1.5rem;
+  /* 24px */
+  --font-size-p: 1.375rem;
+  /* 22px */
+  --font-size-small: 14px;
+  /* 14px 0.875rem */
+
+  /* Font Weights */
+  --font-weight-bold: 700;
+  --font-weight-normal: 400;
+
+  /* Spacing */
+  --spacing-4: 1rem;
+  --spacing-hover-shift: 0.25rem;
+  /* 4px */
+
+  /* 共用陰影 */
+  --c-shadow-soft: 0 8px 20px rgba(0, 0, 0, 0.1);
+
+  /* Border radius variables */
+  --radius-26: 1.625rem;
+  /* 26px */
+  --radius-36: 2.25rem;
+  /* 36px */
+  --radius-48: 3rem;
+  /* 48px */
+  --radius-56: 3.5rem;
+  /* 56px */
+  --radius-80: 5rem;
+  /* 80px */
+  --radius-999: 9999px;
+  /* 最大圓角 */
+
+  /* 畫面共用的 container-padding */
+  --container-padding: 1.25rem;
+  /* 20px */
+
+  /* Icon Sizes */
+  --icon-size-16: 1rem;
+  /* 16px */
+  --icon-size-18: 1.125rem;
+  /* 18px */
+  --icon-size-27: 1.6875rem;
+  /* 27px */
+  --icon-size-34: 2.125rem;
+  /* 34px */
+  --icon-size-50: 3.125rem;
+  /* 50px */
+  /* Transforms & Animations */
+  --scale-hover-icon: 1.2;
+  /* Icon 懸停時放大 20% */
+}
+
+/* 響應式字體設定 (RWD Font-size Setting)
+  1. 桌機 (Desktop): 預設 font-size: 100% (16px)
+  2. 平板 (Tablet): 螢幕寬度 <= 992px 時, font-size: 87.5% (14px)
+  3. 手機 (Mobile): 螢幕寬度 <= 768px 時, font-size: 75% (12px)
+*/
+html {
+  font-size: 100%;
+  /* Default: 16px */
+}
+
+@media (max-width: 992px) {
+  html {
+    font-size: 87.5%;
+    /* Tablet: 14px */
+  }
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 75%;
+    /* Mobile: 12px */
+  }
+}
+
+
+@media (min-width: 576px) {
+  :root {
+    --container-padding: 2rem;
+    /* 32px */
+  }
+}
+
+@media (min-width: 768px) {
+  :root {
+    --container-padding: 3rem;
+    /* 48px */
+  }
+}
+
+@media (min-width: 992px) {
+  :root {
+    --container-padding: 5rem;
+    /* 80px */
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  /* font-weight: normal; */
+}
+
+body {
+  min-height: 100vh;
+  color: var(--color-text-primary);
+  background: var(--color-white-base);
+  transition:
+    color 0.5s,
+    background-color 0.5s;
+  font-family: var(--font-family-sans);
+  margin: 0;
+}
+
+.container-padding {
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+}
+
+/* 陰影 --------------------------------------------------------------------------  */
+.c-shadow-soft {
+  box-shadow: var(--c-shadow-soft);
+}
+
+/* 標籤盒子 --------------------------------------------------------------------------  */
+.categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* 動態效果 (Transitions) -------------------------------------------------- */
+/* 用於 transform 屬性的平滑過渡 */
+.c-transition-transform {
+  transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+/* 間隙 ------------------------------------------------- */
+.space-1 {
+  margin-bottom: 50px;
+}
+
+.space-2 {
+  background-color: var(--color-gray-area);
+  height: 200px;
+}
+
+/* 省略字 --------------------------------------------------------------------------  */
+/* 超過1行就省略 */
+.text-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 超過2行就省略 */
+.text-ellipsis-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* 粗體 -------------------------------------------------------------------------- */
+.fw-bold {
+  font-weight: 700;
+}
+
+.text-h0 {
+  font-size: var(--font-size-h0);
+  /* 40px */
+  line-height: 150%;
+  font-weight: 700;
+}
+
+.text-h1 {
+  font-size: var(--font-size-h1);
+  /* 43px */
+  line-height: 120%;
+  font-weight: 700;
+}
+
+.text-h2 {
+  font-size: var(--font-size-h2);
+  /* 35px */
+  line-height: 150%;
+  font-weight: 700;
+}
+
+.text-h2-light {
+  font-size: var(--font-size-h2);
+  line-height: 150%;
+  font-weight: 500;
+}
+
+.text-h3 {
+  font-size: var(--font-size-h3);
+  /* 28px */
+  line-height: 140%;
+  font-weight: 700;
+}
+
+.text-h3-regular {
+  font-size: var(--font-size-h3);
+  line-height: 140%;
+  font-weight: 500;
+}
+
+.text-h4 {
+  font-size: var(--font-size-h4);
+  /* 24px */
+  line-height: 150%;
+  font-weight: 700;
+}
+
+body,
+.text-p {
+  font-size: var(--font-size-p);
+  /* 22px */
+  line-height: 175%;
+  font-weight: 500;
+  letter-spacing: 15%;
+}
+
+.text-small {
+  font-size: var(--font-size-small);
+  /* 14px */
+  line-height: 150%;
+  font-weight: 300;
+}
+
+/* sm: Small devices (tablets, 576px and up) */
+@media (min-width: 576px) {
+  .text-sm-h0 {
+    font-size: var(--font-size-h0);
+    line-height: 150%;
+    font-weight: 700;
+  }
+
+  .text-sm-h1 {
+    font-size: var(--font-size-h1);
+    line-height: 120%;
+    font-weight: 700;
+  }
+
+  .text-sm-h2 {
+    font-size: var(--font-size-h2);
+    line-height: 150%;
+    font-weight: 700;
+  }
+
+  .text-sm-h2-light {
+    font-size: var(--font-size-h2);
+    line-height: 150%;
+    font-weight: 500;
+  }
+
+  .text-sm-h3 {
+    font-size: var(--font-size-h3);
+    line-height: 140%;
+    font-weight: 700;
+  }
+
+  .text-sm-h3-regular {
+    font-size: var(--font-size-h3);
+    line-height: 140%;
+    font-weight: 500;
+  }
+
+  .text-sm-h4 {
+    font-size: var(--font-size-h4);
+    line-height: 150%;
+    font-weight: 700;
+  }
+
+  .text-sm-p {
+    font-size: var(--font-size-p);
+    line-height: 175%;
+    font-weight: 500;
+    letter-spacing: 15%;
+  }
+
+  .text-sm-small {
+    font-size: var(--font-size-small);
+    line-height: 150%;
+    font-weight: 300;
+  }
+}
+
+/* md: Medium devices (desktops, 768px and up) */
+@media (min-width: 768px) {
+  .text-md-h0 {
+    font-size: var(--font-size-h0);
+    line-height: 150%;
+    font-weight: 700;
+  }
+
+  .text-md-h1 {
+    font-size: var(--font-size-h1);
+    line-height: 120%;
+    font-weight: 700;
+  }
+
+  .text-md-h2 {
+    font-size: var(--font-size-h2);
+    line-height: 150%;
+    font-weight: 700;
+  }
+
+  .text-md-h2-light {
+    font-size: var(--font-size-h2);
+    line-height: 150%;
+    font-weight: 500;
+  }
+
+  .text-md-h3 {
+    font-size: var(--font-size-h3);
+    line-height: 140%;
+    font-weight: 700;
+  }
+
+  .text-md-h3-regular {
+    font-size: var(--font-size-h3);
+    line-height: 140%;
+    font-weight: 500;
+  }
+
+  .text-md-h4 {
+    font-size: var(--font-size-h4);
+    line-height: 150%;
+    font-weight: 700;
+  }
+
+  .text-md-p {
+    font-size: var(--font-size-p);
+    line-height: 175%;
+    font-weight: 500;
+    letter-spacing: 15%;
+  }
+
+  .text-md-small {
+    font-size: var(--font-size-small);
+    line-height: 150%;
+    font-weight: 300;
+  }
+}
+
+/* lg: Large devices (large desktops, 992px and up) */
+@media (min-width: 992px) {
+  .text-lg-h0 {
+    font-size: var(--font-size-h0);
+    line-height: 150%;
+    font-weight: 700;
+  }
+
+  .text-lg-h1 {
+    font-size: var(--font-size-h1);
+    line-height: 120%;
+    font-weight: 700;
+  }
+
+  .text-lg-h2 {
+    font-size: var(--font-size-h2);
+    line-height: 150%;
+    font-weight: 700;
+  }
+
+  .text-lg-h2-light {
+    font-size: var(--font-size-h2);
+    line-height: 150%;
+    font-weight: 500;
+  }
+
+  .text-lg-h3 {
+    font-size: var(--font-size-h3);
+    line-height: 140%;
+    font-weight: 700;
+  }
+
+  .text-lg-h3-regular {
+    font-size: var(--font-size-h3);
+    line-height: 140%;
+    font-weight: 500;
+  }
+
+  .text-lg-h4 {
+    font-size: var(--font-size-h4);
+    line-height: 150%;
+    font-weight: 700;
+  }
+
+  .text-lg-p {
+    font-size: var(--font-size-p);
+    line-height: 175%;
+    font-weight: 500;
+    letter-spacing: 15%;
+  }
+
+  .text-lg-small {
+    font-size: var(--font-size-small);
+    line-height: 150%;
+    font-weight: 300;
+  }
+}
+
+/* xl: Extra large devices (extra large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .text-xl-h0 {
+    font-size: var(--font-size-h0);
+    line-height: 150%;
+    font-weight: 700;
+  }
+
+  .text-xl-h1 {
+    font-size: var(--font-size-h1);
+    line-height: 120%;
+    font-weight: 700;
+  }
+
+  .text-xl-h2 {
+    font-size: var(--font-size-h2);
+    line-height: 150%;
+    font-weight: 700;
+  }
+
+  .text-xl-h2-light {
+    font-size: var(--font-size-h2);
+    line-height: 150%;
+    font-weight: 500;
+  }
+
+  .text-xl-h3 {
+    font-size: var(--font-size-h3);
+    line-height: 140%;
+    font-weight: 700;
+  }
+
+  .text-xl-h3-regular {
+    font-size: var(--font-size-h3);
+    line-height: 140%;
+    font-weight: 500;
+  }
+
+  .text-xl-h4 {
+    font-size: var(--font-size-h4);
+    line-height: 150%;
+    font-weight: 700;
+  }
+
+  .text-xl-p {
+    font-size: var(--font-size-p);
+    line-height: 175%;
+    font-weight: 500;
+    letter-spacing: 15%;
+  }
+
+  .text-xl-small {
+    font-size: var(--font-size-small);
+    line-height: 150%;
+    font-weight: 300;
+  }
+}
+
+/* xxl: Extra extra large devices (larger desktops, 1400px and up) */
+@media (min-width: 1400px) {
+  .text-xxl-h0 {
+    font-size: var(--font-size-h0);
+    line-height: 150%;
+    font-weight: 700;
+  }
+
+  .text-xxl-h1 {
+    font-size: var(--font-size-h1);
+    line-height: 120%;
+    font-weight: 700;
+  }
+
+  .text-xxl-h2 {
+    font-size: var(--font-size-h2);
+    line-height: 150%;
+    font-weight: 700;
+  }
+
+  .text-xxl-h2-light {
+    font-size: var(--font-size-h2);
+    line-height: 150%;
+    font-weight: 500;
+  }
+
+  .text-xxl-h3 {
+    font-size: var(--font-size-h3);
+    line-height: 140%;
+    font-weight: 700;
+  }
+
+  .text-xxl-h3-regular {
+    font-size: var(--font-size-h3);
+    line-height: 140%;
+    font-weight: 500;
+  }
+
+  .text-xxl-h4 {
+    font-size: var(--font-size-h4);
+    line-height: 150%;
+    font-weight: 700;
+  }
+
+  .text-xxl-p {
+    font-size: var(--font-size-p);
+    line-height: 175%;
+    font-weight: 500;
+    letter-spacing: 15%;
+  }
+
+  .text-xxl-small {
+    font-size: var(--font-size-small);
+    line-height: 150%;
+    font-weight: 300;
+  }
+}
+
+/* 背景色 --------------------------------------------------------------------------  */
+.c-bg-orange-500 {
+  background-color: var(--color-orange-500);
+}
+
+.c-bg-blue-500 {
+  background-color: var(--color-blue-500);
+}
+
+.c-bg-white-base {
+  background-color: var(--color-white-base);
+  padding: 0;
+}
+
+.c-bg-gray-area {
+  background-color: var(--color-gray-area);
+}
+
+.c-bg-gray-icon {
+  background-color: var(--color-gray-icon);
+}
+
+.c-bg-text-primary {
+  background-color: var(--color-text-primary);
+}
+
+/* 字體顏色 --------------------------------------------------------------------------  */
+.c-text-orange-500 {
+  color: var(--color-orange-500);
+}
+
+.c-text-blu-500 {
+  color: var(--color-blue-500);
+}
+
+.c-text-white-base {
+  color: var(--color-white-base);
+}
+
+.c-text-gray-icon {
+  color: var(--color-gray-icon);
+}
+
+.c-text-primary {
+  color: var(--color-text-primary);
+}
+
+/* 圓角 --------------------------------------------------------------------------  */
+/* 26px */
+.ui-radius-26 {
+  border-radius: var(--radius-26);
+}
+
+.ui-radius-36 {
+  border-radius: var(--radius-36);
+}
+
+.ui-radius-48 {
+  border-radius: var(--radius-48);
+}
+
+.ui-radius-56 {
+  border-radius: var(--radius-56);
+}
+
+.ui-radius-80 {
+  border-radius: var(--radius-80);
+}
+
+/* 不論如何都會是最大圓角 */
+.ui-radius-999 {
+  border-radius: 9999px;
+}
+
+/* Icon Utilities -------------------------------------------------- */
+.c-icon-size-16 {
+  width: var(--icon-size-16);
+  height: var(--icon-size-16);
+}
+
+.c-icon-size-18 {
+  width: var(--icon-size-18);
+  height: var(--icon-size-18);
+}
+
+.c-icon-size-27 {
+  width: var(--icon-size-27);
+  height: var(--icon-size-27);
+}
+
+.c-icon-size-34 {
+  width: var(--icon-size-34);
+  height: var(--icon-size-34);
+}
+
+.c-icon-size-50 {
+  width: var(--icon-size-50);
+  height: var(--icon-size-50);
+}

@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.js 導覽列 (RWD 優化版)</title>
+    <!-- 引入 Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- 引入 Google Fonts - Noto Sans TC -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+    <!-- 引入 Vue.js -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        /* 根據提供的 JSON 規範定義 CSS 變數 */
+        :root {
+            --color-orange-500: #FF7F50;
+            --color-white-base: #FDFDFD;
+            --color-text-primary: #2C3E50;
+            --font-family-sans: 'Noto Sans TC', 'Gen Jyuu Gothic X', sans-serif;
+            --font-size-h2: 35px;
+            --font-size-h3: 28px;
+            --font-size-h4: 22px;
+            --font-weight-bold: 700;
+        }
+
+        body {
+            font-family: var(--font-family-sans);
+            background-color: #f0f2f5;
+        }
+
+        #app {
+            width: 100%;
+        }
+
+        /* 移除所有 a 標籤的底線 */
+        a, a:hover, a:focus, a:active {
+            text-decoration: none !important;
+            color: inherit; /* 確保連結繼承父元素的顏色 */
+        }
+
+        /* 導覽列主體樣式 */
+        .custom-navbar {
+            width: 100%;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: var(--color-orange-500);
+            padding: 0;
+            position: relative;
+        }
+        
+        /* 左側標題樣式 */
+        .navbar-brand-custom {
+            font-size: var(--font-size-h2);
+            color: var(--color-white-base) !important;
+            font-weight: var(--font-weight-bold);
+            margin-left: 114px;
+            z-index: 2;
+            white-space: nowrap;
+            transition: margin-left 0.3s ease;
+        }
+
+        /* 右側按鈕容器 (桌面版) */
+        .navbar-menu-container {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            padding-right: 50px;
+            background-color: var(--color-white-base);
+            border-top-left-radius: 80px;
+            border-bottom-left-radius: 80px;
+            padding-left: 40px;
+            transition: padding-right 0.3s ease;
+        }
+
+        /* 按鈕群組 (桌面版) */
+        .desktop-nav-items-group {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            height: 100%;
+        }
+
+        /* 按鈕與下拉選單的容器 (桌面版) */
+        .desktop-nav-item-wrapper {
+            position: relative;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        /* 按鈕樣式 (桌面版) */
+        .desktop-nav-link-custom {
+            font-size: var(--font-size-h3);
+            color: var(--color-text-primary);
+            font-weight: var(--font-weight-bold);
+            padding: 1rem 1rem;
+            transition: color 0.3s ease, border-color 0.3s ease;
+            cursor: pointer;
+            height: auto;
+            line-height: 1.2;
+            white-space: nowrap;
+            border-bottom: 3px solid transparent;
+        }
+
+        .desktop-nav-item-wrapper:hover .desktop-nav-link-custom {
+            color: var(--color-orange-500);
+            background-color: transparent;
+            border-bottom-color: var(--color-orange-500);
+        }
+
+        /* 分隔線 (桌面版) */
+        .divider {
+            width: 1px;
+            height: 34px;
+            background-color: #DEE2E6;
+        }
+        
+        .desktop-nav-items-group .desktop-nav-item-wrapper:last-child + .divider {
+            display: none;
+        }
+
+        .desktop-dropdown-menu-custom {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--color-white-base);
+            border-radius: 15px;
+            padding: 0;
+            min-width: max-content;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            z-index: 1021;
+            list-style: none;
+            border: none;
+        }
+
+        .desktop-nav-item-wrapper:hover .desktop-dropdown-menu-custom {
+            display: block;
+        }
+        
+        .desktop-dropdown-menu-custom li {
+            border-bottom: 2px solid #e9ecef;
+            padding: 10px;
+        }
+
+        .desktop-dropdown-menu-custom li:last-child {
+            border-bottom: none;
+        }
+
+        .desktop-dropdown-item-custom {
+            display: block;
+            padding: 15px 35px; 
+            white-space: nowrap;
+            font-size: var(--font-size-h4);
+            color: var(--color-text-primary);
+            text-align: center;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .desktop-dropdown-item-custom:hover {
+            color: var(--color-orange-500);
+            background-color: transparent;
+        }
+
+        /* RWD 漢堡選單按鈕 */
+        .navbar-toggler {
+            margin-right: 2rem;
+            border: 2px solid var(--color-white-base);
+        }
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(253, 253, 253, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        /* --- 手機版選單樣式 --- */
+        .mobile-nav-item-wrapper {
+            border-bottom: 1px solid #e9ecef;
+        }
+        .mobile-nav-item-wrapper:last-child {
+            border-bottom: none;
+        }
+
+        .mobile-nav-link {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            cursor: pointer;
+            font-size: var(--font-size-h4);
+            font-weight: var(--font-weight-bold);
+            color: var(--color-text-primary);
+        }
+        
+        /* 針對沒有子選單的連結，移除 space-between 以讓文字置中 */
+        a.mobile-nav-link {
+            justify-content: flex-start;
+        }
+
+        .mobile-nav-toggle {
+            font-size: 2rem;
+            font-weight: 300;
+            color: var(--color-text-primary);
+            line-height: 1;
+        }
+
+        .mobile-submenu {
+            background-color: #f8f9fa;
+            padding: 0.5rem 0 0.5rem 2.5rem; /* 內縮子選單 */
+        }
+
+        .mobile-submenu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .mobile-submenu li a {
+            display: block;
+            padding: 0.5rem 0;
+            color: var(--color-text-primary);
+            font-size: 18px;
+        }
+
+        .mobile-submenu li a:hover {
+            color: var(--color-orange-500);
+        }
+        
+        /* --- RWD Media Queries --- */
+
+        /* 1400px 以下調整 */
+        @media (max-width: 1399.98px) {
+            .navbar-brand-custom {
+                margin-left: 60px;
+            }
+            .navbar-menu-container {
+                padding-right: 60px;
+            }
+            .desktop-nav-link-custom {
+                font-size: 24px;
+                padding: 1rem 1rem;
+            }
+            .desktop-nav-items-group {
+                gap: 10px;
+            }
+        }
+
+        /* 超大型螢幕及以下 (1200px 以下)，啟用漢堡選單 */
+        @media (max-width: 1199.98px) {
+            .custom-navbar {
+                height: auto;
+                min-height: 80px;
+            }
+            .navbar-brand-custom {
+                margin-left: 2rem;
+                font-size: 28px;
+            }
+            .navbar-collapse {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--color-white-base);
+                padding: 0; /* 移除內邊距，由子元素控制 */
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                border-bottom-left-radius: 15px;
+                border-bottom-right-radius: 15px;
+            }
+        }
+
+        /* 小型螢幕 (576px 以下) */
+        @media (max-width: 575.98px) {
+            .navbar-brand-custom {
+                margin-left: 1rem;
+                font-size: 24px;
+            }
+            .navbar-toggler {
+                margin-right: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <nav class="navbar navbar-expand-xl custom-navbar">
+            <a class="navbar-brand-custom" href="#">少年英雄聯盟</a>
+
+            <!-- Bootstrap 漢堡按鈕 -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Bootstrap 可折疊內容 -->
+            <div class="collapse navbar-collapse" id="mainNav">
+                
+                <!-- 桌面版選單 (只在 xl 以上顯示) -->
+                <div class="navbar-menu-container ms-auto d-none d-xl-flex">
+                    <div class="desktop-nav-items-group">
+                        <template v-for="(item, index) in menuItems" :key="item.title">
+                            <div class="desktop-nav-item-wrapper">
+                                <a class="desktop-nav-link-custom">{{ item.title }}</a>
+                                <ul v-if="item.subItems && item.subItems.length > 0" class="desktop-dropdown-menu-custom">
+                                    <li v-for="subItem in item.subItems" :key="subItem">
+                                        <a class="desktop-dropdown-item-custom">{{ subItem }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div v-if="index < menuItems.length - 1" class="divider"></div>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- 手機/平板版選單 (只在 xl 以下顯示) -->
+                <div class="d-xl-none w-100">
+                    <div class="mobile-nav-items-group">
+                        <div v-for="item in menuItems" :key="item.title" class="mobile-nav-item-wrapper">
+                            
+                            <!-- v-if: 如果項目有子選單 (subItems)，則顯示可展開的按鈕 -->
+                            <template v-if="item.subItems && item.subItems.length > 0">
+                                <div class="mobile-nav-link" @click="toggleSubMenu(item.title)">
+                                    <span>{{ item.title }}</span>
+                                    <span class="mobile-nav-toggle">{{ openItem === item.title ? '−' : '+' }}</span>
+                                </div>
+                                <div v-if="openItem === item.title" class="mobile-submenu">
+                                    <ul>
+                                        <li v-for="subItem in item.subItems" :key="subItem">
+                                            <a href="#">{{ subItem }}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </template>
+
+                            <!-- v-else: 如果項目沒有子選單，則顯示為一個簡單的連結 -->
+                            <template v-else>
+                                <a href="#" class="mobile-nav-link">{{ item.title }}</a>
+                            </template>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </nav>
+    </div>
+
+    <!-- 引入 Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const { createApp, ref } = Vue;
+
+        createApp({
+            setup() {
+                // 導覽列資料
+                const menuItems = ref([
+                    { title: '首頁' },
+                    { title: '關於聯盟', subItems: ['聯盟簡介', '參與活動與集點說明'] },
+                    { title: '活動訊息', subItems: ['活動列表', '活動影音'] },
+                    { title: '未來研究所'},
+                    { title: '資源地圖'}
+                ]);
+
+                // 用於追蹤手機版當前開啟的選單項目
+                const openItem = ref(null);
+
+                // 切換子選單的顯示/隱藏
+                const toggleSubMenu = (title) => {
+                    // 如果點擊的項目是沒有子選單的，就直接返回不處理
+                    const targetItem = menuItems.value.find(item => item.title === title);
+                    if (!targetItem || !targetItem.subItems || targetItem.subItems.length === 0) {
+                        // 在這裡可以選擇導航到對應頁面
+                        console.log(`Navigate to ${title}`);
+                        return;
+                    }
+
+                    // 如果點擊的項目已經是開啟的，就將其關閉
+                    if (openItem.value === title) {
+                        openItem.value = null;
+                    } else {
+                        // 否則，開啟點擊的項目
+                        openItem.value = title;
+                    }
+                };
+
+                // 將資料和方法回傳給模板使用
+                return { 
+                    menuItems,
+                    openItem,
+                    toggleSubMenu
+                };
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>

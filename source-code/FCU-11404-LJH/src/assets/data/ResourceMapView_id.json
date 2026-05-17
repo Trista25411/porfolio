@@ -1,0 +1,424 @@
+[
+  {
+    "id": "01",
+    "name": "臺中市政府警察局",
+    "img": "01_taichung_police_department.png",
+    "website": "https://www.police.taichung.gov.tw/",
+    "categories": [
+      "安全與保護",
+      "政府與資源平台"
+    ],
+    "phone": "04-23289100",
+    "email": {
+      "text": "局長信箱",
+      "url": "https://suggest.police.taichung.gov.tw/opinion/?id=ch"
+    },
+    "address": "427003 臺中市潭子區豐興路一段500號",
+    "socials": [
+      {
+        "type": "FB",
+        "url": "https://www.facebook.com/taichung.police/?locale=zh_TW"
+      },
+      {
+        "type": "LINE",
+        "url": "https://line.me/R/ti/p/@tcpb"
+      },
+      {
+        "type": "YT",
+        "url": "https://www.youtube.com/@臺中市政府警察局-k9f"
+      }
+    ]
+  },
+  {
+    "id": "02",
+    "name": "臺中市政府少年輔導委員會",
+    "img": "02_taichung_juvenile_guidance_committee.png",
+    "website": "https://www.police.taichung.gov.tw/juvenile/",
+    "categories": [
+      "家庭與成長支援",
+      "安全與保護",
+      "健康與防治",
+      "社區參與",
+      "政府與資源平台"
+    ],
+    "phone": "04-22583709",
+    "email": {
+      "text": "phoebe@tcpb.gov.tw"
+    },
+    "address": "408 臺中市南屯區干城街2號1樓",
+    "socials": [
+      {
+        "type": "FB",
+        "url": "https://www.facebook.com/tcjcc.sw/?locale=zh_TW"
+      },
+      {
+        "type": "IG",
+        "url": "hhttps://www.instagram.com/tcjcc_sw"
+      }
+    ]
+  },
+  {
+    "id": "03",
+    "name": "臺中市政府警察局少年警察隊",
+    "img": "03_taichung_juvenile_police_squad.png",
+    "website": "https://www.police.taichung.gov.tw/TCPBWeb/wSite/lp?ctNode=524&mp=team07&idPath=5",
+    "categories": [
+      "家庭與成長支援",
+      "安全與保護",
+      "健康與防治",
+      "社區參與",
+      "政府與資源平台"
+    ],
+    "phone": "04-22583211",
+    "email": {
+      "text": "無"
+    },
+    "address": "臺中市南屯區干城街2號3樓",
+    "socials": [
+      {
+        "type": "FB",
+        "url": "https://www.facebook.com/profile.php?id=100065052901413"
+      },
+      {
+        "type": "YT",
+        "url": "https://www.youtube.com/@%E8%87%BA%E4%B8%AD%E5%B8%82%E5%B0%91%E5%B9%B4%E8%AD%A6%E5%AF%9F%E9%9A%8A"
+      }
+    ]
+  },
+  {
+    "id": "04",
+    "name": "TCPB 局長室",
+    "img": "04_tcpb_director_office.png",
+    "website": "https://www.police.taichung.gov.tw/TCPBWeb/wSite/ct?xItem=71477&ctNode=517&mp=1",
+    "categories": [
+      "安全與保護",
+      "政府與資源平台"
+    ],
+    "phone": "無",
+    "email": {
+      "text": "局長信箱",
+      "url": "https://suggest.police.taichung.gov.tw/opinion/?id=ch"
+    },
+    "address": "無",
+    "socials": [
+      {
+        "type": "FB",
+        "url": "https://www.facebook.com/tcpb.gov.tw"
+      },
+      {
+        "type": "IG",
+        "url": "https://www.instagram.com/tcpb_commissioner/?hl=zh-tw"
+      },
+      {
+        "type": "YT",
+        "url": "https://www.youtube.com/@TCPB"
+      }
+    ]
+  },
+  {
+    "id": "05",
+    "name": "臺中市政府教育局",
+    "img": "05_taichung_education_bureau.png",
+    "website": "https://www.tc.edu.tw/",
+    "categories": [
+      "家庭與成長支援",
+      "就業與職涯",
+      "社區參與",
+      "政府與資源平台"
+    ],
+    "phone": "04-22289111",
+    "email": {
+      "text": "官網信箱",
+      "url": "https://www.tc.edu.tw/page/1002cd37-3621-4933-a29d-85dab03d5a9a"
+    },
+    "address": "420018 臺中市豐原區陽明街36號",
+    "socials": [
+      {
+        "type": "FB",
+        "url": "https://www.facebook.com/TaichungEducation"
+      }
+    ]
+  },
+  {
+    "id": "06",
+    "name": "臺中市政府社會局",
+    "img": "06_taichung_social_bureau.png",
+    "website": "https://www.society.taichung.gov.tw/",
+    "categories": [
+      "家庭與成長支援",
+      "安全與保護",
+      "健康與防治",
+      "就業與職涯",
+      "社區參與",
+      "政府與資源平台"
+    ],
+    "phone": "04-22289111",
+    "email": {
+      "text": "無"
+    },
+    "address": "407610 臺中市西屯區臺灣大道三段99號惠中樓2樓",
+    "socials": [
+      {
+        "type": "FB",
+        "url": "https://www.facebook.com/social.taichung"
+      },
+      {
+        "type": "IG",
+        "url": "https://www.instagram.com/socialtaichung"
+      },
+      {
+        "type": "YT",
+        "url": "https://www.youtube.com/@%E8%87%BA%E4%B8%AD%E5%B8%82%E6%94%BF%E5%BA%9C%E7%A4%BE%E6%9C%83%E5%B1%80-z7c"
+      }
+    ]
+  },
+  {
+    "id": "07",
+    "name": "台中市衛生局-健康小衛星",
+    "img": "07_taichung_health_bureau_mini_satellite.png",
+    "website": "https://www.health.taichung.gov.tw/",
+    "categories": [
+      "家庭與成長支援",
+      "健康與防治",
+      "政府與資源平台"
+    ],
+    "phone": "04-22289111 (行動電話可撥打0910-289111)",
+    "email": {
+      "text": "無"
+    },
+    "address": "420206 臺中市豐原區中興路136號",
+    "socials": [
+      {
+        "type": "FB",
+        "url": "https://www.facebook.com/HealthTaichung/"
+      },
+      {
+        "type": "LINE",
+        "url": "https://lin.ee/2ApYmle"
+      },
+      {
+        "type": "YT",
+        "url": "https://www.youtube.com/@台中市衛生局-健康小"
+      }
+    ]
+  },
+  {
+    "id": "08",
+    "name": "勞動in台中 (勞工局)",
+    "img": "08_labor_in_taichung.png",
+    "website": "https://www.labor.taichung.gov.tw/",
+    "categories": [
+      "就業與職涯",
+      "政府與資源平台"
+    ],
+    "phone": "04-2228-9111 分機 35099",
+     "email": {
+      "text": "線上服務信箱",
+      "url": "https://labormail.taichung.gov.tw/"
+    },
+    "address": "407610 臺中市西屯區臺灣大道三段99號惠中樓4樓",
+    "socials": [
+      {
+        "type": "FB",
+        "url": "https://www.facebook.com/labor.taichung"
+      },
+      {
+        "type": "LINE",
+        "url": "https://page.line.me/xat.0000159730.1ar"
+      },
+      {
+        "type": "YT",
+        "url": "https://www.youtube.com/@labortaichung8190"
+      }
+    ]
+  },
+  {
+    "id": "09",
+    "name": "臺中市政府運動局",
+    "img": "09_taichung_sports_bureau.png",
+    "website": "https://www.sport.taichung.gov.tw/",
+    "categories": [
+      "家庭與成長支援",
+      "健康與防治",
+      "社區參與",
+      "政府與資源平台"
+    ],
+    "phone": "04-2228-9111",
+    "email": {
+      "text": "無"
+    },
+    "address": "407201 臺中市西屯區臺灣大道三段99號惠中樓10樓",
+    "socials": [
+      {
+        "type": "FB",
+        "url": "https://www.facebook.com/p/%E8%87%BA%E4%B8%AD%E5%B8%82%E6%94%BF%E5%BA%9C%E9%81%8B%E5%8B%95%E5%B1%80-100064083490300"
+      }
+    ]
+  },
+  {
+    "id": "10",
+    "name": "臺中市家庭暴力及性侵害防治中心",
+    "img": "10_taichung_d_vand_sa_prevention_center.png",
+    "website": "https://www.dvc.taichung.gov.tw/",
+    "categories": [
+      "家庭與成長支援",
+      "安全與保護",
+      "健康與防治",
+      "政府與資源平台"
+    ],
+    "phone": "04-2228-9111 分機 38750 (服務諮詢)",
+    "email": {
+      "text": "無"
+    },
+    "address": "420018 臺中市豐原區陽明街36號3樓",
+    "socials": []
+  },
+  {
+    "id": "11",
+    "name": "法務部-反毒大本營",
+    "img": "11_moj_anti_drug_base.png",
+    "website": "https://antidrug.moj.gov.tw/",
+    "categories": [
+      "安全與保護",
+      "健康與防治",
+      "政府與資源平台"
+    ],
+    "phone": "02-2191-0189",
+    "email": {
+      "text": "法務部民意信箱",
+      "url": "https://antidrug.moj.gov.tw/sp-opinionmail-1.html"
+    },
+    "address": "10048 臺北市中正區重慶南路一段130號",
+    "socials": [
+      {
+        "type": "FB",
+        "url": "https://www.facebook.com/profile.php?id=100068963087886&fref=ts#"
+      }
+    ]
+  },
+  {
+    "id": "12",
+    "name": "社團法人臺中市校園之愛學生志工運動聯盟協會",
+    "img": "12_taichung_campus_love_volunteer_association.png",
+    "website": "https://loveofcampus.org.tw/",
+    "categories": [
+      "家庭與成長支援",
+      "社區參與"
+    ],
+    "phone": "04-2436-9111",
+    "email": {
+      "text": "無"
+    },
+    "address": "406 台中市北屯區北興里江興街91號",
+    "socials": [
+      {
+        "type": "FB",
+        "url": "https://www.facebook.com/loveofcampus"
+      }
+    ]
+  },
+  {
+    "id": "13",
+    "name": "財團法人勵馨社會福利事業基金會",
+    "img": "13_the_garden_of_hope_foundation.png",
+    "website": "https://www.goh.org.tw/",
+    "categories": [
+      "家庭與成長支援",
+      "安全與保護",
+      "健康與防治"
+    ],
+    "phone": "電話 (台中分事務所)：(04) 2223-9595",
+    "email": "master@goh.org.tw",
+    "address": "40343 臺中市西區三民路一段174號11樓",
+    "socials": [
+      {
+        "type": "FB",
+        "url": "https://www.facebook.com/gohtaiwan"
+      }
+    ]
+  },
+  {
+    "id": "14",
+    "name": "財團法人台灣兒童暨家庭扶助基金會台中市北區分事務所",
+    "img": "14_taiwan_fund_for_children_taichung_north_branch.png",
+    "website": "https://www.ccf.org.tw/31",
+    "categories": [
+      "家庭與成長支援",
+      "安全與保護",
+      "就業與職涯",
+      "社區參與"
+    ],
+    "phone": "04-2206-1234",
+    "email": "fund@ccf.org.tw",
+    "address": "403508 臺中市西區民權路228號",
+    "socials": [
+      {
+        "type": "FB",
+        "url": "https://www.facebook.com/TFCF.tcc24"
+      }
+    ]
+  },
+  {
+    "id": "15",
+    "name": "財團法人台中市私立張秀菊社會福利慈善事業基金會",
+    "img": "15_chang_shiou_ju_charity_foundation.png",
+    "website": "https://www.tccsj.org.tw/",
+    "categories": [
+      "家庭與成長支援",
+      "安全與保護",
+      "就業與職涯"
+    ],
+    "phone": "04-2422-0023",
+    "email": "tccsjpublic@tccsj.org.tw",
+    "address": "406034 臺中市北屯區崇德路三段938號",
+    "socials": [
+      {
+        "type": "FB",
+        "url": "https://www.facebook.com/ChangShowJyu"
+      }
+    ]
+  },
+  {
+    "id": "16",
+    "name": "財團法人中華民國兒童福利聯盟文教基金會",
+    "img": "16_cwlf_child_welfare_league_foundation.png",
+    "website": "https://www.children.org.tw/",
+    "categories": [
+      "家庭與成長支援",
+      "安全與保護"
+    ],
+    "phone": "02-2799-0333",
+    "email": {
+      "text": "無"
+    },
+    "address": "114694 臺北市內湖區瑞光路583巷21號7樓",
+    "socials": [
+      {
+        "type": "FB",
+        "url": "https://www.facebook.com/childfirst"
+      }
+    ]
+  },
+  {
+    "id": "17",
+    "name": "財團法人臺中市私立迎曦社會福利基金會",
+    "img": "17_ying_si_welfare_foundation.png",
+    "website": "https://yingxi.org.tw/",
+    "categories": [
+      "家庭與成長支援",
+      "安全與保護",
+      "健康與防治",
+      "就業與職涯",
+      "社區參與"
+    ],
+    "phone": "04-2291-8198",
+    "email": "yingxiginging@gmail.com",
+    "address": "40448 臺中市北區漢口路四段35號8樓之1",
+    "socials": [
+      {
+        "type": "FB",
+        "url": "https://www.facebook.com/yingxi.ginging/"
+      }
+    ]
+  }
+]
