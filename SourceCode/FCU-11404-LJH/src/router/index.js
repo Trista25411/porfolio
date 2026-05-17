@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 // 預設載入首頁元件
 import HomeView from '@/views/HomeView.vue'
 // 將所有路由元件改為靜態載入
@@ -12,7 +12,7 @@ import EventMessageView from '@/views/EventMessageView.vue'
 
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory(import.meta.env.BASE_URL),
   
   // 每次切換頁面時，自動滾動到頁面頂部
   scrollBehavior(to, from, savedPosition) {
