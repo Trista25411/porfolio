@@ -27,6 +27,7 @@
   --font-size-18: 18px;
   --font-size-16: 16px;
   --font-size-14: 14px;
+  --font-size-12: 12px;
 }
 
 *,
@@ -61,8 +62,8 @@ h3 {
   font-weight: var(--font-weight-medium);
 }
 
-.title{
-    font-family: var(--font-family-yuji);
+.title {
+  font-family: var(--font-family-yuji);
 }
 
 .bigger {
@@ -75,6 +76,14 @@ h3 {
 
 .ts-big {
   font-size: var(--font-size-18);
+}
+
+.ts {
+  font-size: var(--font-size-16);
+}
+
+.ts-min {
+  font-size: var(--font-size-14);
 }
 
 @media (max-width:1200px) {
@@ -97,6 +106,14 @@ h3 {
   .ts-big,
   .title-main {
     font-size: var(--font-size-16);
+  }
+
+  .ts {
+    font-size: var(--font-size-14);
+  }
+
+  .ts-min {
+    font-size: var(--font-size-12);
   }
 }
 

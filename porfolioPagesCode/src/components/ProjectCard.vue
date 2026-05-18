@@ -18,7 +18,7 @@ const getImgUrl = (name: string) => {
             <div class="top">
                 <div class="left">
                     <img v-if="item.logo" :src="getImgUrl(item.logo)" alt="project-logo" class="logo">
-                    <div class="title-main">{{ item.title }}</div>
+                    <div class="ts">{{ item.title }}</div>
                 </div>
                 <a :href="item.links.find(l => l.name === 'DEMO')?.link" target="_blank">
                     <BaseButton icon="share" name="DEMO" class="demo" />
@@ -26,19 +26,19 @@ const getImgUrl = (name: string) => {
             </div>
             <img :src="getImgUrl(item.pic)" alt="project-pic" class="pic">
             <div class="btm">
-                <div class="title-main intr-area">
+                <div class="intr-area">
                     <!-- 使用 p 和 v-for 生成 intr 陣列中不同行文字 -->
                     <!-- 原理： 找出item.intr的陣列，存入line中，並在陣列中有幾筆資料就生成幾個 p，之後拿出{{ line }} 已是純文字，所以不會有陣列出現 -->
                     <!-- 若直接用{{ item.intr }}會直接出現陣列資料 -->
-                    <p v-for="(line, index) in item.intr" :key="index" class="intr">{{ line }}</p>
+                    <p v-for="(line, index) in item.intr" :key="index" class="intr ts">{{ line }}</p>
                 </div>
-                <div v-if="item.source[0].name">
+                <div v-if="item.source[0].name" class="ts-min">
                     <span>來源：</span>
                     <a v-for="src in item.source" :key="src.name" :href="src.link" target="_blank" class="source">{{
                         src.name }}</a>
                 </div>
                 <div class="tag-area">
-                    <span v-for="tag in item.tech" :key="tag.name" class="ts-big tag">{{ tag.name }}</span>
+                    <span v-for="tag in item.tech" :key="tag.name" class="ts-min tag">{{ tag.name }}</span>
                 </div>
             </div>
         </div>
@@ -143,6 +143,13 @@ button:hover {
 }
 
 @media (max-width:1350px) {
+    .project-container{
+        width: 350px;
+    }
+
+    .btm{
+        padding: 15px 25px;
+    }
 
     .tag {
         font-size: var(--font-size-14);

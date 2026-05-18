@@ -52,7 +52,7 @@ const skillItems = [
         <div class="intr">
           <h1 class="title">I’m Trista.</h1>
           <p class="bigger">網頁切版 | 前端開發 | UI/UX </p>
-          <div class="title-main">
+          <div class="title-main intr-text">
             <p>專精於將 Figma 設計稿精準轉化為具響應式結構的網頁架構。</p>
             <p>具備 CSS 佈局能力（Flexbox/Grid）與 HTML5 語意化觀念，</p>
             <p>運用 TypeScript 與 Vue.js實作前端交互邏輯。</p>
@@ -138,6 +138,7 @@ h2 {
   display: grid;
   grid-template-columns: 60% 40%;
   align-items: center;
+  justify-content: center;
 }
 
 .intr-bg {
@@ -158,7 +159,6 @@ h2 {
 .intr-text {
   display: flex;
   flex-direction: column;
-  font-size: var(--font-size-20);
   line-height: 1.8;
 }
 
@@ -315,7 +315,7 @@ h2 {
   .container {
     padding: 80px 30px;
   }
-  
+
   .intr-area {
     grid-template-columns: 1fr;
     width: 90%;
