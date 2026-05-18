@@ -11,7 +11,8 @@ api網頁：https://restcountries.com/  篩選取得要的東西
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref } from 'vue';
 import CountryCard from '../components/CountryCard.vue';
-import localData from '../assets/data.json';
+// 打包封裝後放在 assets 沒辦法辨識到，初始化就無法識別而產生白屏 => 改放到 public，路徑也作變更
+// import localData from '../assets/data.json';
 
 // 定義結構 慣例首字母大寫
 interface Country {
@@ -55,7 +56,9 @@ const fetchCountries = async () => {
         }));
     } catch (error) {
         console.warn('API出錯, 改用本地資料data.json');
-        countries.value = localData.map(item => ({
+        const localData = await fetch('./data.json');
+        const backupData = await localData.json();
+        countries.value = backupData.map((item:any) => ({
             // 本地資料也要變成一樣的格式
             id: item.alpha3Code,
             name: item.name,
