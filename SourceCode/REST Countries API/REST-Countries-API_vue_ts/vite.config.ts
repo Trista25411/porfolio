@@ -6,7 +6,7 @@ import vue from '@vitejs/plugin-vue'
 // https://vite.dev/config/
 export default defineConfig(({ command }) => {
   return {
-    base: command === 'build' ? '/porfolio/projectsLink/REST-Countries-API_vue_ts/' : '/',
+    base: command === 'build' ? '/porfolio/projectsLink/RestCountriesVueTs/' : '/',
 
     // 因ion-的icon報錯，改成以下內容
     plugins: [
