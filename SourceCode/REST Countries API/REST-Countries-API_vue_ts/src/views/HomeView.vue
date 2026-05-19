@@ -60,6 +60,7 @@ const fetchCountries = async () => {
             const localData = await fetch('./data.json');
             if (!localData.ok) throw new Error('本地 JSON 讀取失敗');
             const backupData = await localData.json();
+            console.log('備用資料測試 backupData:', backupData);
             countries.value = backupData.map((item: any) => ({
                 // 本地資料也要變成一樣的格式
                 // 本地的資料型態不同，但也要跟上面 api 輸入的內容一致，才不會找不到直接不顯示
@@ -70,6 +71,7 @@ const fetchCountries = async () => {
                 capital: item.capital?.[0] || item.capital || 'N/A',
                 flag: item.flags.svg || item.flags.png
             }));
+            console.log('備用 countries.value 測試:', countries.value);
         } catch (localError) {
             console.error('本地資料也讀取失敗:', localError);
         }
