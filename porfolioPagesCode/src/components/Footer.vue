@@ -261,6 +261,7 @@ button {
     justify-content: center;
     gap: 45px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    padding: 0 30px;
 }
 
 .alert-btns {
@@ -271,6 +272,7 @@ button {
 
 .alertBtn {
     border: 1px solid var(--border-color);
+    justify-content: center;
 }
 
 @media (max-width:1750px) {

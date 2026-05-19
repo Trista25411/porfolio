@@ -391,7 +391,7 @@ onUnmounted(() => window.removeEventListener('keydown', handleKey));
 
 @media (max-width:800px) {
     .container {
-        padding: 100px 50px 0 50px;
+        padding: 80px 50px 0 50px;
         gap: 40px;
     }
 
@@ -406,7 +406,7 @@ onUnmounted(() => window.removeEventListener('keydown', handleKey));
 
 @media (max-width:600px) {
     .container {
-        padding: 100px 30px 0 30px;
+        padding: 80px 30px 0 30px;
         gap: 40px;
     }
 

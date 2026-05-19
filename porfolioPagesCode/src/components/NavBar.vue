@@ -24,7 +24,8 @@ const navItems = ([
         <button type="button" class="ham" @click="isMenuOpen = !isMenuOpen">
             <ion-icon :name="isMenuOpen ? 'close-outline' : 'menu-outline'" class="ham-btn"></ion-icon>
         </button>
-        <div class="nav-area" :class="{ 'show': isMenuOpen }">
+        <!--                                                   點選 nav 中的某個東西，自動把 navbar 給隱藏 -->
+        <div class="nav-area" :class="{ 'show': isMenuOpen }" @click="isMenuOpen = false">
             <div class="link">
                 <RouterLink to="/">
                     <span class="full-logo">TRISTA的作品集</span>
@@ -84,7 +85,7 @@ const navItems = ([
 
 .nav-area {
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
     gap: 35px;
     padding: 80px 0 80px 30px;
     position: fixed;
@@ -173,7 +174,7 @@ const navItems = ([
 
     .nav-area {
         position: static;
-        flex-direction: row;
+        /* flex-direction: row; */
         padding: 10px 30px;
         display: flex;
         align-items: center;

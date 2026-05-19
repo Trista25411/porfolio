@@ -42,6 +42,25 @@ const skillItems = [
     ]
   }
 ];
+
+const progressItems = [
+  {
+    mark: '階段一',
+    items: { name: '原生語法與排版基礎', skill: 'Semantic HTML、CSS Grid/Flexbox、JS30 邏輯鍛鍊', project: '微軟仿切 / JS30' }
+  },
+  {
+    mark: '階段二',
+    items: { name: '現代框架與設計系統', skill: 'Figma 設計規範、Vue 3 Composition API、Boostrap', project: '合記 / 少年英雄聯盟 ' }
+  },
+  {
+    mark: '階段三',
+    items: { name: '工程化與型別安全', skill: 'TypeScript、異步資料處理、備援機制', project: 'Space Tourism / REST API' }
+  },
+  {
+    mark: '階段四',
+    items: { name: '環境部署與組件管理', skill: 'Storybook、GitHub Pages 多子目錄部署、 路由問題排除', project: '個人作品集網站開發' }
+  },
+];
 </script>
 
 <template>
@@ -101,6 +120,24 @@ const skillItems = [
       </div>
     </section>
 
+    <section id="progress">
+      <h2>
+        <ion-icon name="chevron-forward-outline"></ion-icon>
+        <span>技術演進與成長軌跡</span>
+      </h2>
+      <div class="progress-area">
+        <div v-for="(group, index) in progressItems" :key="index" class="progress-text">
+          <div class="progress">
+            <div class="mark">{{ group.mark }}</div>
+            <h3 class="progress-name">{{ group.items.name }}</h3>
+            <P class="progress-skill">{{ group.items.skill }}</P>
+            <div class="progress-project">{{ group.items.project }}</div>
+          </div>
+          <div v-if="index < progressItems.length - 1" class="progress-arrow">→</div>
+        </div>
+      </div>
+    </section>
+
     <section id="life">
       <img src="../assets/pic/bg-pic-2.png" alt="bg-pic" class="bg-pic">
       <h2>
@@ -113,6 +150,10 @@ const skillItems = [
 </template>
 
 <style scoped>
+section[id] {
+  scroll-margin-top: 200px;
+}
+
 h2 {
   display: flex;
   align-items: center;
@@ -275,6 +316,50 @@ h2 {
   scroll-snap-align: start;
 }
 
+#progress{
+  margin:-30px 0 20px;
+}
+
+.progress-area {
+  padding-top: 40px;
+  display: flex;
+  gap: 5px;
+}
+
+.progress-text {
+  width: calc(100% / 4);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.mark {
+  background-color: var(--tech-yellow);
+  margin-top: -20px;
+  border-radius: 10px;
+  padding: 5px 10px;
+}
+
+.progress {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding: 10px;
+  gap: 10px;
+}
+
+.progress-skill {
+  text-align: center;
+}
+
+.progress-project {
+  background-color: rgba(0, 50, 50, 0.1);
+  padding: 5px 10px;
+  border-radius: 10px;
+}
+
 #life {
   display: flex;
   flex-direction: column;
@@ -294,7 +379,6 @@ h2 {
   /* 墊在文字下面 */
 }
 
-
 @media (max-width:1500px) {
   .container {
     padding-top: 100px;
@@ -308,6 +392,25 @@ h2 {
 @media (max-width:1200px) {
   .container {
     padding: 80px 50px;
+  }
+
+  .progress-area,
+  .progress-text {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .progress-area {
+    align-items: center;
+  }
+
+  .progress {
+    width: 500px;
+    gap: 20px;
+  }
+
+  .progress-arrow {
+    transform: rotate(90deg);
   }
 }
 
@@ -341,6 +444,20 @@ h2 {
     grid-template-rows: 200px 200px;
     grid-template-areas:
       "card0 card2" "card1 card3";
+  }
+}
+
+@media (max-width:550px) {
+  .about-img {
+    width: 50%;
+  }
+
+  .intr-text {
+    display: inline;
+  }
+
+  .progress {
+    width: 250px;
   }
 }
 

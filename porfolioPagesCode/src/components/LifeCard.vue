@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, watch } from 'vue';
+import { ref, computed, onMounted, onUnmounted, watch } from 'vue';
 import BaseButton from './BaseButton.vue';
 import { allPhotos } from '../data/lifecard';
 
@@ -7,7 +7,7 @@ import { allPhotos } from '../data/lifecard';
 const activeCategory = ref('全部');
 const getInitial = () => {
     const width = window.innerWidth
-    if (width < 800) return 1;
+    if (width < 650) return 1;
     if (width < 1200) return 2;
     if (width < 1900) return 3;
     if (width < 2200) return 4;
@@ -17,12 +17,18 @@ const getInitial = () => {
 // 預設圖片隨著視窗大小變化
 const showLimit = ref(getInitial());
 // 原先進入伺服器只會載入一次，因要隨著視窗大小，要跟著一起變動
+const handleReize = () => {
+    if (!isAllShow.value) {
+        showLimit.value = getInitial();
+    };
+};
+
 onMounted(() => {
-    window.addEventListener('resize', () => {
-        if (!isAllShow.value) {
-            showLimit.value = getInitial();
-        };
-    });
+    window.addEventListener('resize', handleReize)
+});
+// vue 跳轉還會在伺服器中，要隨時刪掉不然會積太多導致電腦運轉不順
+onUnmounted(() => {
+    window.removeEventListener('resize', handleReize)
 });
 
 // tags
@@ -62,7 +68,11 @@ const toggleShow = () => {
     if (isAllShow.value) {
         showLimit.value = getInitial();
     } else {
-        showLimit.value += 25;
+        // 一開始顯示的圖片數量大於 2，每次點擊『查看更多』就增加跟初始數量一樣多的張數；
+        // 若初始數量小於或等於 2 （例如手機版只顯示 1 張），那每次就固定增加 4 張
+        // 一樣是用 => 條件 ? 成立時的結果 : 不成立時的結果
+        const step = getInitial() > 2 ? getInitial() : 3;
+        showLimit.value += step;
     };
 };
 
@@ -99,9 +109,13 @@ const shuffle = <T>(arr: T[]): T[] => {
             </div>
         </div>
         <div class="more-content">
-            <div v-if="filterPhotos.length > getInitial()" @click="toggleShow" class="more">
-                <span class="more-text">{{ isAllShow ? '收起內容' : '顯示全部' }}</span>
-                <ion-icon :name="isAllShow ? 'chevron-up-outline' : 'chevron-down-outline'"></ion-icon>
+            <div v-if="showLimit > getInitial()" @click="showLimit = getInitial()" class="more">
+                <span class="more-text">收起內容</span>
+                <ion-icon name="chevron-up-outline"></ion-icon>
+            </div>
+            <div v-if="!isAllShow && filterPhotos.length > getInitial()" @click="toggleShow" class="more">
+                <span class="more-text">顯示更多</span>
+                <ion-icon name="chevron-down-outline"></ion-icon>
             </div>
         </div>
     </div>
@@ -169,5 +183,25 @@ const shuffle = <T>(arr: T[]): T[] => {
 .more:hover .more-text,
 .more:hover ion-icon {
     color: var(--green);
+}
+
+@media (max-width:700px) {
+    .tags :deep(button) {
+        height: auto;
+        padding: 5px 15px 5px 10px;
+    }
+
+    .life-container,
+    .tags {
+        gap: 20px;
+    }
+
+    .large {
+        width: 250px;
+    }
+
+    .wide {
+        width: 300px;
+    }
 }
 </style>

@@ -143,12 +143,15 @@ button:hover {
 }
 
 @media (max-width:1350px) {
-    .project-container{
+    .project-container {
         width: 350px;
     }
 
-    .btm{
-        padding: 15px 25px;
+    .btm {
+        padding: 10px 25px 25px;
+    }
+        .intr-area {
+        height: 100px;
     }
 
     .tag {
@@ -169,7 +172,6 @@ button:hover {
     .demo {
         padding: 0;
     }
-
 }
 
 @media (max-width:500px) {
@@ -177,9 +179,8 @@ button:hover {
         width: 250px;
     }
 
-    .top {
-        flex-direction: column;
-        align-items: end;
+    .demo {
+        display: none;
     }
 }
 </style>
