@@ -24,7 +24,7 @@ const darkMode = () => {
             <span>Dark Mode</span>
         </button>
     </nav>
-    <router-view />
+    <RouterView />
 </template>
 
 <style>
