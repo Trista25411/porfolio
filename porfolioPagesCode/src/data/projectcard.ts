@@ -127,7 +127,7 @@ export const Project: ProjectItem[] = [
         links: [
             { name: 'Figma', link: 'https://www.figma.com/design/JWyOtRYrt2dizQXnjMqpkG/%E5%B0%91%E5%B9%B4%E8%8B%B1%E9%9B%84%E8%81%AF%E7%9B%9F-%E7%B6%B2%E7%AB%99%E6%94%B9%E7%89%88?node-id=0-1&t=UyEUi9r5smnDAMOq-1' },
             { name: 'GITHUB', link: 'https://github.com/Trista25411/porfolio/tree/main/source-code/FCU-11404-LJH' },
-            { name: 'DEMO', link: '' },
+            { name: 'DEMO', link: 'https://trista25411.github.io/porfolio/projectsLink/LJH/index.html#/' },
         ],
     },
     {
@@ -295,7 +295,7 @@ export const Project: ProjectItem[] = [
         ],
         links: [
             { name: 'GITHUB', link: 'https://github.com/Trista25411/porfolio/tree/main/source-code/space-tourism%20completed' },
-            { name: 'DEMO', link: '' },
+            { name: 'DEMO', link: 'https://trista25411.github.io/porfolio/projectsLink/SpaceTourismVueTs/index.html' },
         ],
     },
 
@@ -435,7 +435,7 @@ export const Project: ProjectItem[] = [
         ],
         links: [
             { name: 'GITHUB', link: 'https://github.com/Trista25411/porfolio/tree/main/source-code/Microsoft-index%20RWD' },
-            { name: 'DEMO', link: '' },
+            { name: 'DEMO', link: 'https://trista25411.github.io/porfolio/projectsLink/Microsoft/index.html' },
         ],
     },
     {

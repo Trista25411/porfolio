@@ -9,7 +9,7 @@ const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/index.html',
+      path: '/',
       name: 'home',
       component: () => import('../views/HomeView.vue'),
       // 路徑報錯 => ts不認得vue檔案，要到env.d.ts加入宣告
