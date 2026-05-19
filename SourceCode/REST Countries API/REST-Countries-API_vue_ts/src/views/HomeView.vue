@@ -37,6 +37,7 @@ const fetchCountries = async () => {
         // 串接 api 網址，需要一點時間
         // await讓程式抓取資料再繼續下去，避免抓到空資料
         const response = await fetch('https://restcountries.com/v3.1/all?fields=name,flags,cca3,population,region,capital');
+        if (!response.ok) throw new Error('API 異常');
         const rawData = await response.json();
 
         // 將 api 資料轉為自訂的標準，
@@ -55,18 +56,23 @@ const fetchCountries = async () => {
             flag: item.flags.svg || item.flags.png
         }));
     } catch (error) {
-        console.warn('API出錯, 改用本地資料data.json');
-        const localData = await fetch('./data.json');
-        const backupData = await localData.json();
-        countries.value = backupData.map((item:any) => ({
-            // 本地資料也要變成一樣的格式
-            id: item.alpha3Code,
-            name: item.name,
-            population: item.population,
-            region: item.region,
-            capital: item.capital || 'N/A',
-            flag: item.flags.png
-        }));
+        try {
+            const localData = await fetch('./data.json');
+            if (!localData.ok) throw new Error('本地 JSON 讀取失敗');
+            const backupData = await localData.json();
+            countries.value = backupData.map((item: any) => ({
+                // 本地資料也要變成一樣的格式
+                // 本地的資料型態不同，但也要跟上面 api 輸入的內容一致，才不會找不到直接不顯示
+                id: item.cca3 || item.alpha3Code,
+                name: item.name || item.name.common,
+                population: item.population,
+                region: item.region,
+                capital: item.capital?.[0] || item.capital || 'N/A',
+                flag: item.flags.svg || item.flags.png
+            }));
+        } catch (localError) {
+            console.error('本地資料也讀取失敗:', localError);
+        }
     };
 };
 
