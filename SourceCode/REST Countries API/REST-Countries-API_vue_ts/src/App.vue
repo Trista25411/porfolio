@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import { RouterView } from 'vue-router';
 
 const isDark = ref(false); //預設淺色模式
 const darkMode = () => {
