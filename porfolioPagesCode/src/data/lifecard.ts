@@ -10,10 +10,10 @@ export interface PhotoItem {
 };
 
 export const allPhotos: PhotoItem[] = [
-    { id: 1, category: '風景', pic: 's-1', size: 'large', text: '海之女神' },
-    { id: 2, category: '風景', pic: 's-2', size: 'large', text: '異國冬景' },
-    { id: 3, category: '風景', pic: 's-3', size: 'wide', text: '意外的相見' },
-    { id: 4, category: '風景', pic: 's-4', size: 'large', text: '舒適想念的環境' },
+    { id: 1, category: '風景', pic: 's-1', size: 'large', text: '' },
+    { id: 2, category: '風景', pic: 's-2', size: 'large', text: '' },
+    { id: 3, category: '風景', pic: 's-3', size: 'wide', text: '' },
+    { id: 4, category: '風景', pic: 's-4', size: 'large', text: '' },
     { id: 5, category: '風景', pic: 's-5', size: 'wide', text: '' },
     { id: 6, category: '風景', pic: 's-6', size: 'large', text: '' },
     { id: 7, category: '風景', pic: 's-7', size: 'large', text: '' },
@@ -35,6 +35,6 @@ export const allPhotos: PhotoItem[] = [
     { id: 24, category: '手作', pic: 'h-1', size: 'large', text: '' },
     { id: 25, category: '手作', pic: 'h-2', size: 'large', text: '' },
     { id: 26, category: '手作', pic: 'h-3', size: 'large', text: '' },
-    { id: 27, category: '手作', pic: 'h-5', size: 'large', text: '偶爾' },
-    { id: 28, category: '手作', pic: 'h-6', size: 'large', text: '簡單樸實的滿足' },
+    { id: 27, category: '手作', pic: 'h-5', size: 'large', text: '' },
+    { id: 28, category: '手作', pic: 'h-6', size: 'large', text: '' },
 ];

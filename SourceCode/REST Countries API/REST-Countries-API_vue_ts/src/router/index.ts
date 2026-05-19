@@ -11,6 +11,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
+      alias: ['/index.html', '/porfolio/projectsLink/RestCountriesVueTs/'],
       component: () => import('../views/HomeView.vue'),
       // 路徑報錯 => ts不認得vue檔案，要到env.d.ts加入宣告
     },
