@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import BaseButton from './BaseButton.vue';
 import type { ProjectItem } from '@/data/projectcard';
 
 defineProps<{
@@ -7,8 +6,7 @@ defineProps<{
 }>();
 
 const getImgUrl = (name: string) => {
-    const path = `${import.meta.env.BASE_URL}pic/project/${name}.jpg`;
-    return new URL(path, import.meta.url).href;
+    return `${import.meta.env.BASE_URL}pic/project/${name}.jpg`;
 };
 </script>
 

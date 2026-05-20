@@ -3,8 +3,10 @@ import ProjectCard from '../components/ProjectCard.vue';
 import { Project } from '@/data/projectcard';
 import LifeCard from '../components/LifeCard.vue';
 
+// img 打包因路徑關係變化導致找不到產生破圖，vite.config.ts 寫入並修改路徑名稱
+const baseUrl = import.meta.env.BASE_URL;
 const getImgUrl = (name: string) => {
-  return new URL(`${import.meta.env.BASE_URL}icon/${name}.svg`, import.meta.url).href
+  return `${baseUrl}icon/${name}.svg`;
 };
 
 const skillItems = [
@@ -61,9 +63,6 @@ const progressItems = [
     items: { name: '環境部署與組件管理', skill: 'Storybook、GitHub Pages 多子目錄部署、路由問題排除', project: '個人作品集網站開發' }
   },
 ];
-
-// img 打包因路徑關係變化導致找不到產生破圖，vite.config.ts 寫入並修改路徑名稱
-const baseUrl = import.meta.env.BASE_URL;
 </script>
 
 <template>

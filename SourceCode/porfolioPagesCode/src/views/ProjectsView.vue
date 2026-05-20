@@ -18,17 +18,19 @@ const projectId = computed(() => Number(route.params.id));
 const currentProject = computed(() => {
     return Project.find(p => p.id === projectId.value);
 });
+
+const baseUrl = import.meta.env.BASE_URL;
 // 取得 title picture
 const getImgUrl = (name: string) => {
-    return new URL(`${import.meta.env.BASE_URL}pic/project/${name}.jpg`, import.meta.url).href;
+    return `${baseUrl}pic/project/${name}.jpg`;
 };
 // 取得 tech icon
 const getImgIcon = (iconName: string) => {
-    return new URL(`${import.meta.env.BASE_URL}icon/${iconName}.svg`, import.meta.url).href;
+    return `${baseUrl}icon/${iconName}.svg`;
 };
 // 取得 rwd img
 const getRwdUrl = (name: string) => {
-    return new URL(`${import.meta.env.BASE_URL}project/${name}.png`, import.meta.url).href;
+    return `${baseUrl}pic/project/${name}.png`;
 };
 
 // 確保使用者有確切點選某張圖片，value不等於null的時候變化
@@ -125,7 +127,7 @@ onUnmounted(() => window.removeEventListener('keydown', handleKey));
                 <div class="ts-big">
                     <span>來源：</span>
                     <a v-for="src in currentProject.source" :key="src.name" :href="src.link" target="_blank">{{ src.name
-                        }}</a>
+                    }}</a>
                 </div>
             </div>
             <img :src="getImgUrl(currentProject.pic)" alt="project-img">
@@ -436,7 +438,7 @@ onUnmounted(() => window.removeEventListener('keydown', handleKey));
         font-size: var(--font-size-14);
     }
 
-    #title{
+    #title {
         margin: 0;
     }
 
@@ -451,12 +453,13 @@ onUnmounted(() => window.removeEventListener('keydown', handleKey));
         gap: 40px;
     }
 
-    #home,.name {
+    #home,
+    .name {
         flex-direction: column;
         gap: 30px;
     }
 
-    .name{
+    .name {
         align-items: start;
     }
 

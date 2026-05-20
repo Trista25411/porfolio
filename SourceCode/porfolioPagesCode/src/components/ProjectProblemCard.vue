@@ -14,10 +14,10 @@ const numberDisplay = (num: number) => {
     return (num + 1).toString().padStart(2, '0');
 };
 
+const baseUrl = import.meta.env.BASE_URL;
 const getImgUrl = (name: string | undefined) => {
     if (!name) return;
-    const path = `${import.meta.env.BASE_URL}pic/project/${name}.png`;
-    return new URL(path, import.meta.url).href;
+    return `${baseUrl}pic/project/${name}.png`;
 };
 
 // 照片可自由滑動 "Custom Scroll" / "Drag-to-Scroll" => 手機版依原生觸控滾動，電腦版透過 JS 模擬抓取（Grab）
@@ -144,7 +144,7 @@ watch(currentItem, () => {
             <div class="action-area">
                 <div class="action">Action (處理方式)</div>
                 <div v-for="act in items[currentItem].action" class="act-line">
-                    <img src="../assets/icon/leaves.svg" alt="action-icon">
+                    <img :src="`${baseUrl}icon/leaves.svg`" alt="action-icon">
                     <span>{{ act }}</span>
                 </div>
             </div>

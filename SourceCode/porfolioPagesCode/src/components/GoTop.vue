@@ -30,7 +30,7 @@ const baseUrl = import.meta.env.BASE_URL;
 <template>
     <div v-if="isVisible" class="gotop-container" :class="{ 'is-stop-footer': isAtFooter }" @click="scrollToTop">
         <div class="go-top">TOP↑</div>
-        <img :src="`${baseUrl}pic/gotop.png`" alt="gotop" class="gotop-pic">
+        <img :src="`${baseUrl}/pic/gotop.png`" alt="gotop" class="gotop-pic">
     </div>
 </template>
 

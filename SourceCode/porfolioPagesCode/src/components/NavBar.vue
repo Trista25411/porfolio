@@ -13,7 +13,7 @@ const isProjectOpen = ref(false);
 
 // 匯入資料夾 icon 圖示
 const getImgUrl = (name: string) => {
-    return new URL(`${import.meta.env.BASE_URL}icon/${name}.svg`, import.meta.url).href
+    return `${import.meta.env.BASE_URL}icon/${name}.svg`;
 };
 
 const navItems = ([
@@ -46,12 +46,6 @@ const handleNavClick = (itemName: string, itemPath: string, e: Event) => {
         isMenuOpen.value = false;
         isProjectOpen.value = false;
     }
-};
-
-// 點擊下拉選單某專案切換過去後，選單自動收回
-const handleProjectItemClick = () => {
-    isMenuOpen.value = false;
-    isProjectOpen.value = false;
 };
 
 // 切換頁面就重置所有選單狀態
