@@ -24,12 +24,13 @@ const scrollToTop = () => {
 onMounted(() => window.addEventListener('scroll', handleScroll));
 onUnmounted(() => window.removeEventListener('scroll', handleScroll));
 
+const baseUrl = import.meta.env.BASE_URL;
 </script>
 
 <template>
     <div v-if="isVisible" class="gotop-container" :class="{ 'is-stop-footer': isAtFooter }" @click="scrollToTop">
         <div class="go-top">TOP↑</div>
-        <img src="../assets/pic/gotop.png" alt="gotop" class="gotop-pic">
+        <img :src="`${baseUrl}pic/gotop.png`" alt="gotop" class="gotop-pic">
     </div>
 </template>
 

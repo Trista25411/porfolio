@@ -7,7 +7,7 @@ defineProps<{
 }>();
 
 const getImgUrl = (name: string) => {
-    const path = `/src/assets/pic/project/${name}.jpg`;
+    const path = `${import.meta.env.BASE_URL}pic/project/${name}.jpg`;
     return new URL(path, import.meta.url).href;
 };
 </script>

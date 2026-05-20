@@ -4,7 +4,7 @@ import { Project } from '@/data/projectcard';
 import LifeCard from '../components/LifeCard.vue';
 
 const getImgUrl = (name: string) => {
-  return new URL(`/src/assets/icon/${name}.svg`, import.meta.url).href
+  return new URL(`${import.meta.env.BASE_URL}icon/${name}.svg`, import.meta.url).href
 };
 
 const skillItems = [
@@ -61,6 +61,9 @@ const progressItems = [
     items: { name: '環境部署與組件管理', skill: 'Storybook、GitHub Pages 多子目錄部署、路由問題排除', project: '個人作品集網站開發' }
   },
 ];
+
+// img 打包因路徑關係變化導致找不到產生破圖，vite.config.ts 寫入並修改路徑名稱
+const baseUrl = import.meta.env.BASE_URL;
 </script>
 
 <template>
@@ -78,9 +81,9 @@ const progressItems = [
             <p>製作過團隊、多項獨立專案，追求代碼的乾淨與視覺的高還原度。</p>
           </div>
         </div>
-        <img src="../assets/pic/personal-flower.png" alt="about-img" class="about-img">
+        <img :src="`${baseUrl}pic/personal-flower.png`" alt="about-img" class="about-img">
       </div>
-      <img src="../assets/pic/intr-bg.png" alt="" class="intr-bg">
+      <img :src="`${baseUrl}pic/intr-bg.png`" alt="" class="intr-bg">
     </section>
 
     <section id="skill">
@@ -139,7 +142,7 @@ const progressItems = [
     </section>
 
     <section id="life">
-      <img src="../assets/pic/bg-pic-2.png" alt="bg-pic" class="bg-pic">
+      <img :src="`${baseUrl}pic/bg-pic-2.png`" alt="bg-pic" class="bg-pic">
       <h2>
         <ion-icon name="chevron-forward-outline"></ion-icon>
         <span>生活日常</span>
@@ -219,22 +222,22 @@ h2 {
 
 .card-0 {
   grid-area: card0;
-  background-image: url(../assets/pic/skill/bg-1.svg);
+  background-image: url('@/assets/pic/bg-1.svg');
 }
 
 .card-1 {
   grid-area: card1;
-  background-image: url(../assets/pic/skill/bg-2.svg);
+  background-image: url('@/assets/pic/bg-2.svg');
 }
 
 .card-2 {
   grid-area: card2;
-  background-image: url(../assets/pic/skill/bg-3.svg);
+  background-image: url('@/assets/pic/bg-3.svg');
 }
 
 .card-3 {
   grid-area: card3;
-  background-image: url(../assets/pic/skill/bg-4.svg);
+  background-image: url('@/assets/pic/bg-4.svg');
 }
 
 .skill-card {

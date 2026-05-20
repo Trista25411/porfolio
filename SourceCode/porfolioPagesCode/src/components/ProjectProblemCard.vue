@@ -16,7 +16,7 @@ const numberDisplay = (num: number) => {
 
 const getImgUrl = (name: string | undefined) => {
     if (!name) return;
-    const path = `/src/assets/pic/project/${name}.png`;
+    const path = `${import.meta.env.BASE_URL}pic/project/${name}.png`;
     return new URL(path, import.meta.url).href;
 };
 

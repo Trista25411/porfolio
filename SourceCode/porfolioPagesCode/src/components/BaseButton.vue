@@ -7,7 +7,7 @@ const props = defineProps<{
 }>();
 
 const getImgUrl = (name: string) => {
-    return new URL(`/src/assets/icon/${name}.svg`, import.meta.url).href
+    return new URL(`${import.meta.env.BASE_URL}icon/${name}.svg`, import.meta.url).href
 };
 </script>
 

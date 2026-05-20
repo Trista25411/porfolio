@@ -20,15 +20,15 @@ const currentProject = computed(() => {
 });
 // 取得 title picture
 const getImgUrl = (name: string) => {
-    return new URL(`/src/assets/pic/project/${name}.jpg`, import.meta.url).href;
+    return new URL(`${import.meta.env.BASE_URL}pic/project/${name}.jpg`, import.meta.url).href;
 };
 // 取得 tech icon
 const getImgIcon = (iconName: string) => {
-    return new URL(`/src/assets/icon/${iconName}.svg`, import.meta.url).href;
+    return new URL(`${import.meta.env.BASE_URL}icon/${iconName}.svg`, import.meta.url).href;
 };
 // 取得 rwd img
 const getRwdUrl = (name: string) => {
-    return new URL(`/src/assets/pic/project/${name}.png`, import.meta.url).href;
+    return new URL(`${import.meta.env.BASE_URL}project/${name}.png`, import.meta.url).href;
 };
 
 // 確保使用者有確切點選某張圖片，value不等於null的時候變化
@@ -259,7 +259,6 @@ onUnmounted(() => window.removeEventListener('keydown', handleKey));
 }
 
 #title img {
-    background-color: lightblue;
     background-position: center;
     background-size: cover;
     width: 65%;
