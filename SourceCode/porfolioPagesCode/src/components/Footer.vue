@@ -155,7 +155,7 @@ button {
 }
 
 .wave {
-    background-image: url(../assets/pic/footer-wave.svg);
+    background-image: url(/src/assets/pic/footer-wave.svg);
     background-size: cover;
     background-repeat: no-repeat;
     width: 100%;

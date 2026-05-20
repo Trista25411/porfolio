@@ -43,7 +43,7 @@ const getImgUrl = (name: string) => {
     // 原先寫法: return new URL(`../assets/pic/life/${name}.jpeg`, import.meta.url).href;
     // 但系統抓取不到顯示404 undfineds => Vite 有時候會因為太過「精簡」，導致在靜態分析時沒辦法確定基礎路徑起點在哪裡，特別是在 Storybook 這種多層環境下，它解析出來的路徑就會變成undefined`。
     // 明確地把路徑字串先賦值給變數，提高編譯器成功解析「相對路徑」的機率
-    const path = `../assets/pic/life/${name}.jpeg`;
+    const path = `/src/assets/pic/life/${name}.jpeg`;
     return new URL(path, import.meta.url).href;
 };
 

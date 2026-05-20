@@ -4,7 +4,7 @@ import { Project } from '@/data/projectcard';
 import LifeCard from '../components/LifeCard.vue';
 
 const getImgUrl = (name: string) => {
-  return new URL(`../assets/icon/${name}.svg`, import.meta.url).href
+  return new URL(`/src/assets/icon/${name}.svg`, import.meta.url).href
 };
 
 const skillItems = [
