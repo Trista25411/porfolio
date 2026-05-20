@@ -1,9 +1,15 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { Project } from '@/data/projectcard';
+import { useRoute, useRouter } from 'vue-router';
 
-const isProjectOpen = ref(false);
+const route = useRoute();
+const router = useRouter();
+
+// const isProjectOpen = ref(false);
 const isMenuOpen = ref(false);
+// 手機版點擊切換
+const isProjectOpen = ref(false);
 
 // 匯入資料夾 icon 圖示
 const getImgUrl = (name: string) => {
@@ -17,6 +23,42 @@ const navItems = ([
     { icon: 'life', iconFocus: 'life-black', name: '生活日常', path: '/#life' },
     { icon: 'contact', iconFocus: 'contact-black', name: '與我聯繫', path: '#contact' },
 ]);
+
+//﹝專案作品﹞ 點擊行為
+const handleNavClick = (itemName: string, itemPath: string, e: Event) => {
+    if (itemName === '專案作品') {
+        // 停止預設跳轉
+        e.preventDefault();
+
+        if (route.path === '/') {
+            // 若在首頁，點擊專案作品跳轉到首頁專案區塊
+            const element = document.getElementById('projects');
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+            isMenuOpen.value = false;
+        } else {
+            // 在某專案內頁時，點擊專案作品改為打開/關閉 project-list
+            isProjectOpen.value = !isProjectOpen.value;
+        }
+    } else {
+        // 點選其他按鈕，關閉重置
+        isMenuOpen.value = false;
+        isProjectOpen.value = false;
+    }
+};
+
+// 點擊下拉選單某專案切換過去後，選單自動收回
+const handleProjectItemClick = () => {
+    isMenuOpen.value = false;
+    isProjectOpen.value = false;
+};
+
+// 切換頁面就重置所有選單狀態
+watch(() => route.path, () => {
+    isMenuOpen.value = false;
+    isProjectOpen.value = false;
+})
 </script>
 
 <template>
@@ -36,19 +78,19 @@ const navItems = ([
             <h2 v-for="item in navItems" :key="item.name" class="nav-group"
                 @mouseenter="item.name === '專案作品' ? isProjectOpen = true : null"
                 @mouseleave="item.name === '專案作品' ? isProjectOpen = false : null">
-                <RouterLink class="list" :to="item.path" active-class="nav-active">
+
+                <RouterLink class="list" :to="item.path" active-class="nav-active"
+                    @click="handleNavClick(item.name, item.path, $event)">
                     <img :src="getImgUrl(item.icon)" alt="item.name" class="icon-default">
                     <img :src="getImgUrl(item.iconFocus)" alt="item.name" class="icon-active">
                     <span class="text ts-big">{{ item.name }}</span>
                 </RouterLink>
 
-                <Transition name="slide">
-                    <div v-if="item.name === '專案作品' && isProjectOpen" class="project-list">
-                        <RouterLink v-for="proj in Project" :key="proj.id" :to="`/projects/${proj.id}`"
-                            class="ts-big proj-item" active-class="active-proj"> {{ proj.title }}
-                        </RouterLink>
-                    </div>
-                </Transition>
+                <div v-if="item.name === '專案作品' && isProjectOpen" class="project-list">
+                    <RouterLink v-for="proj in Project" :key="proj.id" :to="`/projects/${proj.id}`"
+                        class="ts-big proj-item" active-class="active-proj"> {{ proj.title }}
+                    </RouterLink>
+                </div>
             </h2>
         </div>
     </div>
@@ -58,7 +100,7 @@ const navItems = ([
 .container {
     background-color: var(--nafo-white);
     width: 100%;
-    height: 60px;
+    height: 70px;
     position: fixed;
     z-index: 10;
     border-bottom: 1px solid var(--border-color);
@@ -90,6 +132,7 @@ const navItems = ([
 .nav-area {
     display: flex;
     align-items: center;
+    width: 100%;
     gap: 35px;
     padding: 0 40px;
 }
@@ -118,13 +161,13 @@ const navItems = ([
     display: flex;
     align-items: center;
     gap: 20px;
+    padding: 20px 0;
 }
 
 .list:hover,
 .list:focus,
 .proj-item:hover {
     border-bottom: 2px solid black;
-    padding-bottom: 5px;
     font-weight: bold;
 }
 
@@ -153,17 +196,25 @@ const navItems = ([
 }
 
 .project-list {
-    background: var(--nafo-white);
-
+    background-color: var(--nafo-white);
     display: flex;
     flex-direction: column;
     gap: 15px;
-    border-left: 1px solid var(--border-color);
+    border: 1px solid var(--border-color);
+    border-top: none;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
     padding: 20px;
 
     position: absolute;
     top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
     min-width: 250px;
+}
+
+.proj-item {
+    /* 不讓名稱過長折行 */
+    white-space: nowrap;
 }
 
 @media (max-width:1650px) {
@@ -193,6 +244,7 @@ const navItems = ([
 @media (max-width:700px) {
     .ham {
         display: block;
+        position: relative;
     }
 
     .nav-area {
@@ -201,12 +253,18 @@ const navItems = ([
     }
 
     .nav-area.show {
-        display: block;
+        background-color: var(--nafo-white);
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
         width: 100%;
-        position: absolute;
+        position: fixed;
         top: 50px;
         left: 0;
-        background-color: var(--nafo-white);
+        gap: 0;
+        padding-top: 20px;
+        height: calc(100vh - 70px);
+        overflow-y: auto;
     }
 
     .mini-logo {
@@ -214,6 +272,7 @@ const navItems = ([
     }
 
     .nav-group {
+        width: 100%;
         border-bottom: 1px solid var(--border-color);
         padding: 10px 0 10px 20px;
     }
@@ -226,7 +285,21 @@ const navItems = ([
     .list:hover,
     .list:focus,
     .proj-item:hover {
+        border-bottom: none;
+    }
+
+    .project-list {
+        position: static;
+        transform: none;
         border: none;
+        background-color: transparent;
+        box-shadow: none;
+        border-left: 1px solid var(--border-color);
+        margin: 10px 0 0 20px;
+    }
+
+    .project-list.mobile-show {
+        display: flex;
     }
 }
 </style>

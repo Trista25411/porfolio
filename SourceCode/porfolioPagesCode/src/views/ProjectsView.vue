@@ -437,6 +437,10 @@ onUnmounted(() => window.removeEventListener('keydown', handleKey));
         font-size: var(--font-size-14);
     }
 
+    #title{
+        margin: 0;
+    }
+
     #title img {
         width: 80%;
     }
@@ -448,15 +452,18 @@ onUnmounted(() => window.removeEventListener('keydown', handleKey));
         gap: 40px;
     }
 
-    #home {
+    #home,.name {
         flex-direction: column;
         gap: 30px;
+    }
+
+    .name{
+        align-items: start;
     }
 
     #title img {
         width: 100%;
     }
-
 
 }
 </style>
