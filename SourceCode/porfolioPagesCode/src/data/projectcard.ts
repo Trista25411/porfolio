@@ -515,13 +515,13 @@ export const Project: ProjectItem[] = [
             },
         ],
         RWD: [
-            { name: '電腦 (1440px)', img: [''] },
-            { name: '平板 (768px)', img: [''] },
-            { name: '手機 (375px)', img: [''] },
+            { name: '電腦 (1440px)', img: ['porfolio-pc'] },
+            { name: '平板 (768px)', img: ['porfolio-tablet'] },
+            { name: '手機 (375px)', img: ['porfolio-phone'] },
         ],
         links: [
             { name: 'Figma', link: 'https://www.figma.com/design/NUSFnOzYqcr6h4z3hhVRQw/Portfolio-website?node-id=807-9074&t=pPUb9uPevY8yr3PN-1' },
-            { name: 'GITHUB', link: '' },
+            { name: 'GITHUB', link: 'https://github.com/Trista25411/porfolio/tree/main/SourceCode/porfolioPagesCode' },
         ],
     },
 ];

@@ -305,7 +305,7 @@ onUnmounted(() => window.removeEventListener('keydown', handleKey));
 .rwd-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 50px;
+    gap: 80px;
 }
 
 .rwd-area {
