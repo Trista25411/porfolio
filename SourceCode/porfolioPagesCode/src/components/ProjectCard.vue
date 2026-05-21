@@ -22,9 +22,6 @@ const getImgUrl = (name: string) => {
             <img :src="getImgUrl(item.pic)" alt="project-pic" class="pic">
             <div class="btm">
                 <div class="intr-area">
-                    <!-- 使用 p 和 v-for 生成 intr 陣列中不同行文字 -->
-                    <!-- 原理： 找出item.intr的陣列，存入line中，並在陣列中有幾筆資料就生成幾個 p，之後拿出{{ line }} 已是純文字，所以不會有陣列出現 -->
-                    <!-- 若直接用{{ item.intr }}會直接出現陣列資料 -->
                     <p v-for="(line, index) in item.intr" :key="index" class="intr ts-big">{{ line }}</p>
                 </div>
                 <div v-if="item.source[0].name" class="ts">

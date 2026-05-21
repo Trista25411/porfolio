@@ -41,12 +41,10 @@ const sendMail = () => {
     const PUBLIC_KEY = 'kC4N5sDVB9AvnNB2A';
 
     emailjs.send(SERVICE_ID, TEMPLATE_ID, formData, PUBLIC_KEY)
-        // 成功後要做什麼
         .then(() => {
             activeAlert.value = 2;
             resetBtn();
         })
-        // 失敗後要做什麼
         .catch((err) => {
             console.error('發送失敗:', err);
             activeAlert.value = null;
@@ -65,17 +63,13 @@ const sendMail = () => {
                         <ion-icon name="chevron-forward-outline"></ion-icon>
                         <span>與我聯繫</span>
                     </h2>
-                    <!-- blank: 另開視窗，不會直接同頁跳轉 -->
                     <a v-for="item in tagItems" :href="item.path" target="_blank" class="left-link">
                         <BaseButton :icon="item.icon" :name="item.name" />
                     </a>
                 </div>
-                <!-- <div>著作權聲明</div>
-                    <div>隱私權及資訊安全政策</div> -->
                 <div>Copyright &copy; 2026 Trista’s portfolio All rights reserved.</div>
             </div>
-            <!-- @submit = addEventListener('submit',...) ; 
-             .prevent = event.preventDefault() => 因 HTML 表單送出時預設會「刷新整頁」，加了這個頁面就不會跳轉，可以用自己的 JS 發送資料 -->
+
             <form class="ts-big right" @submit.prevent="openAlert">
                 <h2>
                     <ion-icon name="chevron-forward-outline"></ion-icon>
@@ -93,8 +87,6 @@ const sendMail = () => {
                     </div>
                 </div>
                 <div class="message">
-                    <!-- 做一個可以留言的框輸入多行文字 => textarea -->
-                    <!-- <input type="text" placeholder="請留下想說的話" class="say"> -->
                     <div class="form-group">
                         <label for="say"></label>
                         <textarea id="say" v-model="formData.message" class="ts-big message-area"
@@ -116,12 +108,10 @@ const sendMail = () => {
                 <h2>確認資訊</h2>
                 <p>請核對您提供的聯絡資料是否正確</p>
                 <div class="alert-btns">
-                    <!-- 定義出type="button"，防止觸發 form -->
                     <BaseButton name="回去修改" type="button" @click="activeAlert = null" class="alertBtn" />
                     <BaseButton name="確認送出" type="button" @click="sendMail" class="alertBtn" />
                 </div>
             </div>
-
             <div v-else-if="activeAlert === 2" class="alert-box">
                 <h2>成功訊息</h2>
                 <p>已收到您的留言~ 會盡快跟您回覆！</p>
@@ -215,11 +205,8 @@ button {
     width: 100%;
     height: 100%;
     border-radius: 20px;
-    /* 權重問題，在這也要設置，不然沒辦法改字體大小 */
     font-family: var(--font-family);
-    /* 字離框的距離 */
     padding: 15px;
-    /* 不讓使用者自行調整寬高 */
     resize: none;
     line-height: 2;
     border: none;

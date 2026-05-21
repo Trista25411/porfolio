@@ -9,7 +9,7 @@ interface NameItem {
     distance: string;
     time: string;
     img: string;
-}
+};
 
 const current = ref(0);
 const nameList: NameItem[] = [

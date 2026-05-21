@@ -100,22 +100,17 @@ button:focus {
   outline-offset: -5px;
 }
 
-/* ======================================================== */
 ul li a {
-  /* 影響框框大小 */
   padding: 13px 6px 18px 6px;
 }
 
 ul a:focus {
-  /* 加入虛線 */
   outline: 1px dashed gray;
-  /* 調整寬度，正的往外展，負的往內縮 */
   outline-offset: -2px;
 }
 
 ul a:focus span,
 ul a:hover span {
-  /* hover才會產生 => 用border-bottom做底線 */
   border-bottom: 2px solid black;
 }
 
@@ -131,21 +126,18 @@ ul .hand:focus {
 
 nav {
   height: 54px;
-  /* 原先設置了pc-menu li但沒出現字 => display:flew才會出現 */
   display: flex;
   position: relative;
 }
 
 /* ========================nav左邊功能列=================================== */
 nav .logo {
-  /* nav 54px，img23px => 54-23=31，上下只能31不然會超出 */
   padding: 13px 6px 18px 6px;
   margin-right: 15px;
   cursor: pointer;
 }
 
 nav .logo img {
-  /* 看官網大小做 */
   width: 108px;
   height: 23px;
 }
@@ -156,7 +148,6 @@ nav .logo img:focus {
 }
 
 nav ul.pc-menu {
-  /* background-color: palegoldenrod; */
   display: flex;
   width: 400px;
 }
@@ -173,7 +164,6 @@ nav ul.pc-menu {
 
 /* =============nav右邊功能列============================== */
 nav ul.func-menu {
-  /* background-color: lightblue; */
   display: flex;
   width: 400px;
   flex: 1;
@@ -192,8 +182,6 @@ nav ul.func-menu {
 }
 
 @media (max-width:890px) {
-
-  /* 不要視窗變化時互相擠壓到 */
   nav ul.pc-menu {
     min-width: 400px;
   }
@@ -204,10 +192,7 @@ nav ul.func-menu {
 }
 
 @media (max-width:859px) {
-
-  /* logo要position置中 */
   nav .logo {
-    /* display: none; */
     position: absolute;
     left: 50%;
     transform: translate(-50%, 0);
@@ -241,7 +226,6 @@ nav ul.func-menu .login {
   top: 54px;
   transform: translateX(-50%);
   display: flex;
-  /* 因設了會整個跑掉，所以ul要設寬度 */
   flex-wrap: wrap;
   display: none;
   z-index: 3;
@@ -271,7 +255,6 @@ nav ul.func-menu .dropdown-menu ul {
   }
 }
 
-/* all-ms-365被按得時候，會出現dropdown-menu */
 #all-ms-365-switch:checked+label+.dropdown-menu {
   display: flex;
 }
@@ -437,17 +420,11 @@ main .four-cards {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  /* 可以設 ↓ w25%，然後直接用gap做，就不用還要calc */
-  /* 但因在變化視窗大小會變得很奇怪，還是用回calc */
-  /* column-gap: 20px */
-  /* 下面有空隙，可用row-gap處理 */
   row-gap: 10px;
 }
 
 main .four-cards .one-card {
   width: calc((100% - 20px * 3) / 4);
-  /* 100%分四張，因系統會自己考慮空隙的問題，將剩餘的分給圖 */
-  /* width: 25%; */
   height: 500px;
   box-shadow: 0 .1875rem .4375rem 0 rgba(0, 0, 0, .13), 0 .0625rem .125rem 0 rgba(0, 0, 0, .11);
   display: flex;
@@ -530,7 +507,6 @@ main .four-cards .info {
   flex: 1;
   display: flex;
   flex-direction: column;
-  /* justify-content: space-between; */
   padding: 0 20px;
 }
 
@@ -622,29 +598,21 @@ main .go-top {
   margin-bottom: 20px;
 
   position: sticky;
-  /* 訂定從何時開始 */
   top: calc(100vh - 100px);
-  /* 向右靠齊 */
   margin-left: auto;
-  /* 設定這個才有真的滑動 => sticky需有明確的邊界指令來觸發 */
-  bottom: 20px; 
-  /* sticky沒辦法觸發transition，因他是順間定位在那邊而不是改變opcaity跟visibility的方式 */
-  /* transition: all 0.3s ease; */
-  /* 預設不顯示，透過動畫顯示出來，讓他有一個緩慢顯示的感覺 */
+  bottom: 20px;
   opacity: 0;
-  /* 定義動畫名稱、時間（在滾動中代表進度) */
   animation: fadeIn linear both;
-  /* 動畫觸發的範圍：滾動視窗 */
   animation-timeline: scroll(root);
-  /* 動畫在滾動多少區間內發生 */
   animation-range: 100px 500px;
 }
 
 @keyframes fadeIn {
-  from{
+  from {
     opacity: 0;
   }
-  to{
+
+  to {
     opacity: 1;
   }
 }
@@ -671,15 +639,12 @@ footer h3 {
 }
 
 footer .footer-menu {
-  /* 用元件要記得margin 0、padding 0 */
-  /* 因start會自己出現空隙，無法控制，要在元件ul裡事先寫 */
   display: flex;
   justify-content: start;
   flex-wrap: wrap;
 }
 
 footer .footer-menu ul {
-  /* 這個就不需寫colum-gap，因寬度無法整數整除計算 */
   width: calc(100% / 6);
   display: block;
 }
@@ -687,7 +652,6 @@ footer .footer-menu ul {
 @media (max-width:1083px) {
   footer .footer-menu ul {
     width: calc(100% / 3);
-    /* 寫了之後發現沒有掉下去 → 在footer-menu設置flex-wrap才會掉 */
   }
 }
 
@@ -698,7 +662,6 @@ footer .footer-menu ul {
 }
 
 footer .footer-menu ul li {
-  /* 向下推，要flex才能做gap，或是直接用margin */
   margin-bottom: 10px;
 }
 
@@ -715,7 +678,6 @@ footer .footer-menu ul a:focus {
 
 /* =============== 最底部文字 =========== */
 footer .footer-btm {
-  /* background-color: lightpink; */
   width: 100%;
   height: auto;
   margin: 20px 0;
@@ -754,13 +716,13 @@ footer .footer-btm a:hover {
     justify-content: flex-start;
     margin-top: 10px;
   }
-  ul li a{
+
+  ul li a {
     padding: 0;
   }
 }
 
 /* ================= 手機版 ==================== */
-/* 漢堡條 */
 .ham-btn {
   display: none;
   flex-direction: column;
@@ -784,7 +746,6 @@ footer .footer-btm a:hover {
   height: 2px;
   background-color: black;
 }
-
 
 nav .mobile-menu {
   background-color: #f2f2f2;

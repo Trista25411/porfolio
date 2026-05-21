@@ -1,3 +1,10 @@
+<script setup>
+import { RouterView } from 'vue-router'
+import NavBar from './components/layout/NavBar.vue'
+import Footer from './components/layout/Footer.vue'
+import GoTop from './components/layout/gotop.vue'
+</script>
+
 <template>
   <div id="app-container">
     <NavBar />
@@ -9,13 +16,6 @@
   </div>
 </template>
 
-<script setup>
-import { RouterView } from 'vue-router'
-import NavBar from './components/layout/NavBar.vue'
-import Footer from './components/layout/Footer.vue'
-import GoTop from './components/layout/gotop.vue'
-</script>
-
 <style scoped>
 #app-container {
   display: flex;
@@ -25,7 +25,6 @@ import GoTop from './components/layout/gotop.vue'
 
 main {
   flex-grow: 1;
-  /* NavBar 的高度是 100px */
   padding-top: 6.25rem; 
 }
 </style>

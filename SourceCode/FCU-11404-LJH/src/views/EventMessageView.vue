@@ -1,8 +1,7 @@
 <script setup>
 import { computed } from 'vue';
-// 匯入 JSON 活動資料
+// JSON 活動資料
 import allActivitiesRaw from '@/assets/data/EventList.json';
-// 匯入 BlueButton 組件
 import BlueButtonTag from '@/components/BlueButtonTag.vue';
 
 const props = defineProps({
@@ -12,7 +11,6 @@ const props = defineProps({
   }
 });
 
-// --- 輔助函式 (與 InformationView.vue 完全同步) ---
 const rocToGregorian = (rocDateString) => {
   if (!rocDateString) return null;
   const match = rocDateString.match(/(?:(\d{2,3})年)?(\d{1,2})月(\d{1,2})日/);
@@ -116,7 +114,7 @@ const event = computed(() => {
   };
 });
 
-// 計算屬性，用來取得活動對象標籤
+// 活動對象標籤
 const audienceTag = computed(() => {
   if (!event.value || !event.value.targetAudience) {
     return null;
@@ -141,7 +139,6 @@ const registrationInfo = computed(() => {
     return { text: '報名截止', isOpen: false };
   }
 });
-
 
 const handleRegistrationClick = () => {
   if (registrationInfo.value.isOpen) {
@@ -312,14 +309,12 @@ const handleRegistrationClick = () => {
   justify-content: center;
 }
 
-/* container --------------------------------------- */
 .c-container {
   max-width: 1300px;
   width: 100%;
   line-height: 1.4;
   margin: 0 auto;
   padding: 6.25rem 0;
-  /* 100px */
   margin: unset;
 
 }
@@ -339,7 +334,6 @@ const handleRegistrationClick = () => {
   border-radius: 25px;
 }
 
-/* 麵包屑 ------------------------------------------------- */
 .breadcrumbs a {
   text-decoration: none;
   color: inherit;
@@ -353,10 +347,8 @@ const handleRegistrationClick = () => {
   margin-top: 45px;
 }
 
-/* 主要活動內容 ----------------------------------- */
 .event-message {
   gap: 3.125rem;
-  /* 50px */
   align-items: flex-start;
 }
 
@@ -375,7 +367,6 @@ const handleRegistrationClick = () => {
 .event-info {
   flex-grow: 1;
   padding: 3.125rem;
-  /* 50px */
 }
 
 .event-pic {
@@ -387,10 +378,8 @@ const handleRegistrationClick = () => {
 
 .event-text {
   padding: 3.125rem;
-  /* 50px */
 }
 
-/* 活動介紹標題區塊樣式 */
 .event-header {
   margin-bottom: 30px;
 }
@@ -415,7 +404,6 @@ const handleRegistrationClick = () => {
 
 @media (max-width: 442px) {
   .event-text {
-    /* 20px */
     padding: 3.125rem 1.25rem 1.25rem;
     padding: 3.125rem 0;
     background-color: unset;
@@ -428,7 +416,6 @@ const handleRegistrationClick = () => {
 
   .event-pic {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    /* 36px */
     border-radius: 2.25rem;
   }
 }
@@ -437,14 +424,12 @@ const handleRegistrationClick = () => {
   margin-bottom: 1em;
 }
 
-/* 分隔線樣式 */
 .section-divider {
   border-top: 2px solid var(--color-gray-line);
   margin-top: 40px;
   padding-top: 40px;
 }
 
-/* 相關連結樣式 */
 .related-links-container {
   display: flex;
   flex-wrap: wrap;
@@ -476,7 +461,6 @@ const handleRegistrationClick = () => {
   font-size: 1.2em;
 }
 
-/* 活動與報名資訊 -----------------------------------*/
 .space {
   margin-bottom: 15px;
 }
@@ -516,7 +500,6 @@ const handleRegistrationClick = () => {
   text-align: right;
 }
 
-/* 報名按鈕樣式 */
 .btn-register {
   padding: 36px 24px;
   border: none;

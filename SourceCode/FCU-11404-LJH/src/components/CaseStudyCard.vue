@@ -1,9 +1,7 @@
-<!-- 未來實驗室案例元件 -->
 <script setup>
 import { ref } from 'vue';
 import CategoryButton from '@/button/CategoryButton.vue';
 
-// 定義 props，讓父元件可以傳遞資料進來
 defineProps({
   caseData: {
     type: Object,
@@ -12,7 +10,6 @@ defineProps({
   }
 });
 
-// 加入「換行並顯示所有內容」和「多行省略」切換方式
 const isTruncated = ref(true);
 const toggleTruncate = () => {
   isTruncated.value = !isTruncated.value;
@@ -97,7 +94,6 @@ const toggleTruncate = () => {
 }
 
 .text-p {
-  /* 為了當 isTruncated 為 false 時，讓換行符號生效 */
   white-space: pre-line;
 }
 

@@ -1,13 +1,3 @@
- <!-- 活動logo卡片(正方形) -->
-<template>
-  <div class="interactive-card c-shadow-soft ui-radius-48">
-    <div class="card-icon">
-      <img :src="iconSrc" :alt="title" class="ui-radius-26" />
-    </div>
-    <h4 class="card-title text-h4">{{ title }}</h4>
-  </div>
-</template>
-
 <script setup>
 import { defineProps } from 'vue';
 
@@ -22,6 +12,15 @@ defineProps({
   },
 });
 </script>
+
+<template>
+  <div class="interactive-card c-shadow-soft ui-radius-48">
+    <div class="card-icon">
+      <img :src="iconSrc" :alt="title" class="ui-radius-26" />
+    </div>
+    <h4 class="card-title text-h4">{{ title }}</h4>
+  </div>
+</template>
 
 <style scoped>
 .interactive-card {

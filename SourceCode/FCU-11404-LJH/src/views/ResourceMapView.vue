@@ -1,7 +1,11 @@
 <script setup>
 import { ref, computed, watch } from 'vue';
+import ContactCard from '@/components/card/ContactCard.vue';
+import unitsData from '@/assets/data/ResourceMapView_id.json';
+import BaseButton from '@/components/button/BaseButton.vue';
+import IconDown from '@/components/icons/down.vue';
+import ResponsiveFilterGroup from '@/components/menu/ResponsiveFilterGroup.vue';
 
-// 匯入banner元件及圖片
 import Banner from '@/components/sections/Banner.vue';
 import banner1920 from '@/assets/img/banner/resource-map-banner-1920.png';
 import banner1400 from '@/assets/img/banner/resource-map-banner-1400.png';
@@ -19,15 +23,6 @@ const resourceMapBannerSources = [
 ];
 
 const resourceMapDefaultBannerSrc = banner576;
-
-import ContactCard from '@/components/card/ContactCard.vue';
-// 匯入JSON 檔案
-import unitsData from '@/assets/data/ResourceMapView_id.json';
-import BaseButton from '@/components/button/BaseButton.vue';
-import IconDown from '@/components/icons/down.vue';
-
-// 引入新的響應式元件
-import ResponsiveFilterGroup from '@/components/menu/ResponsiveFilterGroup.vue';
 
 const filterButtons = ref([
   '全部分類', '家庭與成長支援', '安全與保護', '健康與防治', '就業與職涯', '社區參與', '政府與資源平台'
@@ -79,11 +74,6 @@ const showLoadMoreButton = computed(() => {
   return visibleCount.value < filteredCards.value.length;
 });
 
-// 移除 setCategory 函式，改用 watch 處理副作用
-// function setCategory(category) {
-//   activeCategory.value = category;
-//   visibleCount.value = 8;
-// }
 watch(activeCategory, (newCategory, oldCategory) => {
   // 當分類改變時，重設顯示的卡片數量
   if (newCategory !== oldCategory) {
@@ -95,7 +85,6 @@ function loadMore() {
   visibleCount.value += 8;
 }
 
-// 讓 ContactCard 也能觸發分類變更
 function setCategoryFromCard(category) {
   activeCategory.value = category;
 }

@@ -6,15 +6,15 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
-// 匯入影音元件及json
+// 影音元件及json
 import eventVideoData from '@/assets/data/EventVideo.json';
-// 匯入 CategoryButton 元件 
+// CategoryButton 元件 
 import CategoryButton from '@/components/button/CategoryButton.vue';
 
-// 設定 Swiper 要使用的模組
+//  Swiper 使用的模組
 const modules = [Pagination, Navigation];
 
-// 從 YouTube URL 中提取影片 ID 的輔助函式
+// 從 YouTube URL 中提取影片 ID 
 function getYouTubeId(url) {
     if (!url) return null;
     const regExp = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/;
@@ -22,7 +22,7 @@ function getYouTubeId(url) {
     return match ? match[1] : null;
 }
 
-// 直接篩選出所有「宣導」類型的影片
+// 篩選「宣導」影片
 const filteredVideoCards = ref(eventVideoData.filter(video => video.category === '宣導與展覽').map((video, index) => ({
     id: index,
     videoId: getYouTubeId(video.link),
@@ -31,21 +31,18 @@ const filteredVideoCards = ref(eventVideoData.filter(video => video.category ===
     categoryUrl: '#',
     titleUrl: '#',
     learnMoreUrl: '#',
-    isLoaded: false // 新增 loading 狀態
+    isLoaded: false 
 })));
 
-// 響應式斷點設定
+// 響應式斷點
 const VideoBreakpoints = {
-    // swiper.js用slidesPerView設置
-    // 在 px以內(下方px數字) 的螢幕
     0: {
-        slidesPerView: 1, // 一個卡片
+        slidesPerView: 1, 
         snapAlign: 'center',
         wrapAround: false,
     },
-    // 在 px 以上的螢幕
     1600: {
-        slidesPerView: 2, // 顯示三個卡片
+        slidesPerView: 2, 
         snapAlign: 'center',
         wrapAround: false,
     }
@@ -124,7 +121,6 @@ const VideoBreakpoints = {
     flex-grow: 1;
 }
 
-/* 為了讓 info-container 內的佈局與之前保持一致，保留 margin-bottom */
 .categories {
     margin-bottom: 32px;
 }
@@ -144,7 +140,7 @@ const VideoBreakpoints = {
     transition: color 0.3s;
 }
 
-/* 加入loading效果點選再載入 */
+/* loading效果點選再載入 */
 .video-container {
     position: relative;
     width: 100%;
@@ -174,16 +170,13 @@ const VideoBreakpoints = {
     left: 50%;
     transform: translate(-50%, -50%);
     width: 80px;
-    /* 播放按鈕的圓圈大小 */
     height: 80px;
     border-radius: 50%;
     background-color: rgba(104, 104, 104, 0.6);
-    /* 半透明黑色背景 */
     display: flex;
     justify-content: center;
     align-items: center;
     transition: transform 0.3s ease;
-    /* 新增過渡效果 */
 }
 
 /* 播放按鈕中間的三角形 */
@@ -195,15 +188,11 @@ const VideoBreakpoints = {
     margin-left: 5px;
 }
 
-/* 滑鼠懸停時的樣式變化 */
 .video-placeholder:hover .play-button {
     background-color: rgba(255, 255, 255, 0.8);
-    /* 懸停時加深背景顏色 */
     transform: translate(-50%, -50%) scale(1.1);
-    /* 懸停時放大按鈕 */
 }
 
-/* 確保 iframe 填滿容器 */
 .video-container iframe {
     position: absolute;
     top: 0;
@@ -212,7 +201,6 @@ const VideoBreakpoints = {
     height: 100%;
 }
 
-/* 輪播導航按鈕樣式 */
 :deep(.swiper-button-prev::after),
 :deep(.swiper-button-next::after) {
     display: none;
@@ -244,7 +232,6 @@ const VideoBreakpoints = {
     right: -100px;
 }
 
-/* 分頁器樣式 */
 :deep(.swiper-pagination) {
     bottom: 0px;
 }
@@ -260,7 +247,6 @@ const VideoBreakpoints = {
     background-color: var(--color-blue-500);
 }
 
-/* 變版修改 */
 @media (max-width: 1630px) {
     .video-button-prev {
         left: 20px; 

@@ -10,7 +10,6 @@ export interface sourceItem {
 
 export interface imgItem {
     name: string;
-    // 將圖片都改成陣列，只需要用v-for去生成，不然分成string | string[] 匯入時要寫v-if跟v-else
     img: string[];
 };
 
@@ -34,7 +33,6 @@ export interface ProjectItem {
     logo: string;
     title: string;
     pic: string;
-    // 要放多個標籤，用陣列引入
     tech: techItem[];
     intr: string[];
     motivation: string;

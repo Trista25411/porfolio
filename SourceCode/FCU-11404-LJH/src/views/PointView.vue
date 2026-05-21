@@ -1,7 +1,5 @@
 <script setup>
 import Banner from '@/components/sections/Banner.vue';
-
-// 引入「集點活動」頁面所有尺寸的 Banner 圖片
 import banner1920 from '@/assets/img/banner/point-banner-1920.png';
 import banner1400 from '@/assets/img/banner/point-banner-1400.png';
 import banner1200 from '@/assets/img/banner/point-banner-1200.png';
@@ -9,7 +7,6 @@ import banner996 from '@/assets/img/banner/point-banner-996.png';
 import banner765 from '@/assets/img/banner/point-banner-765.png';
 import banner576 from '@/assets/img/banner/point-banner-576.png';
 
-// 建立要傳遞給 Banner 元件的 sources 陣列
 const pointBannerSources = [
   { media: '(min-width: 1401px)', srcset: banner1920 },
   { media: '(min-width: 1201px)', srcset: banner1400 },
@@ -18,7 +15,6 @@ const pointBannerSources = [
   { media: '(min-width: 577px)', srcset: banner765 },
 ];
 
-// 指定預設/最小尺寸的圖片
 const pointDefaultBannerSrc = banner576;
 </script>
 
@@ -47,7 +43,7 @@ const pointDefaultBannerSrc = banner576;
         </div>
       </div>
 
-      <!-- 簡介框 -->
+      <!-- 簡介 -->
       <div class="info-section section-spacing-113">
         <div class="row align-items-center">
           <div class="col-lg-6 order-lg-2 text-center">
@@ -68,7 +64,7 @@ const pointDefaultBannerSrc = banner576;
       </div>
     </div>
 
-    <!-- 榮譽集點活動框 -->
+    <!-- 榮譽集點活動 -->
     <div class="activity-section section-spacing-50">
       <div class="activity-inner">
         <div class="c-text-white-base">
@@ -102,7 +98,7 @@ const pointDefaultBannerSrc = banner576;
         </div>
       </div>
 
-      <!-- 標章換好禮框 -->
+      <!-- 標章換好禮 -->
       <div class="info-section section-spacing-113">
         <div class="row align-items-center">
           <div class="col-lg-6 order-lg-2 text-center">
@@ -124,7 +120,7 @@ const pointDefaultBannerSrc = banner576;
       </div>
     </div>
 
-    <!-- 兌換領取地點框 -->
+    <!-- 兌換領取地點 -->
     <div class="location-section-bg section-spacing-113">
       <div class="container-fluid content-container">
         <div class="info-section">

@@ -1,17 +1,15 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue';
-import { useRouter, useRoute } from 'vue-router'; // 引入 useRoute
-// 匯入banner元件及圖片
+import { useRouter, useRoute } from 'vue-router'; 
 import CategoryButton from '@/components/button/CategoryButton.vue';
 import ActivityCard from '@/components/card/ActivityCard.vue';
-// 匯入您的 JSON 活動資料
 import allActivitiesRaw from '@/assets/data/EventList.json';
 
 const router = useRouter();
-const route = useRoute(); // 初始化 route
-const activeCategories = ref([]); // 當前選擇的類型陣列
-const activeTags = ref([]); // 當前選擇的 Tag 陣列
-const allActivities = ref([]); // 存放處理過的所有活動資料
+const route = useRoute(); 
+const activeCategories = ref([]); 
+const activeTags = ref([]); 
+const allActivities = ref([]); 
 const visibleItemsCount = ref(6);
 const itemsPerLoad = 6;
 
@@ -196,7 +194,6 @@ const selectTag = (tag) => {
   visibleItemsCount.value = itemsPerLoad;
 };
 
-
 const loadMore = () => {
   visibleItemsCount.value += itemsPerLoad;
 };
@@ -212,7 +209,7 @@ const loadMore = () => {
           }" @click="selectCategory(btnText)" class="filter-button" />
         </div>
         
-        <!-- Tag 文字 + 藍色按鈕組 (目標對象篩選) -->
+        <!-- 目標對象篩選 -->
         <div class="filter-group tag-group">
           <span class="tag-label">Tag：</span>
           <button v-for="btnText in tagButtons" :key="btnText"
@@ -221,7 +218,7 @@ const loadMore = () => {
           </button>
         </div>
 
-        <!-- 卡片組 -->
+        <!-- 卡片 -->
         <div class="card-grid">
           <ActivityCard v-for="card in displayedActivities" :key="card.id" :card-data="card"
             @click="handleCardClick(card)" />
@@ -230,7 +227,7 @@ const loadMore = () => {
           <p>找不到符合條件的活動</p>
         </div>
 
-        <!-- 了解更多按鈕 -->
+        <!-- 了解更多 -->
         <div v-if="hasMoreActivities" class="load-more-container">
           <button @click="loadMore" class="load-more-button">
             <span>了解更多</span>
@@ -302,7 +299,6 @@ const loadMore = () => {
   transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
   -webkit-tap-highlight-color: transparent;
   font-family: inherit;
-  /* 確保字體一致 */
 }
 
 .category-group .filter-button {

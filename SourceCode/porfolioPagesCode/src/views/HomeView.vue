@@ -3,7 +3,6 @@ import ProjectCard from '../components/ProjectCard.vue';
 import { Project } from '@/data/projects';
 import LifeCard from '../components/LifeCard.vue';
 
-// img 打包因路徑關係變化導致找不到產生破圖，vite.config.ts 寫入並修改路徑名稱
 const baseUrl = import.meta.env.BASE_URL;
 const getImgUrl = (name: string) => {
   return `${baseUrl}icon/${name}.svg`;
@@ -67,7 +66,6 @@ const progressItems = [
 
 <template>
   <main class="container">
-
     <section id="about">
       <div class="intr-area">
         <div class="intr">
@@ -91,7 +89,6 @@ const progressItems = [
         <span>技能與專長</span>
       </h2>
       <div class="skill-grid-area">
-        <!--                                                                          要同時傳入固定的 class 和動態產生的 class 使用陣列，而不是 {} => {} 是用來判斷狀態 ， [] 這裡因為要放入好幾個項目，所以用陣列來合併-->
         <div v-for="(category, index) in skillItems" :key="category.category" :class="['skill-card', `card-${index}`]">
           <h3>{{ category.category }}</h3>
           <div class="skill-items">
@@ -210,7 +207,6 @@ h2 {
 .skill-grid-area {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  /* 每一列高度，第一個第一列、第二個第二列... */
   grid-template-rows: 200px 100px;
   gap: 20px;
   grid-template-areas:
@@ -381,11 +377,9 @@ h2 {
 .bg-pic {
   position: absolute;
   top: -40px;
-  /* 根據視覺微調向上移動的距離 */
   right: 0;
   width: 40%;
   z-index: -1;
-  /* 墊在文字下面 */
 }
 
 @media (max-width:1500px) {

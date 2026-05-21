@@ -15,7 +15,6 @@ const getImgUrl = (name: string) => {
     <button type="button" class="title-main" :class="theme">
         <img v-if="icon" :src="getImgUrl(icon)" alt="icon">
         <span>{{ name }}</span>
-        <!-- 讓組件知道如果要另外寫東西進來要放在這裡 => projectproblemcard的button按鍵使用 -->
         <slot />
     </button>
 </template>
@@ -35,7 +34,6 @@ button {
     gap: 15px;
 }
 
-/* 設置預設的形式，若之後要改再其他地方做變更 */
 button:hover {
     background-color: var(--btn-bg, var(--border-color));
     color: var(--btn-text, var(--white));
@@ -51,11 +49,9 @@ img {
     padding: 5px 5px 2px 5px;
 }
 
-/* 用 filter 效果，讓 icon 變白色 */
 button:hover img,
 button:focus img,
 button.focus img {
-    /* brightness 將顏色都變黑的，再用 invert 反轉變成白色 */
     filter: brightness(0) invert(1);
 }
 

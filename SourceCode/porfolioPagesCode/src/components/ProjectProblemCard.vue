@@ -7,10 +7,10 @@ const props = defineProps<{
     items: challengeItem[];
 }>();
 
-// 預設顯示第一個挑戰
 const currentItem = ref(0);
-// 預設結論圖片滑動
 const isScrolled = ref(false);
+const beforeContainer = ref<HTMLDivElement | null>(null);
+const afterContainer = ref<HTMLDivElement | null>(null);
 
 const numberDisplay = (num: number) => {
     return (num + 1).toString().padStart(2, '0');
@@ -22,13 +22,7 @@ const getImgUrl = (name: string | undefined) => {
     return `${baseUrl}pic/project/${name}.png`;
 };
 
-// 照片可自由滑動 "Custom Scroll" / "Drag-to-Scroll" => 手機版依原生觸控滾動，電腦版透過 JS 模擬抓取（Grab）
-// HTMLDivElement  => HTML <div> 元素
-// 定義容器的 Ref 型別
-const beforeContainer = ref<HTMLDivElement | null>(null);
-const afterContainer = ref<HTMLDivElement | null>(null);
-
-// el: 自定義命名 => 常用 el 或 container 來代表傳入函數的 DOM 節點
+// 結論圖片滑動查看
 const initDragScroll = (el: HTMLDivElement) => {
     let isDown = false;
     let startX: number;
@@ -36,15 +30,9 @@ const initDragScroll = (el: HTMLDivElement) => {
     let scrollLeft: number;
     let scrollTop: number;
 
-    // e: 自定義命名 => 常用縮寫 e 或 evt，代表事件物件 (點擊或移動滑鼠，瀏覽器產生的座標、按鍵等資訊的物件)
     const start = (e: MouseEvent) => {
         isDown = true;
         el.classList.add('grabbing');
-        // 計算起始值
-        // e.pageX / e.pageY =>滑鼠相對於整個網頁的座標
-        // offsetLeft / offsetTop => 該容器距離瀏覽器最左邊/最頂邊的距離
-        // 這裡只需要知道滑鼠「在容器內」的相對位置 => 減去偏移量後，得到的 startX 就是滑鼠點擊在容器裡的哪一個點
-        // scrollLeft / scrollTop：紀錄點擊那一刻，容器原本已經(向左 / 向上)捲動了多少距離
         startX = e.pageX - el.offsetLeft;
         startY = e.pageY - el.offsetTop;
         scrollLeft = el.scrollLeft;
@@ -58,19 +46,11 @@ const initDragScroll = (el: HTMLDivElement) => {
 
     const move = (e: MouseEvent) => {
         if (!isDown) return;
-        // 阻止瀏覽器預設「選取文字」或「拖動圖片」行為，沒設置有時候會以為要選取文字而造成反白及拖曳出現禁止符號
-        // e.preventDefault();
-        // 之後發現在css設置user-select: none;、-webkit-user-drag: none;可以不用寫這個，單寫還是會出現禁止符號
-
         // 計算移動距離
         const x = e.pageX - el.offsetLeft;
         const y = e.pageY - el.offsetTop;
-        // 計算「手要滑多遠，圖要跑多快」
-        // 現在滑鼠位置減掉起始位置，等於「滑鼠移動了多少像素」
-        // * 數值 => 「靈敏度係數」，常用 1.5
         const walkX = (x - startX) * 1.5;
         const walkY = (y - startY) * 1.5;
-        //               「減法」=>當滑鼠往右拉（正數）時，圖片捲軸應該要往左捲動，視覺上圖片才會往右跑
         el.scrollLeft = scrollLeft - walkX;
         el.scrollTop = scrollTop - walkY;
     };
@@ -80,9 +60,6 @@ const initDragScroll = (el: HTMLDivElement) => {
     el.addEventListener('mouseup', end);
     el.addEventListener('mousemove', move);
 
-    // 回傳清理函數，使用者頻繁進出頁面會掛載很多監聽器，導致網站越來越卡 => 記憶體洩漏 (Memory Leak)
-    // 為什麼 return 就可以代表清理？ => 函數被呼叫時（onMounted），它執行了 addEventListener，最後 return 的函數就是執行 removeEventListener
-    // 這個回傳的「清理小工具」存進了 cleanUpBefore
     return () => {
         el.removeEventListener('mousedown', start);
         el.removeEventListener('mouseleave', end);
@@ -91,21 +68,14 @@ const initDragScroll = (el: HTMLDivElement) => {
     };
 };
 
-// 先宣告兩個變數，用來存放「未來的清理工具」
-// () => void：「不接收參數，也不回傳東西」的函數（ = 清理函數）
-// | null：一開始還沒掛載，預設值是 null
 let cleanUpBefore: (() => void) | null = null;
 let cleanUpAfter: (() => void) | null = null;
 
 const setupScroll = () => {
-    // 如果 cleanUpBefore 裡面有存東西（代表之前有成功掛載監聽器），執行它！(執行 removeEventListener)
-    // 完整寫法： if (cleanUpBefore) { cleanUpBefore(); }
     if (cleanUpBefore) cleanUpBefore();
     if (cleanUpAfter) cleanUpAfter();
 
     nextTick(() => {
-        // 當組件掛載（畫面出現）時，執行 initDragScroll，會掛上監聽器，並把回傳的「清理小工具」存進 cleanUpBefore 變數裡
-        // 完整寫法為: if (beforeContainer.value) { cleanUpBefore = initDragScroll(beforeContainer.value); }
         if (beforeContainer.value) cleanUpBefore = initDragScroll(beforeContainer.value);
         if (afterContainer.value) cleanUpAfter = initDragScroll(afterContainer.value);
     });
@@ -113,20 +83,18 @@ const setupScroll = () => {
 
 const handleScroll = () => {
     isScrolled.value = true;
-}
-
-onMounted(() => {
-    setupScroll();
-});
+};
 
 watch(currentItem, () => {
     setupScroll();
 });
 
+onMounted(() => {
+    setupScroll();
+});
 </script>
 
 <template>
-    <!-- v-if="...." => 當資料真的存在且不是空陣列時，才顯示下面的內容 -->
     <div v-if="items && items.length > 0">
         <div class="content">
             <div class="btn">
@@ -337,12 +305,10 @@ button:hover {
     display: block;
     border: 2px solid var(--sage);
     object-position: top left;
-    /* 禁止預設拖曳行為 => 圖片拉出顯示禁止符號 */
     -webkit-user-drag: none;
 }
 
 .scroll-box.grabbing {
-    /* 抓取時禁止選取文字 => 反白 */
     user-select: none;
 }
 

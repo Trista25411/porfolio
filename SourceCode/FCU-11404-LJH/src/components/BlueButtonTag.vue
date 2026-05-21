@@ -1,6 +1,5 @@
 <script setup>
 defineProps({
-  // 按鈕上顯示的文字
   text: {
     type: String,
     required: true 

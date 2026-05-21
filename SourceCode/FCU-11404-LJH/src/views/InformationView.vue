@@ -1,4 +1,3 @@
-<!-- InformationView.vue -->
 <script setup>
 import { ref, computed, onMounted, watch } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
@@ -9,6 +8,13 @@ import banner1200 from '@/assets/img/banner/information-banner-1200.png';
 import banner996 from '@/assets/img/banner/information-banner-996.png';
 import banner765 from '@/assets/img/banner/information-banner-765.png';
 import banner576 from '@/assets/img/banner/information-banner-576.png';
+
+import ActivityCard from '@/components/card/ActivityCard.vue';
+import CollapsibleFilterPanel from '@/components/menu/CollapsibleFilterPanel.vue';
+import allActivitiesRaw from '@/assets/data/EventList.json';
+import BaseButton from '@/components/button/BaseButton.vue';
+import IconDown from '@/components/icons/down.vue';
+
 const infoBannerSources = [
   { media: '(min-width: 1401px)', srcset: banner1920 },
   { media: '(min-width: 1201px)', srcset: banner1400 },
@@ -18,12 +24,6 @@ const infoBannerSources = [
 ];
 
 const infoDefaultBannerSrc = banner576;
-import ActivityCard from '@/components/card/ActivityCard.vue';
-import CollapsibleFilterPanel from '@/components/menu/CollapsibleFilterPanel.vue';
-import allActivitiesRaw from '@/assets/data/EventList.json';
-import BaseButton from '@/components/button/BaseButton.vue';
-import IconDown from '@/components/icons/down.vue';
-
 const router = useRouter();
 const route = useRoute();
 const activeCategory = ref('全部類型');
@@ -95,7 +95,7 @@ onMounted(() => {
     displayTags.push({ text: registrationStatus });
     return {
       id: activity.id,
-imageUrl: activity.imageUrl ? new URL(`../assets/img/event/information/${activity.imageUrl}`, import.meta.url).href : getDefaultImage(activity.category),      category: activity.category,
+      imageUrl: activity.imageUrl ? new URL(`../assets/img/event/information/${activity.imageUrl}`, import.meta.url).href : getDefaultImage(activity.category), category: activity.category,
       title: activity.title,
       eventTime: (activity.dateTime || '').replace(/時間:\s*/, ''),
       location: (activity.location || '').replace(/地點:\s*/, ''),
@@ -179,9 +179,9 @@ const loadMore = () => {
   visibleItemsCount.value += itemsPerLoad;
 };
 
-// 監聽任何一個篩選條件的變化，來重置顯示的項目數量
+// 重置顯示的項目數量
 watch([activeCategory, activeTags], () => {
-    visibleItemsCount.value = itemsPerLoad;
+  visibleItemsCount.value = itemsPerLoad;
 }, { deep: true });
 </script>
 
@@ -209,14 +209,10 @@ watch([activeCategory, activeTags], () => {
           </div>
         </div>
 
-        <!-- 手機版篩選器 (替換成新元件) -->
+        <!-- 手機版篩選器 -->
         <div class="mobile-filters">
-          <CollapsibleFilterPanel
-            :categories="categoryButtons"
-            v-model:activeCategory="activeCategory"
-            :tags="tagButtons"
-            v-model:activeTags="activeTags"
-          />
+          <CollapsibleFilterPanel :categories="categoryButtons" v-model:activeCategory="activeCategory"
+            :tags="tagButtons" v-model:activeTags="activeTags" />
         </div>
 
         <!-- 卡片列表 -->
@@ -227,14 +223,14 @@ watch([activeCategory, activeTags], () => {
         <div v-if="displayedActivities.length === 0" class="no-results">
           <p>找不到符合條件的活動</p>
         </div>
-<div v-if="hasMoreActivities" class="load-more-container">
-  <BaseButton size="large" shape="pill" variant="solid">
-    <button @click="loadMore">
-      <span>了解更多</span>
-      <IconDown class="c-icon-size-16 c-transition-transform icon-down-on-hover" />
-    </button>
-  </BaseButton>
-</div>
+        <div v-if="hasMoreActivities" class="load-more-container">
+          <BaseButton size="large" shape="pill" variant="solid">
+            <button @click="loadMore">
+              <span>了解更多</span>
+              <IconDown class="c-icon-size-16 c-transition-transform icon-down-on-hover" />
+            </button>
+          </BaseButton>
+        </div>
       </div>
     </section>
   </div>
@@ -245,6 +241,7 @@ watch([activeCategory, activeTags], () => {
 .desktop-filters {
   display: block;
 }
+
 .mobile-filters {
   display: none;
 }
@@ -253,6 +250,7 @@ watch([activeCategory, activeTags], () => {
   .desktop-filters {
     display: none;
   }
+
   .mobile-filters {
     display: block;
   }
@@ -265,13 +263,16 @@ watch([activeCategory, activeTags], () => {
   background-repeat: no-repeat;
   background-size: cover;
 }
+
 .content-section {
   padding-bottom: 100px;
 }
+
 .content-container {
-  max-width: 1400px; 
+  max-width: 1400px;
   margin: 0 auto;
 }
+
 .filter-group {
   display: flex;
   justify-content: center;
@@ -279,18 +280,22 @@ watch([activeCategory, activeTags], () => {
   flex-wrap: wrap;
   gap: 20px;
 }
+
 .category-group {
   margin-bottom: 40px;
 }
+
 .tag-group {
   margin-bottom: 100px;
 }
+
 .tag-label {
   font-size: 24px;
   font-weight: 700;
   color: #2C3E50;
   margin-right: 16px;
 }
+
 .filter-button-orange {
   background-color: var(--color-white-base);
   color: var(--color-text-primary);
@@ -302,11 +307,13 @@ watch([activeCategory, activeTags], () => {
   font-weight: bold;
   border-radius: 999px;
 }
+
 .filter-button-orange:hover,
 .filter-button-orange.active {
   background-color: var(--color-orange-500);
   color: var(--color-white-base);
 }
+
 .filter-button-blue {
   background-color: #FDFDFD;
   color: #2C3E50;
@@ -317,17 +324,20 @@ watch([activeCategory, activeTags], () => {
   transition: all 0.3s ease;
   border: 2px solid #16B4D6;
 }
+
 .filter-button-blue:hover,
 .filter-button-blue.active {
   background-color: #16B4D6;
   color: #FDFDFD;
 }
+
 .card-grid {
   display: grid;
   gap: 41px 29px;
   grid-template-columns: repeat(3, 1fr);
   min-height: 500px;
 }
+
 .no-results {
   text-align: center;
   font-size: 24px;
@@ -335,6 +345,7 @@ watch([activeCategory, activeTags], () => {
   padding: 80px 0;
   grid-column: 1 / -1;
 }
+
 .load-more-container {
   display: flex;
   justify-content: center;
@@ -346,25 +357,31 @@ watch([activeCategory, activeTags], () => {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
 @media (max-width: 769px) {
   .content-section {
     margin-top: 80px;
   }
+
   .card-grid {
     grid-template-columns: 1fr;
     min-height: 300px;
   }
+
   .tag-group {
     margin-bottom: 60px;
   }
+
   .filter-button-blue,
   .filter-button-orange {
     font-size: 16px;
     padding: 8px 20px;
   }
+
   .tag-label {
     font-size: 18px;
   }
+
   .load-more-container {
     margin-top: 80px;
   }

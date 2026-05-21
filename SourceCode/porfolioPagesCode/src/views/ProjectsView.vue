@@ -6,49 +6,37 @@ import { Project } from '../data/projects';
 import { useRoute } from 'vue-router';
 
 const route = useRoute();
-// 設定預設索引值
-// activeDeviceIdx : 裝置索引值 => pc = 0、tablet = 1、phone = 2
-// activeImgIdx： 裝置下白天模式跟黑夜模式的索引值 => white = 0、black = 1
 const activeDeviceIdx = ref<number | null>(null);
 const activeImgIdx = ref<number | null>(null);
 
-// 將 ID 轉換為數字
 const projectId = computed(() => Number(route.params.id));
-// 網頁中載入 data ，並找出對應的資料
 const currentProject = computed(() => {
     return Project.find(p => p.id === projectId.value);
 });
 
 const baseUrl = import.meta.env.BASE_URL;
-// 取得 title picture
 const getImgUrl = (name: string) => {
     return `${baseUrl}pic/project/${name}.jpg`;
 };
-// 取得 tech icon
 const getImgIcon = (iconName: string) => {
     return `${baseUrl}icon/${iconName}.svg`;
 };
-// 取得 rwd img
 const getRwdUrl = (name: string) => {
     return `${baseUrl}pic/project/${name}.png`;
 };
 
-// 確保使用者有確切點選某張圖片，value不等於null的時候變化
 const currentOverlay = computed(() => {
     if (activeDeviceIdx.value !== null && activeImgIdx.value !== null) {
-        // 要確切的知道試點選哪一張圖片
-        // 是否點選圖片，是RWD裝置圖片裡面的[哪一個裝置]中[白天還是黑夜]的圖
         return currentProject.value?.RWD[activeDeviceIdx.value].img[activeImgIdx.value];
     };
     return null;
 });
-// 判斷是否為第一張或是最後一張圖片，來決定是否隱藏 button prev、next
+
 const isFirstImg = computed(() => {
     return activeDeviceIdx.value === 0 && activeImgIdx.value === 0;
 });
+
 const isLastImg = computed(() => {
-    // if 後若只有一段程式碼，{} 可以省略
-    // !currentProject => 在currentProject有資料的時候
     if (activeDeviceIdx.value === null || !currentProject.value) return true;
     const lastDeviceIdx = currentProject.value.RWD.length - 1;
     const lastImgIdx = currentProject.value.RWD[lastDeviceIdx].img.length - 1;
@@ -67,12 +55,9 @@ const closeOverlay = () => {
 const nextImg = () => {
     if (isLastImg.value || activeDeviceIdx.value === null || activeImgIdx.value === null) return;
     const device = currentProject.value?.RWD[activeDeviceIdx.value];
-    // 如果 device 是空的，這整行判斷就會變成 false ，若沒有設device &&，後面的device會報錯，因為若沒有讀取到資料會是underfined 網頁會跳不出來，ts有疑慮
     if (device && activeImgIdx.value < device.img.length - 1) {
-        // value值增加，圖的索引數值變更時，就會自動換圖 (div有綁定變數)
         activeImgIdx.value++;
     } else {
-        // 換下一個裝置，圖片索引值歸零
         activeDeviceIdx.value++;
         activeImgIdx.value = 0;
     };
@@ -82,7 +67,6 @@ const prevImg = () => {
     if (activeImgIdx.value > 0) {
         activeImgIdx.value--;
     } else {
-        // 要從這個裝置跳回上一個裝置最後一個圖
         activeDeviceIdx.value--;
         activeImgIdx.value = currentProject.value!.RWD[activeDeviceIdx.value].img.length - 1;
     };
@@ -91,7 +75,6 @@ const prevImg = () => {
 // 鍵盤與滑鼠操作
 const handleKey = (e: KeyboardEvent) => {
     if (activeDeviceIdx.value === null) return;
-    // 'ArrowRight'、'ArrowLeft'、'Escape' 是瀏覽器控制的固定用法不能隨意變換
     if (e.key === 'ArrowRight') nextImg();
     if (e.key === 'ArrowLeft') prevImg();
     if (e.key === 'Escape') closeOverlay();
@@ -99,13 +82,11 @@ const handleKey = (e: KeyboardEvent) => {
 
 // 監控裝置索引是否開啟大圖
 watch(activeDeviceIdx, (newVal: number | null) => {
-    // 圖片放大，將背景的捲動條隱藏，不要跟著滑動，關閉時恢復滾動
     document.body.style.overflow = newVal !== null ? 'hidden' : '';
 });
 
 onMounted(() => window.addEventListener('keydown', handleKey));
 onUnmounted(() => window.removeEventListener('keydown', handleKey));
-
 </script>
 
 <template>
@@ -131,7 +112,6 @@ onUnmounted(() => window.removeEventListener('keydown', handleKey));
                 </div>
             </div>
             <img :src="getImgUrl(currentProject.pic)" alt="project-img">
-            <!-- :class="{ 'title-full': !(currentProject).pic }" -->
         </section>
 
         <section id="tech">
@@ -158,22 +138,18 @@ onUnmounted(() => window.removeEventListener('keydown', handleKey));
             </div>
         </section>
 
-
-
         <section id="challenge">
             <h2 class="problem">
                 <ion-icon name="chevron-forward-outline"></ion-icon>
                 <span>問題與解決方式</span>
             </h2>
-            <!-- ProjectProblemCard 內部定義了 v-if="items && items.length > 0"，但什麼都沒傳 -->
-            <!-- 要從 currentProject 中提取出 challenge 的陣列傳給它 -->
             <ProjectProblemCard v-if="currentProject && currentProject.challenge" :items="currentProject.challenge" />
         </section>
 
         <section id="rwd">
             <h2>
                 <ion-icon name="chevron-forward-outline"></ion-icon>
-                <span>RWD圖示 (點擊放大查看)</span>
+                <span>圖示 (點擊放大查看)</span>
             </h2>
             <div class="link">
                 <a v-for="item in currentProject.links" :href="item.link" target="_blank">

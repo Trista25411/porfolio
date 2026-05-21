@@ -16,24 +16,21 @@ const props = defineProps({
   }
 });
 
-// 定義一個函式來處理圖片的動態路徑
 const getImageUrl = (name) => {
   return new URL(`../assets/img/future/future-test/${name}`, import.meta.url).href;
 };
 
-// 輪播基本設定
+// 輪播設定
 const carouselSettings = {
-  itemsToShow: 1.25, // 顯示 1.25 個項目，讓兩側卡片可見 
-  wrapAround: false, // 確保沒有循環，箭頭會隱藏
-  snapAlign: 'center', // 項目居中對齊
+  itemsToShow: 1.25, 
+  wrapAround: false, 
+  snapAlign: 'center', 
 };
 
 // 響應式斷點設定
 const carouselBreakpoints = {
-  // vue3用itemsToShow設置
-  // 在 px以內(下方px數字) 的螢幕
   0: {
-    itemsToShow: 1, // 一個卡片
+    itemsToShow: 1, 
     snapAlign: 'center',
     wrapAround: false,
   },
@@ -42,9 +39,8 @@ const carouselBreakpoints = {
     snapAlign: 'center',
     wrapAround: false,
   },
-  // 在 px 以上的螢幕
   1500: {
-    itemsToShow: 3, // 顯示三個卡片
+    itemsToShow: 3, 
     snapAlign: 'center',
     wrapAround: false,
   }
@@ -97,18 +93,15 @@ const carouselBreakpoints = {
   text-decoration: none;
   color: inherit;
   display: block;
-  /* 讓整個卡片區域都是可點擊的 */
 }
 
 .card-description {
   font-size: 16px;
   color: #555;
   margin-bottom: 16px;
-  /* 根據你的設計調整與圖片的間距 */
   text-align: start;
 }
 
-/* 移除多餘的卡片內容容器 */
 .img-container {
   width: 550px;
   height: 180px;
@@ -190,8 +183,6 @@ const carouselBreakpoints = {
   color: #2c3e50;
 }
 
-/* carousel__prev, .carousel__next 選擇器是全域
-需要使用 :deep() 偽類來強制應用樣式 */
 :deep(.carousel__prev) {
   left: -50px;
 }
@@ -200,7 +191,6 @@ const carouselBreakpoints = {
   right: -50px;
 }
 
-/* 變版修改 */
 @media (max-width:1500px) {
   :deep(.carousel__prev) {
     left: 10px;

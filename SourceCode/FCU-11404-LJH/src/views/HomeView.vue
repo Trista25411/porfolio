@@ -5,33 +5,14 @@ import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { Navigation } from 'swiper/modules';
-import Banner from '../components/sections/Banner.vue';
 
-// banner圖片
+import Banner from '../components/sections/Banner.vue';
 import banner1920 from '@/assets/img/banner/home-banner-1920.png';
 import banner1400 from '@/assets/img/banner/home-banner-1400.png';
-import banner1200 from '@/assets/img/banner/home-banner-1200.png'; // 檔名有個多餘的 r，我先修正
+import banner1200 from '@/assets/img/banner/home-banner-1200.png'; 
 import banner996 from '@/assets/img/banner/home-banner-996.png';
 import banner765 from '@/assets/img/banner/home-banner-765.png';
 import banner576 from '@/assets/img/banner/home-banner-576.png';
-
-// 建立符合 Banner 元件 props 格式的資料
-const bannerSources = [
-  // 當螢幕寬度大於等於 1401px 時，使用 1920 的圖
-  { media: '(min-width: 1401px)', srcset: banner1920 },
-  // 當螢幕寬度大於等於 1201px 時，使用 1400 的圖
-  { media: '(min-width: 1201px)', srcset: banner1400 },
-  // 當螢幕寬度大於等於 997px 時，使用 1200 的圖
-  { media: '(min-width: 997px)', srcset: banner1200 },
-  // 當螢幕寬度大於等於 766px 時，使用 996 的圖
-  { media: '(min-width: 766px)', srcset: banner996 },
-  // 當螢幕寬度大於等於 577px 時，使用 765 的圖
-  { media: '(min-width: 577px)', srcset: banner765 },
-  // 當螢幕寬度大於等於 361px 時，使用 576 的圖
-];
-
-// 指定一張預設/最小尺寸的圖片
-const defaultBannerSrc = banner576;
 
 import EventBanner from '@/components/card/EventBanner.vue';
 import BaseButton from '@/components/button/BaseButton.vue';
@@ -42,13 +23,9 @@ import IconCompetition from '@/components/iconsecd/IconCompetition.vue';
 import IconLearning from '@/components/iconsecd/IconLearning.vue';
 import IconExhibition from '@/components/iconsecd/IconExhibition.vue';
 import IconCharity from '@/components/iconsecd/IconCharity.vue';
-
-// 匯入資源地圖的 JSON 資料
 import resourceMapData from '@/assets/data/ResourceMapView_id.json';
-// 匯入活動列表的 JSON 資料
 import eventListData from '@/assets/data/EventList.json';
 
-// 圖片資源
 import policeImg from '@/assets/img/index/informap/police.png';
 import teenagerImg from '@/assets/img/index/informap/teenager.png';
 import sportImg from '@/assets/img/index/informap/sport.png';
@@ -64,6 +41,16 @@ import gardenhopeImg from '@/assets/img/index/informap/gardenhope.png';
 
 const router = useRouter();
 const modules = [Navigation];
+
+const bannerSources = [
+  { media: '(min-width: 1401px)', srcset: banner1920 },
+  { media: '(min-width: 1201px)', srcset: banner1400 },
+  { media: '(min-width: 997px)', srcset: banner1200 },
+  { media: '(min-width: 766px)', srcset: banner996 },
+  { media: '(min-width: 577px)', srcset: banner765 },
+];
+
+const defaultBannerSrc = banner576;
 
 const getBannerImageUrl = (name) => {
   return new URL(`../assets/img/event/information/${name}`, import.meta.url).href;
@@ -84,39 +71,37 @@ const featuredEvents = computed(() => {
 
     // 根據 targetAudience 動態產生標籤和對應的連結
     const dynamicTags = [];
-    const audience = event.targetAudience || ''; // 確保 targetAudience 欄位存在
+    const audience = event.targetAudience || ''; 
 
     if (audience.includes('青少年')) {
       dynamicTags.push({
         text: '青少年',
-        link: `/information?tag=青少年` // 點擊後導向 InformationView 並篩選 '青少年'
+        link: `/information?tag=青少年` 
       });
     } else if (audience.includes('全年齡')) {
       dynamicTags.push({
         text: '全年齡',
-        link: `/information?tag=全年齡` // 點擊後導向 InformationView 並篩選 '全年齡'
+        link: `/information?tag=全年齡` 
       });
     }
 
-    // 回傳給 EventBanner 的 props 物件
+    // 回傳給 EventBanner 
     return {
       id: event.id,
-      // category.url 動態指向 InformationView 並帶上分類 query
       category: {
         text: event.category,
         url: `/information?category=${encodeURIComponent(event.category)}`
       },
       title: event.title,
       eventTime: eventTime,
-      location: { text: locationText, url: "#" }, // 地點連結維持不變，因為沒有對應頁面
+      location: { text: locationText, url: "#" }, 
       imageUrl: getBannerImageUrl(event.imageBannerUrl),
-      // 使用上面產生的 dynamicTags
       tags: dynamicTags,
     };
   }).filter(event => event !== null);
 });
 
-// 活動類別項目
+// 活動類別
 const eventCategories = shallowRef([
   { name: "休閒娛樂", iconComponent: IconLeisure },
   { name: "競賽與體育", iconComponent: IconCompetition },
@@ -125,7 +110,7 @@ const eventCategories = shallowRef([
   { name: "公益與志工服務", iconComponent: IconCharity },
 ]);
 
-// 建立圖片檔名與匯入圖片變數的對應關係
+// 圖片檔名與匯入圖片對應
 const imageMap = {
   '01_taichung_police_department.png': policeImg,
   '02_taichung_juvenile_guidance_committee.png': teenagerImg,
@@ -141,18 +126,18 @@ const imageMap = {
   '13_the_garden_of_hope_foundation.png': gardenhopeImg,
 };
 
-// 根據 JSON 資料動態生成資源地圖連結
+// 資源地圖連結
 const infoMapAreas = ref(
   resourceMapData
-    .filter(item => imageMap[item.img]) // 只選取有對應圖片的資料
+    .filter(item => imageMap[item.img]) 
     .map(item => ({
       name: item.name,
-      imageSrc: imageMap[item.img], // 從對應表中取得圖片
-      link: item.website, // 從 JSON 中取得官網連結
+      imageSrc: imageMap[item.img], 
+      link: item.website, 
     }))
 );
 
-// 跳轉到 InformationView 的方法
+// 跳轉 InformationView 
 const goToInformation = (categoryName) => {
   router.push({ path: '/information', query: { category: categoryName } });
 };
@@ -196,7 +181,6 @@ const goToInformation = (categoryName) => {
         <div class="col-12">
           <swiper :navigation="true" :modules="modules" :slides-per-view="1" :space-between="30" class="mySwiper">
             <swiper-slide v-for="(event, index) in featuredEvents" :key="index">
-              <!-- EventBanner 元件接收處理好的 props 並正確渲染連結 -->
               <EventBanner :eventData="event" />
             </swiper-slide>
           </swiper>
@@ -286,7 +270,6 @@ const goToInformation = (categoryName) => {
   padding: 0 50px;
 }
 
-/* intr ------------------------------------- */
 .intr-area {
   margin-top: 100px;
   margin-bottom: 100px;
@@ -309,7 +292,6 @@ const goToInformation = (categoryName) => {
   height: 100%;
 }
 
-/* event component------------------------------------------- */
 .event-area {
   padding-top: 100px;
   padding-bottom: 100px;
@@ -324,7 +306,6 @@ const goToInformation = (categoryName) => {
   padding-bottom: 40px;
 }
 
-/* 使用 :deep() 選擇器來影響 Swiper 的內部元素 */
 .event-area :deep(.swiper-button-next),
 .event-area :deep(.swiper-button-prev) {
   width: 50px;
@@ -350,7 +331,6 @@ const goToInformation = (categoryName) => {
 
 .event-area :deep(.swiper-button-prev) {
   transform: translateY(-50%) rotate(180deg);
-  /* 將左箭頭旋轉 */
   background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9 18L15 12L9 6' stroke='%2333363F' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
   background-repeat: no-repeat;
   background-position: center;
@@ -369,7 +349,6 @@ const goToInformation = (categoryName) => {
   justify-content: center;
 }
 
-/* event-cata ----------------------------- */
 .event-cata-area {
   padding-top: 100px;
   padding-bottom: 100px;
@@ -409,7 +388,6 @@ const goToInformation = (categoryName) => {
   --svg-color: var(--color-white-base);
 }
 
-/* lab ------------------------------- */
 .lab {
   background-color: var(--color-gray-area);
   background-image: url(../assets/img/bg-orange.svg);
@@ -456,7 +434,6 @@ const goToInformation = (categoryName) => {
   align-self: flex-end;
 }
 
-/* infor map-------------------------------- */
 .map-area {
   padding: 100px 0;
 }
@@ -486,19 +463,15 @@ const goToInformation = (categoryName) => {
   transform: translateY(-5px);
 }
 
-
-/* 按鈕-------------------------------- */
 .bluebutton {
   max-width: 160px;
   align-self: flex-end;
 }
 
-
 .bluebutton2 {
   width: fit-content;
 }
 
-/* infor map-------------------------------- */
 @media (max-width: 992px) {
   .intr-area .row {
     --bs-gutter-x: 1.5rem;

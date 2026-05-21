@@ -1,10 +1,15 @@
 <script setup>
 import { ref, computed } from 'vue';
+import CaseCardCarousel from '@/components/CaseCardCarousel.vue';
+import AwarenessData from '@/assets/data/future_awareness.json';
+import VideoCarousel from '@/components/VideoCarousel.vue';
+import InfoCardCarousel from '@/components/InfoCardCarousel.vue';
+import FilterButton from '@/components/button/FilterButton.vue';
+import InfoData from '@/assets/data/future_test.json';
+import IconExternal from '@/components/icons/external.vue';
+import LearningAll from '@/components/pagesections/LearningAll.vue';
 
-// 匯入banner元件及圖片 
 import Banner from '@/components/sections/Banner.vue';
-
-// 引入「未來研究室」頁面所有尺寸的 Banner 圖片
 import banner1920 from '@/assets/img/banner/future-banner-1920.png';
 import banner1400 from '@/assets/img/banner/future-banner-1400.png';
 import banner1200 from '@/assets/img/banner/future-banner-1200.png';
@@ -12,7 +17,7 @@ import banner996 from '@/assets/img/banner/future-banner-996.png';
 import banner765 from '@/assets/img/banner/future-banner-765.png';
 import banner576 from '@/assets/img/banner/future-banner-576.png';
 
-// 建立要傳遞給 Banner 元件的 sources 陣列
+// 要傳給 Banner 元件的 sources 陣列
 const futureBannerSources = [
     { media: '(min-width: 1401px)', srcset: banner1920 },
     { media: '(min-width: 1201px)', srcset: banner1400 },
@@ -21,33 +26,12 @@ const futureBannerSources = [
     { media: '(min-width: 577px)', srcset: banner765 },
 ];
 
-// 指定預設/最小尺寸的圖片
 const futureDefaultBannerSrc = banner576;
 
-// 匯入宣導輪播元件及圖片、json資料
-import CaseCardCarousel from '@/components/CaseCardCarousel.vue';
-import AwarenessData from '@/assets/data/future_awareness.json';
-
-// 匯入影音輪播元件
-import VideoCarousel from '@/components/VideoCarousel.vue';
-
-// 匯入測驗輪播元件、橘色按鈕元件、JSON 資料
-import InfoCardCarousel from '@/components/InfoCardCarousel.vue';
-// 將 CategoryButton 替換為 FilterButton
-import FilterButton from '@/components/button/FilterButton.vue';
-import InfoData from '@/assets/data/future_test.json';
-import IconExternal from '@/components/icons/external.vue';
-
-// 匯入相關連結元件
-import LearningAll from '@/components/pagesections/LearningAll.vue';
-
-// 了解自己區塊
-// 定義一個響應式變數來追蹤目前選取的類別
+// 了解自己
 const activeCategory = ref('全部');
-// 從 JSON 中提取所有不重複的類別
 const categories = ['全部', ...new Set(InfoData.flatMap(section => section.items.map(item => item.category)))];
 
-// 定義一個亂數排序的函式
 const shuffleArray = (array) => {
     const newArray = [...array];
     for (let i = newArray.length - 1; i > 0; i--) {
@@ -57,24 +41,21 @@ const shuffleArray = (array) => {
     return newArray;
 };
 
-// 使用 computed 屬性來動態篩選卡片
+// 篩選
 const filteredCards = computed(() => {
-    // 將所有卡片整合成一個一維陣列
     const allCards = InfoData.flatMap(section =>
         section.items.map(item => ({
             ...item,
             sectionTitle: section.sectionTitle,
         }))
     );
-    // 如果 activeCategory 是 '全部'，則回傳所有亂數排序後的卡片
     if (activeCategory.value === '全部') {
         return shuffleArray(allCards);
     }
-    // 否則，只回傳符合目前 activeCategory 的卡片（不亂數排序，因為分類後通常希望順序固定）
     return allCards.filter(card => card.category === activeCategory.value);
 });
 
-// 處理按鈕點擊事件
+// 按鈕點擊
 const selectCategory = (category) => {
     activeCategory.value = category;
 };
@@ -167,7 +148,6 @@ const selectCategory = (category) => {
     padding: 0 45px;
 }
 
-/* 簡介 */
 .about {
     width: 1400px;
 }
@@ -186,7 +166,6 @@ const selectCategory = (category) => {
     background-size: cover;
 }
 
-/* 影音 */
 .video-container {
     max-width: 1400px;
 }
@@ -212,7 +191,6 @@ const selectCategory = (category) => {
     margin: 50px 0;
 }
 
-/* 相關連結 */
 .connect.mx-auto {
     padding-bottom: 35px;
 }
@@ -221,15 +199,12 @@ const selectCategory = (category) => {
     margin-bottom: 24px;
 }
 
-/* 使用 :deep() 選擇器覆寫 FilterButton 樣式，達到反轉效果 */
-/* 預設狀態 (反轉為 FilterButton 的 active 狀態) */
 .tag-area :deep(.filter-button) {
     background-color: var(--color-orange-500);
     color: var(--color-white-base);
     border-color: var(--color-orange-light);
 }
 
-/* 啟用(active)與懸停(hover)狀態 (反轉為 FilterButton 的預設狀態，並使用指定的淡橘色邊框) */
 .tag-area :deep(.filter-button.active),
 .tag-area :deep(.filter-button:hover) {
     background-color: var(--color-blue-500);

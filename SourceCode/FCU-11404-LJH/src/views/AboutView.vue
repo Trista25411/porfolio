@@ -1,8 +1,13 @@
 <script setup>
 import BaseButton from '@/components/button/BaseButton.vue';
-// 匯入 Banner 組件
+import markImg from '@/assets/img/about/AboutMark.png';
+import flagImg from '@/assets/img/about/AboutFlag.png';
+import peopleImg from '@/assets/img/about/AboutPeople.png';
+import activityImg from '@/assets/img/about/AboutActivity.png';
+import learningImg from '@/assets/img/about/AboutLearning.png';
+import careImg from '@/assets/img/about/AboutCare.png';
+
 import Banner from '@/components/sections/Banner.vue';
-// 引入「關於我們」頁面所有尺寸的 Banner 圖片
 import banner1920 from '@/assets/img/banner/about-banner-1920.png';
 import banner1400 from '@/assets/img/banner/about-banner-1400.png';
 import banner1200 from '@/assets/img/banner/about-banner-1200.png';
@@ -10,7 +15,6 @@ import banner996 from '@/assets/img/banner/about-banner-996.png';
 import banner765 from '@/assets/img/banner/about-banner-765.png';
 import banner576 from '@/assets/img/banner/about-banner-576.png';
 
-// 建立要傳遞給 Banner 元件的 sources 陣列
 const aboutBannerSources = [
   { media: '(min-width: 1401px)', srcset: banner1920 },
   { media: '(min-width: 1201px)', srcset: banner1400 },
@@ -19,15 +23,7 @@ const aboutBannerSources = [
   { media: '(min-width: 577px)', srcset: banner765 },
 ];
 
-// 指定預設/最小尺寸的圖片
 const aboutDefaultBannerSrc = banner576;
-
-import markImg from '@/assets/img/about/AboutMark.png';
-import flagImg from '@/assets/img/about/AboutFlag.png';
-import peopleImg from '@/assets/img/about/AboutPeople.png';
-import activityImg from '@/assets/img/about/AboutActivity.png';
-import learningImg from '@/assets/img/about/AboutLearning.png';
-import careImg from '@/assets/img/about/AboutCare.png';
 </script>
 
 <template>
@@ -96,33 +92,33 @@ import careImg from '@/assets/img/about/AboutCare.png';
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="objective-card">
               <img :src="activityImg" alt="多元活動" class="img-fluid">
-     <BaseButton size="large" shape="pill" variant="solid" class="mt-3">
-        <router-link to="/information">
-          <span>多元活動</span>
-        </router-link>
-      </BaseButton>
+              <BaseButton size="large" shape="pill" variant="solid" class="mt-3">
+                <router-link to="/information">
+                  <span>多元活動</span>
+                </router-link>
+              </BaseButton>
             </div>
           </div>
           <!-- Item 2 -->
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="objective-card">
               <img :src="learningImg" alt="學習資源" class="img-fluid">
-      <BaseButton size="large" shape="pill" variant="solid" class="mt-3">
-        <router-link to="/future">
-          <span>學習資源</span>
-        </router-link>
-      </BaseButton>
+              <BaseButton size="large" shape="pill" variant="solid" class="mt-3">
+                <router-link to="/future">
+                  <span>學習資源</span>
+                </router-link>
+              </BaseButton>
             </div>
           </div>
           <!-- Item 3 -->
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="objective-card">
               <img :src="careImg" alt="關懷協詢" class="img-fluid">
-      <BaseButton size="large" shape="pill" variant="solid" class="mt-3">
-        <router-link to="/resource-map">
-          <span>關懷協詢</span>
-        </router-link>
-      </BaseButton>
+              <BaseButton size="large" shape="pill" variant="solid" class="mt-3">
+                <router-link to="/resource-map">
+                  <span>關懷協詢</span>
+                </router-link>
+              </BaseButton>
             </div>
           </div>
         </div>

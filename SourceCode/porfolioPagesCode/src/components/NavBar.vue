@@ -4,14 +4,9 @@ import { Project } from '@/data/projects';
 import { useRoute, useRouter } from 'vue-router';
 
 const route = useRoute();
-const router = useRouter();
-
-// const isProjectOpen = ref(false);
 const isMenuOpen = ref(false);
-// 手機版點擊切換
 const isProjectOpen = ref(false);
 
-// 匯入資料夾 icon 圖示
 const getImgUrl = (name: string) => {
     return `${import.meta.env.BASE_URL}icon/${name}.svg`;
 };
@@ -27,28 +22,24 @@ const navItems = ([
 //﹝專案作品﹞ 點擊行為
 const handleNavClick = (itemName: string, itemPath: string, e: Event) => {
     if (itemName === '專案作品') {
-        // 停止預設跳轉
         e.preventDefault();
 
         if (route.path === '/') {
-            // 若在首頁，點擊專案作品跳轉到首頁專案區塊
             const element = document.getElementById('projects');
             if (element) {
                 element.scrollIntoView({ behavior: 'smooth' });
             }
             isMenuOpen.value = false;
         } else {
-            // 在某專案內頁時，點擊專案作品改為打開/關閉 project-list
             isProjectOpen.value = !isProjectOpen.value;
         }
     } else {
-        // 點選其他按鈕，關閉重置
         isMenuOpen.value = false;
         isProjectOpen.value = false;
     }
 };
 
-// 切換頁面就重置所有選單狀態
+// 切換頁面重置所有選單狀態
 watch(() => route.path, () => {
     isMenuOpen.value = false;
     isProjectOpen.value = false;
@@ -60,7 +51,6 @@ watch(() => route.path, () => {
         <button type="button" class="ham" @click="isMenuOpen = !isMenuOpen">
             <ion-icon :name="isMenuOpen ? 'close-outline' : 'menu-outline'" class="ham-btn"></ion-icon>
         </button>
-        <!--                                                   點選 nav 中的某個東西，自動把 navbar 給隱藏 -->
         <div class="nav-area" :class="{ 'show': isMenuOpen }" @click="isMenuOpen = false">
             <div class="link">
                 <RouterLink to="/">
@@ -102,12 +92,10 @@ watch(() => route.path, () => {
     align-items: center;
 }
 
-/* 因routerlink是在.container裡面的 a，用routerlink來寫並不會變化 */
 .container a {
     text-decoration: none;
     color: var(--color-text);
     letter-spacing: 0.03em;
-    /* figma 3% */
 }
 
 .ham {
@@ -207,7 +195,6 @@ watch(() => route.path, () => {
 }
 
 .proj-item {
-    /* 不讓名稱過長折行 */
     white-space: nowrap;
 }
 

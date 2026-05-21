@@ -7,7 +7,7 @@ interface InfoItem {
     name: string;
     intr: string;
     img: string;
-}
+};
 
 const current = ref(0);
 const infoList: InfoItem[] = [

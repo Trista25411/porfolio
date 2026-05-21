@@ -4,6 +4,15 @@ import { useRoute } from 'vue-router';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
 
+import ResponsiveFilterGroup from '@/components/menu/ResponsiveFilterGroup.vue';
+import ActivityCardArrow from '@/components/card/ActivityCardArrow.vue';
+import VideoActivityCard from '@/components/card/VideoActivityCard.vue';
+import ImageLightbox from '@/components/modal/ImageLightbox.vue';
+import BaseButton from '@/components/button/BaseButton.vue';
+import IconDown from '@/components/icons/down.vue'
+import eventPhotoData from '@/assets/data/EventPhotos.json';
+import eventVideoData from '@/assets/data/EventVideo.json';
+
 import Banner from '@/components/sections/Banner.vue';
 import banner1920 from '@/assets/img/banner/video-banner-1920.png';
 import banner1400 from '@/assets/img/banner/video-banner-1400.png';
@@ -20,21 +29,10 @@ const videoBannerSources = [
   { media: '(min-width: 577px)', srcset: banner765 },
 ];
 const videoDefaultBannerSrc = banner576;
-
-import ResponsiveFilterGroup from '@/components/menu/ResponsiveFilterGroup.vue';
-import ActivityCardArrow from '@/components/card/ActivityCardArrow.vue';
-import VideoActivityCard from '@/components/card/VideoActivityCard.vue';
-import ImageLightbox from '@/components/modal/ImageLightbox.vue';
-import BaseButton from '@/components/button/BaseButton.vue';
-import IconDown from '@/components/icons/down.vue'
-import eventPhotoData from '@/assets/data/EventPhotos.json';
-import eventVideoData from '@/assets/data/EventVideo.json';
-
 const route = useRoute();
 const modules = ref([]);
 const isLightboxVisible = ref(false);
 const lightboxStartIndex = ref(0);
-// 用來存放「當前被點擊活動」的所有圖片
 const lightboxImages = ref([]);
 const orangeButtons = ref([
   { text: '全部類型' },
@@ -55,7 +53,6 @@ function getYouTubeId(url) {
   return (match && match[2].length === 11) ? match[2] : null;
 }
 
-// 處理 JSON 資料時，額外保存 allPhotos 和 fullTitle
 const allActivityCards = ref(eventPhotoData.map(event => {
   let category = event.category;
   if (category === '公益與志工服務') {
@@ -63,14 +60,12 @@ const allActivityCards = ref(eventPhotoData.map(event => {
   }
   return {
     id: event.id,
-    // 卡片封面圖仍然使用第一張照片
     imageUrl: new URL(`../assets/img/eventphotos/${event.photos[0]}`, import.meta.url).href,
     category: { text: category, url: '#' },
     title: { text: event.title, url: '#' },
     moreUrl: '#',
-    // 【新增】將原始的 photos 陣列和 title 保存起來，以供燈箱使用
-    allPhotos: event.photos, // 保存所有照片檔名
-    fullTitle: event.title // 保存完整標題
+    allPhotos: event.photos,
+    fullTitle: event.title
   };
 }));
 
@@ -107,27 +102,22 @@ const filteredVideoCards = computed(() => {
 });
 
 const openLightbox = (clickedCardId) => {
-  // 從所有活動卡片中，找到被點擊的那一張
   const clickedCard = allActivityCards.value.find(card => card.id === clickedCardId);
   if (clickedCard && clickedCard.allPhotos) {
-    // 將該活動的所有照片檔名，轉換成 ImageLightbox 元件需要的格式
     lightboxImages.value = clickedCard.allPhotos.map((photoName, index) => ({
-      id: `${clickedCard.id}-${index}`, // 建立一個唯一的 key
+      id: `${clickedCard.id}-${index}`,
       imageUrl: new URL(`../assets/img/eventphotos/${photoName}`, import.meta.url).href,
-      title: { text: clickedCard.fullTitle } // 標題對所有照片都一樣
+      title: { text: clickedCard.fullTitle }
     }));
 
-    // 設定從第一張圖片開始顯示
     lightboxStartIndex.value = 0;
-    // 顯示
     isLightboxVisible.value = true;
   }
 };
 
-// 關閉時，清空圖片陣列
 const closeLightbox = () => {
   isLightboxVisible.value = false;
-  lightboxImages.value = []; // 清空陣列是個好習慣
+  lightboxImages.value = [];
 };
 
 function updateCategoryFromRoute(categoryName) {
@@ -140,6 +130,10 @@ function updateCategoryFromRoute(categoryName) {
 
 function loadMorePhotos() {
   visiblePhotoCount.value += 6;
+}
+
+function setCategoryFromCard(category) {
+  activeCategory.value = category;
 }
 
 watch(activeCategory, (newCategory, oldCategory) => {
@@ -158,10 +152,6 @@ watch(
 onMounted(() => {
   updateCategoryFromRoute(route.query.category);
 });
-
-function setCategoryFromCard(category) {
-  activeCategory.value = category;
-}
 </script>
 
 <template>

@@ -3,7 +3,7 @@ import { ref, computed, onMounted, onUnmounted, watch } from 'vue';
 import BaseButton from './BaseButton.vue';
 import { allPhotos } from '../data/lifecard';
 
-// 設定預設圖片數量
+// 預設圖片數量
 const activeCategory = ref('全部');
 const getInitial = () => {
     const width = window.innerWidth
@@ -14,22 +14,14 @@ const getInitial = () => {
     if (width < 2500) return 5;
     return 6;
 };
-// 預設圖片隨著視窗大小變化
+
+// 圖片隨著視窗大小變化
 const showLimit = ref(getInitial());
-// 原先進入伺服器只會載入一次，因要隨著視窗大小，要跟著一起變動
 const handleReize = () => {
     if (!isAllShow.value) {
         showLimit.value = getInitial();
     };
 };
-
-onMounted(() => {
-    window.addEventListener('resize', handleReize)
-});
-// vue 跳轉還會在伺服器中，要隨時刪掉不然會積太多導致電腦運轉不順
-onUnmounted(() => {
-    window.removeEventListener('resize', handleReize)
-});
 
 // tags
 const lifeItems = ([
@@ -40,9 +32,6 @@ const lifeItems = ([
 ]);
 
 const getImgUrl = (name: string) => {
-    // 原先寫法: return new URL(`../assets/pic/life/${name}.jpeg`, import.meta.url).href;
-    // 但系統抓取不到顯示404 undfineds => Vite 有時候會因為太過「精簡」，導致在靜態分析時沒辦法確定基礎路徑起點在哪裡，特別是在 Storybook 這種多層環境下，它解析出來的路徑就會變成undefined`。
-    // 明確地把路徑字串先賦值給變數，提高編譯器成功解析「相對路徑」的機率
     const path = `${import.meta.env.BASE_URL}pic/life/${name}.JPEG`;
     return path;
 };
@@ -68,23 +57,13 @@ const toggleShow = () => {
     if (isAllShow.value) {
         showLimit.value = getInitial();
     } else {
-        // 一開始顯示的圖片數量大於 2，每次點擊『查看更多』就增加跟初始數量一樣多的張數；
-        // 若初始數量小於或等於 2 （例如手機版只顯示 1 張），那每次就固定增加 4 張
-        // 一樣是用 => 條件 ? 成立時的結果 : 不成立時的結果
         const step = getInitial() > 2 ? getInitial() : 3;
         showLimit.value += step;
     };
 };
 
-// 設定點選類別回歸預設圖片張數
-watch(activeCategory, () => {
-    showLimit.value = getInitial();
-});
-
-// 設置亂數顯示圖片
-// TypeScript
+// 亂數顯示圖片
 const shuffle = <T>(arr: T[]): T[] => {
-    // 因原始資料的順序就已經被妳改掉了，使用[...arr] 複製一份複本出來，保持原始資料完整
     const res = [...arr];
     for (let i = res.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -92,6 +71,19 @@ const shuffle = <T>(arr: T[]): T[] => {
     }
     return res;
 };
+
+// 點選類別回歸預設圖片張數
+watch(activeCategory, () => {
+    showLimit.value = getInitial();
+});
+
+onMounted(() => {
+    window.addEventListener('resize', handleReize)
+});
+
+onUnmounted(() => {
+    window.removeEventListener('resize', handleReize)
+});
 </script>
 
 <template>
@@ -136,13 +128,11 @@ const shuffle = <T>(arr: T[]): T[] => {
 
 .lifecards {
     display: flex;
-    /* 一行空間不夠就換行 */
     flex-wrap: wrap;
     gap: 40px 20px;
 }
 
 .card {
-    /* 確保圖片不會被壓縮 */
     flex-shrink: 0;
 }
 

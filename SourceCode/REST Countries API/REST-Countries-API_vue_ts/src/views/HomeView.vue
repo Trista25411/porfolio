@@ -1,53 +1,30 @@
-<!-- 網站需求
-homepage可以看到所有國家
-尋找國家用input處理
-篩選用國家
-點選國家打開分頁可以查看更多
-可以點鄰近國家
-可以切換深夜模式 
-api網頁：https://restcountries.com/  篩選取得要的東西
-若網頁API掛掉，可以用本地的data.json
--->
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref } from 'vue';
 import CountryCard from '../components/CountryCard.vue';
-// 打包封裝後放在 assets 沒辦法辨識到，初始化就無法識別而產生白屏 => 改放到 public，路徑也作變更
-// import localData from '../assets/data.json';
 
-// 定義結構 慣例首字母大寫
 interface Country {
     id: string;
-    name: string; // map後取的是 item.name.common
+    name: string; 
     population: number;
     region: string;
-    capital: string; // map後取的是 item.capital?.[0]
-    flag: string; // map後取的是 flags.png
-}
+    capital: string; 
+    flag: string; 
+};
 
-const countries = ref<Country[]>([]); // 串接 API
-const searchQuery = ref(''); // 搜尋關鍵字
-const selectRegion = ref(''); // 綁定選重的地區 (預設為空, 顯示全部)
-const isOpenDrop = ref(false); // 控制下拉選單開合
-const dropListRef = ref<HTMLElement | null>(null); // 判斷點擊外部的 DOM, 控制隱藏選單, <指定為 HTML 元素或 null>
+const countries = ref<Country[]>([]); 
+const searchQuery = ref(''); 
+const selectRegion = ref(''); 
+const isOpenDrop = ref(false); 
+const dropListRef = ref<HTMLElement | null>(null); 
 
 // 抓 API 資料
-//  async 非同步作業 => 讓其他資訊不因串接api的時間延遲到
 const fetchCountries = async () => {
     try {
-        // 串接 api 網址，需要一點時間
-        // await讓程式抓取資料再繼續下去，避免抓到空資料
         const response = await fetch('https://restcountries.com/v3.1/all?fields=name,flags,cca3,population,region,capital');
-        if (!response.ok) throw new Error('API 異常');
+        // if (!response.ok) throw new Error('API 異常');
         const rawData = await response.json();
 
-        // 將 api 資料轉為自訂的標準，
-        // 因 data.json 是v2版，目前api已經是v3.1版，抓取的資訊不同，
-        // 原先寫法會造成api抓不到改抓data.json時，因名稱不同反而抓取不到造成錯誤
         countries.value = rawData.map((item: any) => ({
-            // 要看api名稱 => https://restcountries.com/ 進入後找到 All Countries (/v3.1/all?fields=name,flags)
-            // 在瀏覽器搜尋 https://restcountries.com/v3.1/all?fields=name,flags 即有name跟flag資訊，會密密麻麻的，在最上面有美化排版的選項可以分筆看
-            // api是需要哪些東西就要在瀏覽器加入，不然不會顯示 => 改為 https://restcountries.com/v3.1/all?fields=name,flags,cca3,population,region,capital
-            // id使用cca3是國家三位字母代碼，為常用寫法，用這個來辨別id最容易
             id: item.cca3,
             name: item.name.common,
             population: item.population,
@@ -60,10 +37,9 @@ const fetchCountries = async () => {
             const localData = await fetch('./data.json');
             if (!localData.ok) throw new Error('本地 JSON 讀取失敗');
             const backupData = await localData.json();
-            console.log('備用資料測試 backupData:', backupData);
+            // console.log('備用資料測試 backupData:', backupData);
+
             countries.value = backupData.map((item: any) => ({
-                // 本地資料也要變成一樣的格式
-                // 本地的資料型態不同，但也要跟上面 api 輸入的內容一致，才不會找不到直接不顯示
                 id: item.cca3 || item.alpha3Code,
                 name: item.name || item.name.common,
                 population: item.population,
@@ -79,17 +55,14 @@ const fetchCountries = async () => {
 };
 
 // search / filter功能
-// 取得所有國家 region, 並用 Set 去除重複, 最後轉回陣列
 const regions = computed(() => {
-    const allRegions = countries.value.map(c => c.region).filter(Boolean); // 過濾空值
-    return [...new Set(allRegions)]; // 去除重複
+    const allRegions = countries.value.map(c => c.region).filter(Boolean); 
+    return [...new Set(allRegions)]; 
 });
-// 頁面顯示清單, 同時處理 search 與 filter
+
 const filtercountries = computed(() => {
     return countries.value.filter(c => {
-        // 搜尋比對(不分大小寫)
         const matcheSearch = c.name.toLowerCase().includes(searchQuery.value.toLocaleLowerCase());
-        // 比對地區
         const matchesRegion = selectRegion.value ? c.region === selectRegion.value : true;
         return matcheSearch && matchesRegion;
     });
@@ -102,21 +75,18 @@ const setRegion = (region: string) => {
 
 // 點擊頁面關閉下拉選單
 const handleClick = (event: MouseEvent) => {
-    // as Node 定義為 DOM 節點, 才能使用contains()
     if (dropListRef.value && !dropListRef.value.contains(event.target as Node)) {
         isOpenDrop.value = false;
     }
-}
+};
 
 // 將 API 資料匯入
 onMounted(() => {
     fetchCountries();
-    // 控制頁面關閉下拉選單
     window.addEventListener('click', handleClick);
 });
 
 onUnmounted(() => {
-    // 移除監聽
     window.removeEventListener('click', handleClick);
 })
 </script>
@@ -148,7 +118,6 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
-/* routerlink寫text-decoration:none沒有效果，可能因為權重不夠，改a就好了 */
 a {
     text-decoration: none;
     color: black;
@@ -158,7 +127,6 @@ input {
     border: none;
     padding: 10px;
     background-color: transparent;
-    /* 去除點擊時的外框 */
     outline: none;
     width: 100%;
 }

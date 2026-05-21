@@ -2,11 +2,11 @@
 import { ref } from 'vue';
 import { RouterView } from 'vue-router';
 
-const isDark = ref(false); //預設淺色模式
+// 預設淺色模式
+const isDark = ref(false); 
 const darkMode = () => {
     isDark.value = !isDark.value;
     if (isDark.value) {
-        // 增加 classlist, 沒辦法直接匯入base.css資訊，要在下方再寫一次
         document.body.classList.add('dark-mode');
     } else {
         document.body.classList.remove('dark-mode');
@@ -15,7 +15,6 @@ const darkMode = () => {
 </script>
 
 <template>
-    <!-- 利用無障礙性: nav、main、selection、article -->
     <nav class="navbar">
         <RouterLink to="/" class="title">
             <h1>Where in the world?</h1>
