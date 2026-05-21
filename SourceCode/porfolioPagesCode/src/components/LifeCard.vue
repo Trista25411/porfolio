@@ -23,6 +23,11 @@ const handleReize = () => {
     };
 };
 
+const getImgUrl = (name: string) => {
+    const path = `${import.meta.env.BASE_URL}pic/life/${name}.JPEG`;
+    return path;
+};
+
 // tags
 const lifeItems = ([
     { icon: 'camera', name: '全部' },
@@ -30,11 +35,6 @@ const lifeItems = ([
     { icon: 'food', name: '美食' },
     { icon: 'handmade', name: '手作' },
 ]);
-
-const getImgUrl = (name: string) => {
-    const path = `${import.meta.env.BASE_URL}pic/life/${name}.JPEG`;
-    return path;
-};
 
 // 類別篩選
 const filterPhotos = computed(() => {
