@@ -23,6 +23,7 @@ const getImgUrl = (name: string) => {
 <style scoped>
 button {
     background-color: var(--white);
+    color: var(--color-text);
     border: 0.5px solid var(--border-color);
     border-radius: 20px;
     padding: 0 20px ;

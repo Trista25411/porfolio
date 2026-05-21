@@ -2,7 +2,7 @@
 import BaseButton from '@/components/BaseButton.vue';
 import ProjectProblemCard from '@/components/ProjectProblemCard.vue';
 import { ref, computed, watch, onMounted, onUnmounted } from 'vue';
-import { Project } from '../data/projectcard';
+import { Project } from '../data/projects';
 import { useRoute } from 'vue-router';
 
 const route = useRoute();
@@ -249,7 +249,6 @@ onUnmounted(() => window.removeEventListener('keydown', handleKey));
 }
 
 .name a {
-    color: var(--color-text);
     text-decoration: underline;
 }
 
@@ -353,6 +352,13 @@ onUnmounted(() => window.removeEventListener('keydown', handleKey));
     /* 隱藏滑動條 */
     scrollbar-width: none;
     padding-top: 80px;
+}
+
+.overlay-content img{
+    width: 100%;
+    max-width: 800px;
+    height: auto;
+    object-fit: contain;
 }
 
 .btn {

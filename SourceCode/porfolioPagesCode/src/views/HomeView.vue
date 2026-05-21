@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import ProjectCard from '../components/ProjectCard.vue';
-import { Project } from '@/data/projectcard';
+import { Project } from '@/data/projects';
 import LifeCard from '../components/LifeCard.vue';
 
 // img 打包因路徑關係變化導致找不到產生破圖，vite.config.ts 寫入並修改路徑名稱

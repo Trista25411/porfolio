@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { challengeItem } from '@/data/projectcard';
+import { challengeItem } from '@/data/projects';
 import { ref, onMounted, watch, nextTick } from 'vue';
 import BaseButton from './BaseButton.vue';
 
@@ -9,6 +9,8 @@ const props = defineProps<{
 
 // 預設顯示第一個挑戰
 const currentItem = ref(0);
+// 預設結論圖片滑動
+const isScrolled = ref(false);
 
 const numberDisplay = (num: number) => {
     return (num + 1).toString().padStart(2, '0');
@@ -109,6 +111,10 @@ const setupScroll = () => {
     });
 };
 
+const handleScroll = () => {
+    isScrolled.value = true;
+}
+
 onMounted(() => {
     setupScroll();
 });
@@ -124,8 +130,8 @@ watch(currentItem, () => {
     <div v-if="items && items.length > 0">
         <div class="content">
             <div class="btn">
-                <BaseButton v-for="(item, index) in items" :key="index" :class="{ 'active': currentItem === index }" class="ts"
-                    @click="currentItem = index">
+                <BaseButton v-for="(item, index) in items" :key="index" :class="{ 'active': currentItem === index }"
+                    class="ts" @click="currentItem = index">
                     <span class="num">{{ numberDisplay(index) }}</span>
                     <span>{{ item.name }}</span>
                 </BaseButton>
@@ -157,7 +163,7 @@ watch(currentItem, () => {
                     <div v-if="items[currentItem].img"
                         :class="['before-area', { 'full-width': !items[currentItem].resultImg }]">
                         <div class="title-main">Before</div>
-                        <div class="scroll-wrapper">
+                        <div class="scroll-wrapper" @scroll="handleScroll">
                             <div class="scroll-box" ref="beforeContainer">
                                 <img :src="getImgUrl(items[currentItem].img)" alt="before-img">
                             </div>
@@ -329,8 +335,6 @@ button:hover {
 .scroll-box img {
     width: 150%;
     display: block;
-    /* 顯示抓取手勢 */
-    cursor: grab;
     border: 2px solid var(--sage);
     object-position: top left;
     /* 禁止預設拖曳行為 => 圖片拉出顯示禁止符號 */
@@ -338,8 +342,6 @@ button:hover {
 }
 
 .scroll-box.grabbing {
-    /* 變抓緊的手勢 */
-    cursor: grabbing;
     /* 抓取時禁止選取文字 => 反白 */
     user-select: none;
 }

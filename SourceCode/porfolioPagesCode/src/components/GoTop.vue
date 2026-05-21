@@ -29,8 +29,8 @@ const baseUrl = import.meta.env.BASE_URL;
 
 <template>
     <div v-if="isVisible" class="gotop-container" :class="{ 'is-stop-footer': isAtFooter }" @click="scrollToTop">
-        <div class="go-top">TOP↑</div>
-        <img :src="`${baseUrl}/pic/gotop.png`" alt="gotop" class="gotop-pic">
+        <div class="go-top ts">TOP↑</div>
+        <img :src="`${baseUrl}pic/gotop.png`" alt="gotop" class="gotop-pic">
     </div>
 </template>
 
@@ -65,7 +65,7 @@ const baseUrl = import.meta.env.BASE_URL;
 }
 
 .gotop-pic {
-    width: 50%;
+    width: 35%;
 }
 
 .go-top {
@@ -76,11 +76,6 @@ const baseUrl = import.meta.env.BASE_URL;
     box-shadow: 2px 5px 8px var(--border-color);
     text-align: center;
     padding: 10px 15px;
-    display: none;
-}
-
-.gotop-container:hover .go-top {
-    display: block;
 }
 
 .is-stop-footer {

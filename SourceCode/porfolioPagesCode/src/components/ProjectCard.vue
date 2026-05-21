@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ProjectItem } from '@/data/projectcard';
+import type { ProjectItem } from '@/data/projects';
 
 defineProps<{
     item: ProjectItem;
@@ -40,11 +40,6 @@ const getImgUrl = (name: string) => {
 </template>
 
 <style scoped>
-a {
-    text-decoration: none;
-    color: var(--color-text);
-}
-
 button {
     padding-bottom: 0;
 }

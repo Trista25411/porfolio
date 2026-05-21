@@ -14,7 +14,7 @@ const activeAlert = ref<number | null>(null);
 
 const tagItems = ([
     { icon: 'email', name: 'Email', path: 'mailto:apple204023@gmail.com' },
-    { icon: 'blog', name: 'Pixnet', path: 'https://l.instagram.com/?u=https%3A%2F%2Fwww.pixnet.net%2Fpcard%2Fmdaysunlight%3Futm_source%3Dig%26utm_medium%3Dsocial%26utm_content%3Dlink_in_bio%26fbclid%3DPAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGn4OVmgK-eyvHnvWvq8gXYRWSfRxpQZntv4nS2STE68ayGu58kA3VUjmjoTr8_aem_HwxiLbAL7py1aK3jU3FeIg&e=AT7yP7Po_QmNI2m1n745l-vg0R_rnvt4QHqb96lxb2IqjBjeUG88WlpojBN9JTEsFZQgiyLP3JLd8fGhujxlhS-KRnf8HCb6zsjJYfs2Xw' },
+    { icon: 'blog', name: 'Pixnet', path: 'https://www.pixnet.net/pcard/mdaysunlight?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGn4OVmgK-eyvHnvWvq8gXYRWSfRxpQZntv4nS2STE68ayGu58kA3VUjmjoTr8_aem_HwxiLbAL7py1aK3jU3FeIg' },
     { icon: 'instagram', name: 'Instagram', path: 'https://www.instagram.com/m.day_sunlight/' },
 ]);
 
@@ -134,11 +134,6 @@ const sendMail = () => {
 </template>
 
 <style scoped>
-a {
-    color: var(--color-text);
-    text-decoration: none;
-}
-
 input,
 button {
     background-color: var(--white);
@@ -226,7 +221,6 @@ button {
     padding: 15px;
     /* 不讓使用者自行調整寬高 */
     resize: none;
-    /* 字行間的距離 */
     line-height: 2;
     border: none;
     outline: none;

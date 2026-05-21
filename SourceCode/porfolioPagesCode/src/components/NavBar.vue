@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
-import { Project } from '@/data/projectcard';
+import { Project } from '@/data/projects';
 import { useRoute, useRouter } from 'vue-router';
 
 const route = useRoute();
@@ -155,7 +155,7 @@ watch(() => route.path, () => {
     display: flex;
     align-items: center;
     gap: 20px;
-    padding: 20px 0;
+    padding: 18px 0;
 }
 
 .list:hover,
