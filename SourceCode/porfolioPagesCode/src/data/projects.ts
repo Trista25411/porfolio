@@ -211,7 +211,7 @@ export const Project: ProjectItem[] = [
         ],
         links: [
             { name: 'GITHUB', link: 'https://github.com/Trista25411/porfolio/tree/main/SourceCode/REST%20Countries%20API' },
-            { name: 'DEMO', link: 'https://trista25411.github.io/porfolio/projects/REST-Countries-API_vue_ts/' },
+            { name: 'DEMO', link: 'https://trista25411.github.io/porfolio/projectsLink/RestCountriesVueTs/' },
         ],
     },
     {
@@ -441,7 +441,7 @@ export const Project: ProjectItem[] = [
     },
     {
         id: 6,
-        logo: 'my',
+        logo: 'icon',
         title: '此個人作品集網站製作',
         pic: 'porfolio',
         tech: [

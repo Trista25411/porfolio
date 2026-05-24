@@ -103,7 +103,7 @@ onUnmounted(() => window.removeEventListener('keydown', handleKey));
         </section>
 
         <section id="title">
-            <div class="name">
+            <div v-if="currentProject.source[0].name" class="name">
                 <h1>{{ currentProject.title }}</h1>
                 <div class="ts-big">
                     <span>來源：</span>
