@@ -20,7 +20,7 @@ const emit = defineEmits(['image-click']);
 
 // 處理點擊事件的函式
 function handleCardClick() {
-  // 發出 'image-click' 事件，通知父元件
+  // 發出 'image-click' ，通知父元件
   emit('image-click');
 }
 </script>
@@ -43,7 +43,6 @@ function handleCardClick() {
 </template>
 
 <style scoped>
-/* router-link 的點擊區域與按鈕一致，並移除底線 */
 .card-category .router-link-active,
 .card-category .router-link-exact-active,
 .card-category a {

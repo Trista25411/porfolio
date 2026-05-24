@@ -85,6 +85,7 @@ function loadMore() {
   visibleCount.value += 8;
 }
 
+// 觸發分類變更
 function setCategoryFromCard(category) {
   activeCategory.value = category;
 }

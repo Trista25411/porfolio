@@ -12,17 +12,17 @@ const emit = defineEmits(['update:modelValue']);
 const isOpen = ref(false);
 
 // 建立對應 DOM 元素的 ref
-const toggleButton = ref(null); // 對應觸發按鈕
-const menuRef = ref(null);      // 對應彈出的選單
+const toggleButton = ref(null); 
+const menuRef = ref(null);      
 
-// 建立一個響應式物件來存放選單的動態 CSS
+// 存放選單的動態 CSS
 const menuStyle = reactive({
   top: '0px',
   left: '0px',
   width: '0px'
 });
 
-// 計算並設定選單位置的函式
+// 計算並設定選單位置
 const calculatePosition = () => {
   if (toggleButton.value) {
     const rect = toggleButton.value.getBoundingClientRect();
@@ -32,7 +32,7 @@ const calculatePosition = () => {
   }
 };
 
-// 抽離出獨立的開/關選單函式
+// 獨立開/關選單
 const openMenu = () => {
   isOpen.value = true;
   nextTick(() => { // 等待 DOM 更新後再計算位置
@@ -74,11 +74,11 @@ function selectOption(option) {
     emit('update:modelValue', newValue);
   } else {
     emit('update:modelValue', option);
-    closeMenu(); // 單選後關閉選單
+    closeMenu(); 
   }
 }
 
-// 點擊外部關閉選單的邏輯
+// 點擊外部關閉選單
 const handleClickOutside = (event) => {
   if (isOpen.value && toggleButton.value && !toggleButton.value.contains(event.target) && menuRef.value && !menuRef.value.contains(event.target)) {
     closeMenu();
@@ -93,7 +93,6 @@ watch(isOpen, (val) => {
   }
 });
 
-// 元件銷毀時清理事件監聽器，避免記憶體洩漏
 onUnmounted(() => {
   window.removeEventListener('scroll', calculatePosition, true);
   window.removeEventListener('resize', calculatePosition);
@@ -184,32 +183,26 @@ background: linear-gradient(to bottom, rgba(255, 255, 255, 0.623) 40%, transpare
   color: var(--color-white-base);
 }
 
-/* --- 下拉選單 (傳送後) 的樣式 --- */
+/* --- 下拉選單 --- */
 .dropdown-menu-teleported {
   position: fixed;
-  /* 改為 fixed 定位，才能搭配 JS 計算顯示在視窗任何位置 */
   list-style: none;
   margin: 0;
   padding: 0;
   background-color: var(--color-white-base);
   z-index: 9999;
-  /* --- 藥丸形狀 --- */
   border-radius: var(--radius-26);
   border-width: 2px;
   border-style: solid;
   box-shadow: var(--c-shadow-soft);
   overflow: hidden;
-  /* 確保內容不超出圓角 */
 }
 
-/* 根據主題設定邊框顏色 */
 .dropdown-menu-teleported.theme-orange {
-  /* border-color: var(--color-orange-500); */
   border: unset;
 }
 
 .dropdown-menu-teleported.theme-blue {
-  /* border-color: var(--color-blue-500); */
   border: unset;
 }
 

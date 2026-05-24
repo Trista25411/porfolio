@@ -1,8 +1,6 @@
 <script setup>
 import { ref, computed, watch } from 'vue';
-// 移除 CategoryButton，因為它現在只在 LearningCard 中使用
 import ResponsiveFilterGroup from '@/components/menu/ResponsiveFilterGroup.vue';
-// 引入新的 LearningCard 元件
 import LearningCard from '@/components/card/LearningCard.vue'; // 假設 LearningCard.vue 與此檔案在同目錄
 import FutureLinks from '@/assets/data/future_links.json';
 
@@ -57,5 +55,5 @@ function selectCategory(category) {
 </template>
 
 <style scoped>
-/* 卡片相關樣式都已移至 LearningCard.vue，樣式清空 */
+/* 卡片相關樣式移至 LearningCard.vue */
 </style>

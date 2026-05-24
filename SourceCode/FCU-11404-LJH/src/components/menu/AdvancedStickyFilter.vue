@@ -2,10 +2,10 @@
 import { ref, computed, onMounted, onUnmounted } from 'vue';
 import DropdownFilter from '@/components/menu/DropdownFilter.vue';
 const props = defineProps({
-  // 分類篩選器相關
+  // 分類
   categories: { type: Array, required: true },
   activeCategory: { type: String, required: true },
-  // 標籤篩選器相關
+  // 標籤
   tags: { type: Array, required: true },
   activeTags: { type: Array, required: true },
 });
@@ -162,11 +162,11 @@ const handleStickyTagClick = (option, type) => {
   border: 1px solid transparent;
 }
 .sticky-tag.inactive {
-  background-color: #f3f4f6; /* light gray */
+  background-color: #f3f4f6; 
   color: var(--color-text-primary);
 }
 .sticky-tag.inactive:hover {
-  background-color: #e5e7eb; /* slightly darker gray */
+  background-color: #e5e7eb; 
 }
 .sticky-tag.active-orange {
   background-color: var(--color-orange-500);
@@ -180,7 +180,7 @@ const handleStickyTagClick = (option, type) => {
 .divider {
   height: 24px;
   width: 1px;
-  background-color: #e5e7eb; /* light gray */
+  background-color: #e5e7eb; 
   margin: 0 1rem;
   flex-shrink: 0;
 }

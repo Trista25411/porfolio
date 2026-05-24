@@ -4,7 +4,6 @@ import CategoryButton from '@/components/button/CategoryButton.vue';
 import BaseButton from '@/components/button/BaseButton.vue';
 import IconExternal from '@/components/icons/external.vue';
 
-// 定義元件從父元件接收的資料
 defineProps({
   unit: {
     type: Object,
@@ -12,10 +11,10 @@ defineProps({
   }
 });
 
-// 定義元件向父元件發送的事件
+// 向父元件發送的事件
 const emit = defineEmits(['category-click']);
 
-// 從原檔案搬移過來的圖片路徑處理函式
+// 連結圖片路徑
 function getImageUrl(name) {
   return new URL(`../../assets/img/future/future-links/${name}`, import.meta.url).href;
 }

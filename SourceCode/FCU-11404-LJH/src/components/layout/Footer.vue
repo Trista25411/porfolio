@@ -75,8 +75,6 @@ const currentUpdateDate = ref('2025.08.13');
 </template>
 
 <style scoped>
-/* **修改點 2: 新增 footer-content-container 樣式** */
-/* 這個 class 用來設定內容的最大寬度與置中 */
 .footer-content-container {
   max-width: 1400px;
   margin: 0 auto;
@@ -102,15 +100,12 @@ const currentUpdateDate = ref('2025.08.13');
 
 .wave-fill {
   fill: var(--color-blue-500);
-  /* 直接使用顏色值，因為 :root 在 scoped style 中可能無法跨 SVG 作用 */
+  /* 直接設定顏色，因 :root 無法跨 SVG 作用 */
 }
 
 .content {
   padding-top: 1rem;
   padding-bottom: var(--container-padding);
-  /* **修改點 3: 移除左右 padding，交由 .container-padding 控制** */
-  /* padding-left: var(--spacing-4); */
-  /* padding-right: var(--spacing-4); */
 }
 
 

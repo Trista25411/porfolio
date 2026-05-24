@@ -1,13 +1,12 @@
 <script setup>
-import 'swiper/css';
 import { ref, onMounted } from 'vue';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Mousewheel } from 'swiper/modules';
-import CategoryButton from '@/components/button/CategoryButton.vue';
+import 'swiper/css';
 
+import CategoryButton from '@/components/button/CategoryButton.vue';
 const imageUrls = import.meta.glob('@/assets/img/future/future-awareness/*.{jpg,png,svg}');
 const resolvedImages = ref({});
-const expandedCardIndex = ref(-1);
 
 const props = defineProps({
   awarenessData: {
@@ -17,40 +16,7 @@ const props = defineProps({
   },
 });
 
-const modules = [Mousewheel];
-const swiperOptions = {
-  mousewheel: {
-    forceToAxis: true, 
-  },
-  observer: true,
-  observeParents: true,
-  
-  breakpoints: {
-    1024: {
-      slidesPerView: 1.2,
-      spaceBetween: 50,
-      centeredSlides: false, 
-    },
-    0: {
-      slidesPerView: 1,
-      spaceBetween: 20,
-      centeredSlides: true, 
-    },
-  }
-};
-
-const toggleExpand = (index) => {
-  if (expandedCardIndex.value === index) {
-    expandedCardIndex.value = -1;
-  } else {
-    expandedCardIndex.value = index;
-  }
-};
-
-const isExpanded = (index) => {
-  return expandedCardIndex.value === index;
-};
-
+// 在元件掛載時解析所有圖片路徑
 onMounted(async () => {
   for (const item of props.awarenessData) {
     const path = `/src/assets/img/future/future-awareness/${item.imageUrl}`;
@@ -58,6 +24,52 @@ onMounted(async () => {
     resolvedImages.value[item.id] = module.default;
   }
 });
+
+const modules = [Mousewheel];
+const swiperOptions = {
+  // 開啟滾輪控制
+  mousewheel: {
+    forceToAxis: true, // 捕捉橫向滾動，不會干擾到頁面垂直捲動
+  },
+// 讓 Swiper 監控 DOM 變化自動更新
+  observer: true,
+  observeParents: true,
+  
+  // 設置視窗寬度變化時的樣式變化
+  breakpoints: {
+    // 當視窗寬度 >= 1024px 時
+    1024: {
+      slidesPerView: 1.2,
+      spaceBetween: 50,
+      centeredSlides: false, // 桌面版靠左
+    },
+    // 當視窗寬度 < 1024px 時
+    0: {
+      slidesPerView: 1,
+      spaceBetween: 20,
+      centeredSlides: true, // 手機版居中
+    },
+  }
+};
+
+// 追蹤目前展開的卡片索引，初始值為 -1 
+const expandedCardIndex = ref(-1);
+
+// 切換卡片的展開狀態
+const toggleExpand = (index) => {
+  // 如果點擊的卡片已經是展開狀態，則收回
+  if (expandedCardIndex.value === index) {
+    expandedCardIndex.value = -1;
+  } else {
+    // 否則，展開這張卡片
+    expandedCardIndex.value = index;
+  }
+};
+
+// 檢查卡片是否處於展開狀態
+const isExpanded = (index) => {
+  return expandedCardIndex.value === index;
+};
 </script>
 
 <template>
@@ -157,6 +169,7 @@ onMounted(async () => {
   max-height: 2000px;
 }
 
+/* 漸層遮罩，只在長內容且未展開時顯示 */
 .card-content.long-content:not(.is-expanded)::before {
   content: '';
   position: absolute;

@@ -1,6 +1,13 @@
+<!-- InformationView.vue -->
 <script setup>
 import { ref, computed, onMounted, watch } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
+import ActivityCard from '@/components/card/ActivityCard.vue';
+import CollapsibleFilterPanel from '@/components/menu/CollapsibleFilterPanel.vue';
+import allActivitiesRaw from '@/assets/data/EventList.json';
+import BaseButton from '@/components/button/BaseButton.vue';
+import IconDown from '@/components/icons/down.vue';
+
 import Banner from '@/components/sections/Banner.vue';
 import banner1920 from '@/assets/img/banner/information-banner-1920.png';
 import banner1400 from '@/assets/img/banner/information-banner-1400.png';
@@ -8,13 +15,6 @@ import banner1200 from '@/assets/img/banner/information-banner-1200.png';
 import banner996 from '@/assets/img/banner/information-banner-996.png';
 import banner765 from '@/assets/img/banner/information-banner-765.png';
 import banner576 from '@/assets/img/banner/information-banner-576.png';
-
-import ActivityCard from '@/components/card/ActivityCard.vue';
-import CollapsibleFilterPanel from '@/components/menu/CollapsibleFilterPanel.vue';
-import allActivitiesRaw from '@/assets/data/EventList.json';
-import BaseButton from '@/components/button/BaseButton.vue';
-import IconDown from '@/components/icons/down.vue';
-
 const infoBannerSources = [
   { media: '(min-width: 1401px)', srcset: banner1920 },
   { media: '(min-width: 1201px)', srcset: banner1400 },
@@ -179,7 +179,7 @@ const loadMore = () => {
   visibleItemsCount.value += itemsPerLoad;
 };
 
-// 重置顯示的項目數量
+// 監聽任何一個篩選條件的變化，來重置顯示的項目數量
 watch([activeCategory, activeTags], () => {
   visibleItemsCount.value = itemsPerLoad;
 }, { deep: true });
@@ -237,7 +237,7 @@ watch([activeCategory, activeTags], () => {
 </template>
 
 <style scoped>
-/* --- 手機版/電腦版篩選器切換 --- */
+/* 手機版/電腦版篩選器切換 */
 .desktop-filters {
   display: block;
 }
@@ -246,17 +246,6 @@ watch([activeCategory, activeTags], () => {
   display: none;
 }
 
-@media (max-width: 769px) {
-  .desktop-filters {
-    display: none;
-  }
-
-  .mobile-filters {
-    display: block;
-  }
-}
-
-/* --- 原有樣式 --- */
 .event-info-page {
   background-image: url(@/assets/img/bg-gray-event-all.png);
   background-position: top;
@@ -359,6 +348,15 @@ watch([activeCategory, activeTags], () => {
 }
 
 @media (max-width: 769px) {
+
+  .desktop-filters {
+    display: none;
+  }
+
+  .mobile-filters {
+    display: block;
+  }
+
   .content-section {
     margin-top: 80px;
   }

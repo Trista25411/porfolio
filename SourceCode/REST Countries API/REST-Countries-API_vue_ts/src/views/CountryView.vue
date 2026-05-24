@@ -4,14 +4,18 @@ import { useRoute, useRouter } from 'vue-router';
 
 const route = useRoute();
 const router = useRouter();
+// <country | null> => 變數一開始是 null, 但之後存入符合country的物件
 const country = ref<Country | null>(null);
+// 存取鄰國名稱變數
 const borderCountries = ref<borderCountries[]>([]);
 
+// ts 先定義結構
 interface borderCountries {
     name: string;
     id: string;
 };
 
+// 定義 API 回傳格式結構
 interface Country {
     name: { common: string; nativeName?: Record<string, { common: string }>; };
     flags: { svg: string; png: string };
@@ -25,13 +29,22 @@ interface Country {
     borders?: string[];
 }
 
-//  api 詳細資料
+// 匯入 api 詳細資料
 const fetchCountries = async () => {
+    // 判斷是否有值
+    // if(!route.params.id) return;
+    // 判斷是不是在這裡出問題
+    // console.log('ID 是:', route.params.id);
+
     try {
+        // 1. 抓取目前國家資訊
         const res = await fetch(`https://restcountries.com/v3.1/alpha/${route.params.id}`);
         const data = await res.json();
         country.value = data[0] as Country;
 
+        // 2. 擷取鄰國資訊
+        // 為了不讓系統報錯卡死，設定兩個條件
+        //     √ 有沒有這個欄位          √ 鄰國數量是不是大於零, 若是空的就不用去執行 fetch
         if (country.value.borders && country.value.borders.length > 0) {
             const codes = country.value.borders.join(',');
             const borderRes = await fetch(`https://restcountries.com/v3.1/alpha?codes=${codes}&fields=name,cca3`);
@@ -49,7 +62,18 @@ const fetchCountries = async () => {
 };
 
 // 左側清單生成
+// computed 內部使用 country.value => 變數依賴於 country 
+// 剛進入country是null, computed回傳空值；
+// 當 fetchCountries完成, country.value被填入資料時，發現變數變了
+// computed會立即重新計算並更新到模板
 const leftInfo = computed(() => [
+    // value 值不同
+    // population 跟 region 的 key 是固定的
+    // 不會因不同國家名稱而不同 => 直接使用country.value.xxxx來使用
+    // 但 currencies 或是 languages...每個國家不太一樣
+    // => 利用 Object.values(xxxx), 這樣就會變成陣列, 不用管每個國家的不同
+    // EX: 取得nativeName物件, 用Object.values變成陣列, 取出第0項，拿出.common屬性, 並把內容轉成字串顯示正確文字
+    // ?.[0] => 去陣列化，不要顯示 [....]
     { label: 'Native Name:', value: Object.values(country.value?.name?.nativeName || {})[0]?.common || 'N/A' },
     { label: 'Population:', value: country.value?.population.toLocaleString() },
     { label: 'Region:', value: country.value?.region },
@@ -64,12 +88,18 @@ const rightInfo = computed(() => [
     { label: 'Languages:', value: Object.values(country.value?.languages || {}).join(',') }
 ]);
 
-// 鄰國名稱跳轉
+// 點選鄰國名稱跳轉
 const goToBorder = (id:string) => {
     router.push(`/detail/${id}`);
 };
 
 // 匯入 fetchCountries
+// 點選 border-countries => 網址變了但沒有重新執行 
+// 因 vue會複用組件, onMounted 不會刷新頁面
+// 但設定 watch 後一直報錯, 可能是抓取參數時間差(尚未準備好資料所以顯示了undefined)
+// onMounted(fetchCountries);
+
+// 新增一個新的監聽器重新刷新
 watch(
     () => route.params.id,
     (newId) => {
@@ -77,6 +107,7 @@ watch(
             fetchCountries();
         }
     },
+    // 讓組件一建立就先執行一次 fetchCountries
     { immediate: true }
 )
 </script>
@@ -107,6 +138,13 @@ watch(
                 </div>
                 <div class="btm">
                     <span class="name">Border Countries:</span>
+                    <!-- 
+                    borders欄位儲存的是鄰國的 ISO 3166-1 alpha-3 代碼, 要先進行處理再將資料轉成看得懂的國家名稱
+                    1. 判斷目前國家是否有borders欄位
+                    2. 使用 api aplha查詢，一次傳入代碼
+                    3. 將回傳的國家清單存成一個新 ref
+                    4. 使用v-for跑清單, 點擊按鈕透過router.path跳轉頁面
+                    -->
                     <span class="border-all">
                         <button type="button" v-for="item in borderCountries" :key="item.id"
                             @click="goToBorder(item.id)" class="border-countries">{{ item.name }}</button>

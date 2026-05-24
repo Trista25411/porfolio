@@ -2,7 +2,6 @@
 import { ref, computed, onMounted, onUnmounted } from 'vue';
 import FilterButton from '@/components/button/FilterButton.vue';
 
-// 增加一個新的 prop 'sticky'，並設定預設值為 true
 const props = defineProps({
   buttons: { type: Array, required: true },
   activeCategory: { type: String, required: true },
@@ -44,7 +43,7 @@ const handleScroll = () => {
 };
 
 onMounted(() => {
-  // --- 【修改 2】: 只有在 sticky 功能開啟時，才加入滾動監聽 ---
+  // 在 sticky 功能開啟時，加入滾動 ---
   if (props.sticky) {
     if (filterRef.value) {
       initialTop = filterRef.value.offsetTop;
@@ -54,7 +53,7 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-  // --- 【修改 3】: 同樣地，只有在 sticky 功能開啟時，才需要移除監聽 ---
+  // --- 在 sticky 功能開啟時，移除 ---
   if (props.sticky) {
     window.removeEventListener('scroll', handleScroll);
   }
@@ -103,11 +102,9 @@ onUnmounted(() => {
   border-bottom: 1px solid var(--color-gray-line);
 }
 
-/* --- 固定與非固定狀態的樣式切換 --- */
 .filter-group-wrapper.is-sticky .mobile-filter-toggle {
   border-radius: 0;
   border: none;
-  /* color: var(--color-orange-500); */
   border-bottom: 2px solid var(--color-orange-500);
   color: var(--color-orange-500);
 }
@@ -157,14 +154,13 @@ onUnmounted(() => {
   }
 }
 
-/* --- 手機版下拉選單按鈕樣式 --- */
+/* --- 手機版下拉選單--- */
 .mobile-filter-toggle {
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-weight: var(--font-weight-bold);
   color: var(--color-text-primary);
-  /* color: var(--color-orange-500); */
   background-color: var(--color-white-base);
   cursor: pointer;
 }
@@ -182,7 +178,6 @@ onUnmounted(() => {
   transform: rotate(180deg);
 }
 
-/* --- 手機版下拉選單本體樣式 --- */
 .mobile-filter-dropdown {
   position: absolute;
   left: 50%;

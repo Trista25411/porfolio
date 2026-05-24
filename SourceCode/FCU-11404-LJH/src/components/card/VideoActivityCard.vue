@@ -8,7 +8,7 @@ const props = defineProps({
     type: Object,
     required: true,
     default: () => ({
-      videoId: 'dQw4w9WgXcQ', // 預設的影片 ID
+      videoId: 'dQw4w9WgXcQ',
       category: '預設分類',
       categoryUrl: '#',
       title: '這是一個預設的活動標題',
@@ -18,7 +18,7 @@ const props = defineProps({
   }
 });
 
-// 定義此組件可以發出的自訂事件
+// 組件可以發出的自訂事件
 const emit = defineEmits(['category-click']);
 
 // 當分類按鈕被點擊時，呼叫此函式
@@ -91,7 +91,7 @@ const isLoaded = ref(false);
 }
 
 /* 活動卡片元件分類 */
-.activity-card { /* 確保能選到 CategoryButton 內的元素 */
+.activity-card { 
   margin-bottom: 32px;
 }
 

@@ -20,7 +20,6 @@ defineProps({
 </template>
 
 <style scoped>
-/* 樣式從 ActivityCardArrow.vue 搬移過來 */
 .learn-more {
   font-weight: var(--font-weight-bold);
   color: var(--color-blue-500);

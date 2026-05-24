@@ -12,11 +12,12 @@
 
 <body>
   <nav class="container-normal">
+    <!-- 導覽列 -->
     <input type="checkbox" id="ham-btn-switch" hidden>
     <label for="ham-btn-switch" class="ham-btn">
       <span class="middle-line"></span>
+      <!-- 手機版 MENU -->
     </label>
-    
     <div class="mobile-menu">
       <ul>
         <li> <a href=""> <span> Microsoft 365 </span> </a> </li>
@@ -39,12 +40,15 @@
       <li> <a href=""> <span> 支援 </span> </a> </li>
     </ul>
     <ul class="func-menu">
+      <!-- a裡面又有a，系統會不允許，點選不會做動，因裡面功能表也有超連結 => 改為div -->
+      <!-- 原先:<a href=""> <span> 所有 Microsoft </span> <i class="fa-solid fa-chevron-down"></i> </a> </li> -->
       <li class="all-ms-365">
         <input type="checkbox" id="all-ms-365-switch" hidden>
         <label for="all-ms-365-switch">
           <span class="hand" tabindex="0"> 所有 Microsoft <i class="fa-solid fa-chevron-down"></i> </span>
         </label>
         <div class="dropdown-menu">
+          <!-- 現在放入會出現都在上面 => 現在不出現，等點選再出現，並列於下方 -->
           <ul>
             <h3>軟體</h3>
             <li> <a href="#"> <span> Windows 應用程式 </span> </a> </li>
@@ -102,6 +106,7 @@
         </div>
       </li>
 
+      <!-- RWD在1400px中，字會被隱藏 -->
       <li class="search"> <a href=""> <span class="hide-text"> 搜尋 </span> <i class="fa-solid fa-magnifying-glass"></i>
         </a> </li>
       <li> <a href=""> <span class="hide-text"> 購物車 </span> <i class="fa-solid fa-cart-shopping"></i> </a> </li>
@@ -116,14 +121,18 @@
 
   <!-- swiper -->
   <header class="container-full">
+    <!-- allow-touch-move: 用觸控滑動、滑鼠拖曳 -->
+    <!-- 原先直接設定delay:秒數沒辦法調整 => 因Web Components 屬性是傳遞複雜物件：要用'單引號'將整個 JSON 物件字串包起來 -->
     <swiper-container class="mySwiper" autoplay='{"delay": 6000, "disableOnInteraction": false}'>
       <!-- swiper1 -->
       <swiper-slide>
         <picture>
+          <!-- scrset沒辦法直接連結圖片，先改成scr連結後再改回scrset -->
           <source media="(min-width: 1400px)" srcset="./ms-img/swiper/1-1920x1080.avif">
           <source media="(min-width: 1084px)" srcset="./ms-img/swiper/1-1399x600.avif">
           <source media="(min-width: 860px)" srcset="./ms-img/swiper/1-1083x600.avif">
           <source media="(min-width: 540px)" srcset="./ms-img/swiper/1-859x540.avif">
+          <!-- 找不到圖片會找最後一張圖 -->
           <img class="w-100" src="./ms-img/swiper/1-859x540.avif" alt="">
         </picture>
         <div class="banner-block">
@@ -392,6 +401,7 @@
       </div>
 
       <div class="footer-btm">
+        <!-- BBBBBBB -->
         <div class="left">
           <div class="btm-le">
             <i class="fa-solid fa-earth-americas"></i>
@@ -412,12 +422,17 @@
             <li> <a href="#"> <span> 有關我們的廣告訊息 </span></a></li>
             <li> <a href="#"> <span> © Microsoft 2025 </span></a></li>
           </ul>
+
         </div>
+
       </div>
+
     </section>
+
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
+
   <script>
     const mySwiper = document.querySelector('.mySwiper');
     const leftBtn = document.querySelector('.leftBtn');
@@ -431,12 +446,14 @@
     // 更新圓點圖示
     mySwiper.addEventListener('swiperslidechange', function () {
       const current = mySwiper.swiper.activeIndex;
+      // 第一張圖
       if (current === 0) {
-        black.querySelector('i').className = 'fa-solid fa-circle'; 
-        white.querySelector('i').className = 'fa-regular fa-circle'; 
+        // 選到div的i來變化才選取的到，若直接用black.className來改，會變成四個點
+        black.querySelector('i').className = 'fa-solid fa-circle'; // 第一個點變實心
+        white.querySelector('i').className = 'fa-regular fa-circle'; // 第二個點變空心
       } else if (current === 1) {
-        black.querySelector('i').className = 'fa-regular fa-circle';
-        white.querySelector('i').className = 'fa-solid fa-circle';
+        black.querySelector('i').className = 'fa-regular fa-circle'; // 第一個點變空心
+        white.querySelector('i').className = 'fa-solid fa-circle'; // 第二個點變實心
       };
     });
 

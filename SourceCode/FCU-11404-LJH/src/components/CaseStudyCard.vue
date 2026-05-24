@@ -1,3 +1,4 @@
+<!-- 未來實驗室案例元件 -->
 <script setup>
 import { ref } from 'vue';
 import CategoryButton from '@/button/CategoryButton.vue';
@@ -10,6 +11,7 @@ defineProps({
   }
 });
 
+// 加入「換行並顯示所有內容」和「多行省略」切換方式
 const isTruncated = ref(true);
 const toggleTruncate = () => {
   isTruncated.value = !isTruncated.value;
@@ -94,6 +96,7 @@ const toggleTruncate = () => {
 }
 
 .text-p {
+  /* 當 isTruncated 為 false 時，換行符號生效 */
   white-space: pre-line;
 }
 

@@ -43,7 +43,7 @@ const pointDefaultBannerSrc = banner576;
         </div>
       </div>
 
-      <!-- 簡介 -->
+      <!-- 簡介框 -->
       <div class="info-section section-spacing-113">
         <div class="row align-items-center">
           <div class="col-lg-6 order-lg-2 text-center">
@@ -64,7 +64,7 @@ const pointDefaultBannerSrc = banner576;
       </div>
     </div>
 
-    <!-- 榮譽集點活動 -->
+    <!-- 榮譽集點活動框 -->
     <div class="activity-section section-spacing-50">
       <div class="activity-inner">
         <div class="c-text-white-base">
@@ -98,7 +98,7 @@ const pointDefaultBannerSrc = banner576;
         </div>
       </div>
 
-      <!-- 標章換好禮 -->
+      <!-- 標章換好禮框 -->
       <div class="info-section section-spacing-113">
         <div class="row align-items-center">
           <div class="col-lg-6 order-lg-2 text-center">
@@ -120,7 +120,7 @@ const pointDefaultBannerSrc = banner576;
       </div>
     </div>
 
-    <!-- 兌換領取地點 -->
+    <!-- 兌換領取地點框 -->
     <div class="location-section-bg section-spacing-113">
       <div class="container-fluid content-container">
         <div class="info-section">

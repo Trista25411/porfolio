@@ -6,15 +6,13 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
-// 影音元件及json
 import eventVideoData from '@/assets/data/EventVideo.json';
-// CategoryButton 元件 
 import CategoryButton from '@/components/button/CategoryButton.vue';
 
-//  Swiper 使用的模組
+// 設定 Swiper 要使用的模組
 const modules = [Pagination, Navigation];
 
-// 從 YouTube URL 中提取影片 ID 
+// 從 YouTube URL 中提取影片 ID 的輔助函式
 function getYouTubeId(url) {
     if (!url) return null;
     const regExp = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/;
@@ -22,7 +20,7 @@ function getYouTubeId(url) {
     return match ? match[1] : null;
 }
 
-// 篩選「宣導」影片
+// 篩選出所有「宣導」類型的影片
 const filteredVideoCards = ref(eventVideoData.filter(video => video.category === '宣導與展覽').map((video, index) => ({
     id: index,
     videoId: getYouTubeId(video.link),
@@ -31,10 +29,10 @@ const filteredVideoCards = ref(eventVideoData.filter(video => video.category ===
     categoryUrl: '#',
     titleUrl: '#',
     learnMoreUrl: '#',
-    isLoaded: false 
+    isLoaded: false // 新增 loading 狀態
 })));
 
-// 響應式斷點
+// 響應式斷點設定
 const VideoBreakpoints = {
     0: {
         slidesPerView: 1, 
@@ -42,7 +40,7 @@ const VideoBreakpoints = {
         wrapAround: false,
     },
     1600: {
-        slidesPerView: 2, 
+        slidesPerView: 2,
         snapAlign: 'center',
         wrapAround: false,
     }
@@ -140,7 +138,7 @@ const VideoBreakpoints = {
     transition: color 0.3s;
 }
 
-/* loading效果點選再載入 */
+/* 加入loading效果點選再載入 */
 .video-container {
     position: relative;
     width: 100%;
@@ -179,7 +177,7 @@ const VideoBreakpoints = {
     transition: transform 0.3s ease;
 }
 
-/* 播放按鈕中間的三角形 */
+/* 播放按鈕中間三角形 */
 .play-button::before {
     content: '';
     border-style: solid;
@@ -193,6 +191,7 @@ const VideoBreakpoints = {
     transform: translate(-50%, -50%) scale(1.1);
 }
 
+/* 確保 iframe 填滿容器 */
 .video-container iframe {
     position: absolute;
     top: 0;
@@ -201,6 +200,7 @@ const VideoBreakpoints = {
     height: 100%;
 }
 
+/* 輪播導航按鈕樣式 */
 :deep(.swiper-button-prev::after),
 :deep(.swiper-button-next::after) {
     display: none;
@@ -232,6 +232,7 @@ const VideoBreakpoints = {
     right: -100px;
 }
 
+/* 分頁器樣式 */
 :deep(.swiper-pagination) {
     bottom: 0px;
 }

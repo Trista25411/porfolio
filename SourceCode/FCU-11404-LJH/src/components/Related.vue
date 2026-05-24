@@ -3,6 +3,7 @@
 import { ref, computed, onMounted, onUnmounted } from 'vue';
 import BlueButton from './button/BaseButton.vue';
 
+// 儲存全部 12 個單位的完整列表。
 const allUnits = ref([
   { id: 1, name: '單位一', url: '#', imgSrc: 'https://placehold.co/320x105/f0f0f0/333?text=單位+1' },
   { id: 2, name: '單位二', url: '#', imgSrc: 'https://placehold.co/320x105/f0f0f0/333?text=單位+2' },
@@ -18,37 +19,46 @@ const allUnits = ref([
   { id: 12, name: '單位十二', url: '#', imgSrc: 'https://placehold.co/320x105/f0f0f0/333?text=單位+12' },
 ]);
 
-// 響應式
 const windowWidth = ref(window.innerWidth);
 
-// 視窗大小變化的函式
+// 視窗大小變化
 const handleResize = () => {
   windowWidth.value = window.innerWidth;
 };
 
-const displayedUnits = computed(() => {
-  if (windowWidth.value < 992) {
-    return allUnits.value.slice(0, 6);
-  }
-  return allUnits.value;
-});
-
-// 元件掛載偵測視窗寬度變化
+// 偵測視窗寬度變化
 onMounted(() => {
   window.addEventListener('resize', handleResize);
 });
 
+// 移除監聽器
 onUnmounted(() => {
   window.removeEventListener('resize', handleResize);
+});
+
+// 動態決定要顯示的單位列表
+const displayedUnits = computed(() => {
+  // Bootstrap 的 'lg' 斷點是 992px
+  // 當螢幕寬度小於 992px，只顯示前 6 個單位。
+  if (windowWidth.value < 992) {
+    return allUnits.value.slice(0, 6);
+  }
+  // 在大螢幕上 (四欄模式)，則顯示全部 12 個單位。
+  return allUnits.value;
 });
 </script>
 
 <template>
   <div class="related-units-container container-fluid d-flex flex-column align-items-center py-5">
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-custom mb-custom">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-custom mb-custom">
+      <!-- `displayedUnits` 會根據螢幕寬度動態返回 6 個或 12 個單位。 -->
       <div v-for="unit in displayedUnits" :key="unit.id" class="col d-flex justify-content-center">
         <a :href="unit.url" class="unit-item" target="_blank" rel="noopener noreferrer">
-          <img :src="unit.imgSrc" :alt="unit.name + ' Logo'" class="img-fluid"
+          <!-- `onerror` 提供圖片載入失敗時的備用方案。 -->
+          <img 
+            :src="unit.imgSrc" 
+            :alt="unit.name + ' Logo'" 
+            class="img-fluid"
             onerror="this.onerror=null;this.src='https://placehold.co/320x105/E0E0E0/BDBDBD?text=Image+Not+Found';">
         </a>
       </div>
@@ -76,8 +86,8 @@ onUnmounted(() => {
   width: 320px;
   height: 105px;
   border-radius: 8px;
-  overflow: hidden;
-  background-color: #f0f0f0;
+  overflow: hidden; 
+  background-color: #f0f0f0; 
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
@@ -98,7 +108,7 @@ onUnmounted(() => {
     width: 160px;
     height: 52px;
   }
-
+  
   .g-custom {
     --bs-gutter-y: 24px;
   }

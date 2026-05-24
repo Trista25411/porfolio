@@ -8,7 +8,7 @@ const props = defineProps({
 });
 const emit = defineEmits(['update:activeCategory', 'update:activeTags']);
 
-// --- 面板和置頂狀態的邏輯保持不變 ---
+// --- 面板和置頂狀態保持不變 ---
 const isOpen = ref(false);
 const filterContainerRef = ref(null);
 const isSticky = ref(false);
@@ -36,7 +36,7 @@ onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll);
 });
 
-// --- 計算已選篩選數量的邏輯保持不變 ---
+// --- 計算已選篩選數量 ---
 const activeFilterCount = computed(() => {
   let count = 0;
   if (props.activeCategory !== props.categories[0]) {
@@ -46,7 +46,7 @@ const activeFilterCount = computed(() => {
   return count;
 });
 
-// --- 篩選函式保持不變 ---
+// --- 篩選函式 ---
 const selectCategory = (category) => {
   emit('update:activeCategory', category);
 };
@@ -218,7 +218,7 @@ const selectTag = (tag) => {
   cursor: pointer;
   background-color: var(--color-white-base);
   transition: all 0.2s ease;
-  border-width: 1.5px; /* 將邊框寬度統一設為 2px */
+  border-width: 1.5px; 
   border-style: solid;
 }
 

@@ -107,10 +107,6 @@ const mapLink = computed(() => `https://www.google.com/maps/search/?api=1&query=
 </template>
 
 <style scoped>
-/* ... (保留原本的 CSS 樣式) ... */
-</style>
-
-<style scoped>
 .contact-card {
   width: 100%;
   max-width: 95vw;

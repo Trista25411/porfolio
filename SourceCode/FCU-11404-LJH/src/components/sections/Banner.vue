@@ -4,9 +4,8 @@ const props = defineProps({
     sources: {
         type: Array,
         required: true,
-        // 範例格式: [{ media: '(min-width: 1400px)', srcset: '...' }]
     },
-    // 一個預設的圖片，給不支援 <picture> 的舊瀏覽器或當作最小尺寸圖片
+    // 預設的圖片，給不支援 <picture> 的舊瀏覽器或當作最小尺寸圖片
     defaultSrc: {
         type: String,
         required: true,
@@ -25,15 +24,10 @@ const props = defineProps({
 
         <div class="banner-text container-padding">
             <div class="text-area">
-                <div 
-                  class="text-h1 text-lg-h0" 
-                  style="white-space: pre-line;"
-                >
+                <div class="text-h1 text-lg-h0" style="white-space: pre-line;">
                     {{ bigText }}
                 </div>
-
                 <div class="text-h4 text-md-h3">{{ smallText }}</div>
-
             </div>
         </div>
     </div>

@@ -3,7 +3,6 @@
 import 'vue3-carousel/dist/carousel.css';
 import { Carousel, Slide, Navigation } from 'vue3-carousel';
 
-// 結構化的卡片資料 API 
 const props = defineProps({
   cards: {
     type: Array,
@@ -20,10 +19,10 @@ const getImageUrl = (name) => {
   return new URL(`../assets/img/future/future-test/${name}`, import.meta.url).href;
 };
 
-// 輪播設定
+// 輪播基本設定
 const carouselSettings = {
-  itemsToShow: 1.25, 
-  wrapAround: false, 
+  itemsToShow: 1.25, // 顯示 1.25 個項目，讓兩側卡片可見 
+  wrapAround: false, // 確保沒有循環，箭頭會隱藏
   snapAlign: 'center', 
 };
 
@@ -93,6 +92,7 @@ const carouselBreakpoints = {
   text-decoration: none;
   color: inherit;
   display: block;
+  /* 讓整個卡片區域都是可點擊的 */
 }
 
 .card-description {
@@ -183,6 +183,8 @@ const carouselBreakpoints = {
   color: #2c3e50;
 }
 
+/* carousel__prev, .carousel__next 選擇器是全域
+使用 :deep() 來強制應用樣式 */
 :deep(.carousel__prev) {
   left: -50px;
 }

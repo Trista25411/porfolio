@@ -1,7 +1,6 @@
 <script setup>
 import CategoryButton from '@/components/button/CategoryButton.vue';
 
-// 使用 defineProps 定義元件接收的資料
 defineProps({
     eventData: {
         type: Object,
@@ -54,7 +53,6 @@ defineProps({
     overflow: hidden;
     display: flex;
     flex-direction: column-reverse;
-    /* 在手機上，圖片在上，資訊在下 */
 }
 
 /* 左側資訊區 */
@@ -128,7 +126,6 @@ defineProps({
 }
 
 .event-tags {
-    /* 【修正】原為 .event-tag，應為 .event-tags 才有作用 */
     padding-top: 24px;
 }
 
@@ -166,7 +163,6 @@ img {
     opacity: 0.9;
 }
 
-/* 當螢幕寬度大於 1024px 時，恢復設計稿的排版 */
 @media (min-width: 1024px) {
     .event-banner {
         flex-direction: row;

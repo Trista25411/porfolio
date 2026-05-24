@@ -56,14 +56,14 @@ export default {
             }
         }
     },
-    // 生命週期鉤子：元件掛載後
+    // 元件掛載後
     mounted() {
         // 新增全域點擊事件監聽器
         document.addEventListener('click', this.handleClickOutside);
     },
-    // 生命週期鉤子：元件卸載前
+    // 元件卸載前
     beforeUnmount() {
-        // 移除監聽器以避免記憶體洩漏
+        // 移除監聽器
         document.removeEventListener('click', this.handleClickOutside);
     },
     components: {
@@ -197,7 +197,6 @@ a:active {
     white-space: nowrap;
 }
 
-/* 當路由為當前頁面時，移除 border-bottom-color */
 .desktop-nav-link-custom.router-link-exact-active,
 .desktop-nav-item-wrapper:hover .desktop-nav-link-custom {
     color: var(--color-orange-500);
@@ -346,8 +345,6 @@ a.mobile-nav-link.router-link-exact-active {
         background-color: var(--color-white-base);
         padding: 0;
         box-shadow: var(--c-shadow-soft);
-        /* border-bottom-left-radius: 15px;
-        border-bottom-right-radius: 15px; */
     }
 }
 </style>

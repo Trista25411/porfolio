@@ -7,7 +7,7 @@ export default {
     imgSrc: {
       type: String,
       required: true,
-      default: 'https://placehold.co/598x277/f5f5f5/2c3e50?text=Image' // 預設佔位圖片
+      default: 'https://placehold.co/598x277/f5f5f5/2c3e50?text=Image' 
     },
     // 卡片標題
     title: {
@@ -54,10 +54,8 @@ export default {
   padding: 44px;
   transition: all 0.3s ease;
   overflow: hidden;
-  /* 確保圖片放大時不會超出圓角範圍 */
   cursor: pointer;
   max-width: 100%;
-  /* 確保在小螢幕上不會爆版 */
   box-sizing: border-box;
 }
 

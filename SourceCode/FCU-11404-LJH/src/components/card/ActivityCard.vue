@@ -109,14 +109,12 @@ function onTagClick(tag) {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  /* 確保文字區塊容器的寬度能正確計算 */
   width: 100%;
 }
 
 .info-item {
   display: flex;
   align-items: center;
-  /* 確保 info-item 本身寬度正確 */
   width: 100%;
 }
 
@@ -134,8 +132,8 @@ function onTagClick(tag) {
   white-space: nowrap;      
   overflow: hidden;        
   text-overflow: ellipsis;  /* 顯示省略號 */
-  min-width: 0;             /* 允許元素寬度縮小到 0 */
-}
+  min-width: 0;             
+  }
 
 .card-tags {
   margin-top: auto;
@@ -156,7 +154,7 @@ function onTagClick(tag) {
 }
 
 .tag:hover {
-  color: #12829c; /* 滑鼠懸停時加深顏色 */
+  color: #12829c; 
 }
 
 .tag .hash {

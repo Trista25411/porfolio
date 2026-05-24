@@ -28,6 +28,7 @@ const videoBannerSources = [
   { media: '(min-width: 766px)', srcset: banner996 },
   { media: '(min-width: 577px)', srcset: banner765 },
 ];
+
 const videoDefaultBannerSrc = banner576;
 const route = useRoute();
 const modules = ref([]);
@@ -53,6 +54,7 @@ function getYouTubeId(url) {
   return (match && match[2].length === 11) ? match[2] : null;
 }
 
+// 處理 JSON 資料時，額外保存 allPhotos 和 fullTitle
 const allActivityCards = ref(eventPhotoData.map(event => {
   let category = event.category;
   if (category === '公益與志工服務') {
@@ -60,12 +62,13 @@ const allActivityCards = ref(eventPhotoData.map(event => {
   }
   return {
     id: event.id,
+    // 卡片封面圖使用第一張照片
     imageUrl: new URL(`../assets/img/eventphotos/${event.photos[0]}`, import.meta.url).href,
     category: { text: category, url: '#' },
     title: { text: event.title, url: '#' },
     moreUrl: '#',
-    allPhotos: event.photos,
-    fullTitle: event.title
+    allPhotos: event.photos, 
+    fullTitle: event.title 
   };
 }));
 
@@ -102,22 +105,27 @@ const filteredVideoCards = computed(() => {
 });
 
 const openLightbox = (clickedCardId) => {
+  // 從所有活動卡片中，找到被點擊的那一張
   const clickedCard = allActivityCards.value.find(card => card.id === clickedCardId);
   if (clickedCard && clickedCard.allPhotos) {
+    // 將該活動的所有照片檔名，轉換成 ImageLightbox 元件需要的格式
     lightboxImages.value = clickedCard.allPhotos.map((photoName, index) => ({
-      id: `${clickedCard.id}-${index}`,
+      id: `${clickedCard.id}-${index}`, // 建立一個唯一的 key
       imageUrl: new URL(`../assets/img/eventphotos/${photoName}`, import.meta.url).href,
-      title: { text: clickedCard.fullTitle }
+      title: { text: clickedCard.fullTitle } // 標題對所有照片都一樣
     }));
 
+    // 設定從第一張圖片開始顯示
     lightboxStartIndex.value = 0;
+    // 顯示
     isLightboxVisible.value = true;
   }
 };
 
+// 關閉時，清空圖片陣列
 const closeLightbox = () => {
   isLightboxVisible.value = false;
-  lightboxImages.value = [];
+  lightboxImages.value = []; 
 };
 
 function updateCategoryFromRoute(categoryName) {
@@ -126,15 +134,15 @@ function updateCategoryFromRoute(categoryName) {
   if (isValidCategory) {
     activeCategory.value = targetCategory;
   }
-}
+};
 
 function loadMorePhotos() {
   visiblePhotoCount.value += 6;
-}
+};
 
 function setCategoryFromCard(category) {
   activeCategory.value = category;
-}
+};
 
 watch(activeCategory, (newCategory, oldCategory) => {
   if (newCategory !== oldCategory) {

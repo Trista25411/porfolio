@@ -31,11 +31,9 @@ defineProps({
   cursor: pointer;
   transition: all 0.3s ease;
   white-space: nowrap;
-
   width: auto;
   height: auto;
   padding: 0.75rem 1.375rem;
-  /* padding: 12px 22px; */
   border-radius: 50px;
   border: 2px solid var(--color-white-base);
 }
