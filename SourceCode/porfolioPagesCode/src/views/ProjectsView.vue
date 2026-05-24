@@ -103,9 +103,9 @@ onUnmounted(() => window.removeEventListener('keydown', handleKey));
         </section>
 
         <section id="title">
-            <div v-if="currentProject.source[0].name" class="name">
+            <div class="name">
                 <h1>{{ currentProject.title }}</h1>
-                <div class="ts-big">
+                <div v-if="currentProject.source[0].name" class="ts-big">
                     <span>來源：</span>
                     <a v-for="src in currentProject.source" :key="src.name" :href="src.link" target="_blank">{{ src.name
                     }}</a>
