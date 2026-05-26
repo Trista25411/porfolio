@@ -3,6 +3,11 @@ import { ref, computed, onMounted, onUnmounted, watch } from 'vue';
 import BaseButton from './BaseButton.vue';
 import { allPhotos } from '../data/lifecard';
 
+const moreRef = ref<HTMLElement | null>(null);
+const lessRef = ref<HTMLElement | null>(null);
+// 存放洗牌過後的所有照片
+const shufflePhotos = ref([...allPhotos]);
+
 const getImgUrl = (name: string) => {
     const path = `${import.meta.env.BASE_URL}pic/life/${name}.JPEG`;
     return path;
@@ -36,10 +41,25 @@ const lifeItems = ([
     { icon: 'handmade', name: '手作' },
 ]);
 
+// 亂數顯示圖片
+const shuffle = <T>(arr: T[]): T[] => {
+    const res = [...arr];
+    for (let i = res.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [res[i], res[j]] = [res[j], res[i]];
+    }
+    return res;
+};
+
+// 專門更新洗牌資料，防止每次點擊都要洗一次
+const updateShuffledData = ()=>{
+    shufflePhotos.value = shuffle(allPhotos);
+};
+
 // 類別篩選
 const filterPhotos = computed(() => {
     if (activeCategory.value === '全部') {
-        return shuffle(allPhotos);
+        return shufflePhotos.value;
     }
     return allPhotos.filter(p => p.category === activeCategory.value)
 });
@@ -53,6 +73,7 @@ const isAllShow = computed(() => {
     return showLimit.value >= filterPhotos.value.length
 });
 
+// 顯示更多按鍵
 const toggleShow = () => {
     if (isAllShow.value) {
         showLimit.value = getInitial();
@@ -62,23 +83,29 @@ const toggleShow = () => {
     };
 };
 
-// 亂數顯示圖片
-const shuffle = <T>(arr: T[]): T[] => {
-    const res = [...arr];
-    for (let i = res.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [res[i], res[j]] = [res[j], res[i]];
-    }
-    return res;
+// 收起內容
+const collpaseBtn = () => {
+    showLimit.value = getInitial();
+    setTimeout(() => {
+        moreRef.value?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+        });
+    });
 };
 
 // 點選類別回歸預設圖片張數
 watch(activeCategory, () => {
     showLimit.value = getInitial();
+    if (activeCategory.value === '全部') {
+        updateShuffledData();
+    }
 });
 
 onMounted(() => {
-    window.addEventListener('resize', handleReize)
+    window.addEventListener('resize', handleReize);
+    // 進入畫面初始化洗牌一次
+    updateShuffledData();
 });
 
 onUnmounted(() => {
@@ -87,21 +114,21 @@ onUnmounted(() => {
 </script>
 
 <template>
-    <div class="life-container">
+    <div ref="moreRef" class="life-container">
         <div class="tags title-main">
             <BaseButton v-for="item in lifeItems" :icon="item.icon" :name="item.name"
                 :theme="activeCategory === item.name ? 'focus' : 'default'" @click="activeCategory = item.name" />
         </div>
         <div class="lifecards">
             <div v-for="item in displayPhotos" :key="item.id" :class="['card', item.size]">
-                <div class="img-box">
+                <div :class="['img-box', item.size]">
                     <img :src="getImgUrl(item.pic)" alt="pic">
                 </div>
                 <div class="card-text">{{ item.text }}</div>
             </div>
         </div>
-        <div class="more-content">
-            <div v-if="showLimit > getInitial()" @click="showLimit = getInitial()" class="more">
+        <div ref="lessRef" class="more-content">
+            <div v-if="showLimit > getInitial()" @click="collpaseBtn" class="more">
                 <span class="more-text">收起內容</span>
                 <ion-icon name="chevron-up-outline"></ion-icon>
             </div>
@@ -136,14 +163,8 @@ onUnmounted(() => {
     flex-shrink: 0;
 }
 
-.img-box {
-    width: 100%;
-    overflow: hidden;
-}
-
 .img-box img {
     width: 100%;
-    display: block;
     border-radius: 20px;
 }
 
@@ -193,19 +214,11 @@ onUnmounted(() => {
     }
 
     .large {
-        width: 100%;
+        width: 250px;
     }
 
     .wide {
-        width: 100%;
-    }
-
-    .img-box.large {
-        min-height: 250px;
-    }
-
-    .img-box.wide {
-        min-height: 180px;
+        width: 300px;
     }
 }
 </style>
