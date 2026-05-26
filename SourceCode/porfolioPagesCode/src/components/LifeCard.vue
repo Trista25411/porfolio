@@ -3,6 +3,11 @@ import { ref, computed, onMounted, onUnmounted, watch } from 'vue';
 import BaseButton from './BaseButton.vue';
 import { allPhotos } from '../data/lifecard';
 
+const getImgUrl = (name: string) => {
+    const path = `${import.meta.env.BASE_URL}pic/life/${name}.JPEG`;
+    return path;
+};
+
 // 預設圖片數量
 const activeCategory = ref('全部');
 const getInitial = () => {
@@ -21,11 +26,6 @@ const handleReize = () => {
     if (!isAllShow.value) {
         showLimit.value = getInitial();
     };
-};
-
-const getImgUrl = (name: string) => {
-    const path = `${import.meta.env.BASE_URL}pic/life/${name}.JPEG`;
-    return path;
 };
 
 // tags
@@ -136,8 +136,14 @@ onUnmounted(() => {
     flex-shrink: 0;
 }
 
+.img-box {
+    width: 100%;
+    overflow: hidden;
+}
+
 .img-box img {
     width: 100%;
+    display: block;
     border-radius: 20px;
 }
 
@@ -187,11 +193,19 @@ onUnmounted(() => {
     }
 
     .large {
-        width: 250px;
+        width: 100%;
     }
 
     .wide {
-        width: 300px;
+        width: 100%;
+    }
+
+    .img-box.large {
+        min-height: 250px;
+    }
+
+    .img-box.wide {
+        min-height: 180px;
     }
 }
 </style>
