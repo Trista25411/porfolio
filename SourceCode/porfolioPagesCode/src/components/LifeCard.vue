@@ -4,9 +4,10 @@ import BaseButton from './BaseButton.vue';
 import { allPhotos } from '../data/lifecard';
 
 const moreRef = ref<HTMLElement | null>(null);
-const lessRef = ref<HTMLElement | null>(null);
 // 存放洗牌過後的所有照片
 const shufflePhotos = ref([...allPhotos]);
+// 紀錄上一次瀏覽器寬度
+const lastWidth = ref(window.innerWidth);
 
 const getImgUrl = (name: string) => {
     const path = `${import.meta.env.BASE_URL}pic/life/${name}.JPEG`;
@@ -28,8 +29,14 @@ const getInitial = () => {
 // 圖片隨著視窗大小變化
 const showLimit = ref(getInitial());
 const handleReize = () => {
-    if (!isAllShow.value) {
-        showLimit.value = getInitial();
+    const currentWidth = window.innerWidth;
+    // 加入判斷當前寬度是否相同，才不會造成點選更多而誤讓瀏覽器誤會而跳掉
+    if (currentWidth !== lastWidth.value) {
+        lastWidth.value = currentWidth;
+
+        if (!isAllShow.value) {
+            showLimit.value = getInitial();
+        };
     };
 };
 
@@ -52,7 +59,7 @@ const shuffle = <T>(arr: T[]): T[] => {
 };
 
 // 專門更新洗牌資料，防止每次點擊都要洗一次
-const updateShuffledData = ()=>{
+const updateShuffledData = () => {
     shufflePhotos.value = shuffle(allPhotos);
 };
 
@@ -163,9 +170,17 @@ onUnmounted(() => {
     flex-shrink: 0;
 }
 
+.img-box {
+    width: 100%;
+    /* ios 正確渲染，不讓圖片變暗或閃爍 */
+    transform: translateZ(0);
+    will-change: transform;
+}
+
 .img-box img {
     width: 100%;
     border-radius: 20px;
+    display: block;
 }
 
 .large {
