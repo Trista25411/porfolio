@@ -70,12 +70,14 @@ const progressItems = [
       <div class="intr-area">
         <div class="intr">
           <div class="title">I’m Trista.</div>
-          <p class="bigger">網頁切版 | 前端開發 | UI/UX </p>
+          <p class="bigger">前端開發 | 網頁切版 | UI/UX </p>
           <div class="title-main intr-text">
-            <p>專精於將 Figma 設計稿精準轉化為具響應式結構的網頁架構。</p>
-            <p>具備 CSS 佈局能力（Flexbox/Grid）與 HTML5 語意化觀念，</p>
-            <p>運用 TypeScript 與 Vue.js實作前端交互邏輯。</p>
-            <p>製作過團隊、多項獨立專案，追求代碼的乾淨與視覺的高還原度。</p>
+            <p>- 使用 Vue 3 Composition API 元件化開發與模組化抽離</p>
+            <p>- 運用 TypeScript 與 Vue.js 實作前端資料交互邏輯</p>
+            <p>- 還原 Figma 設計稿，具 RWD 網頁架構與行動端體驗優化</p>
+            <p>- 掌握 RESTful API 串接，主動排查與優化行動端 CLS 畫面跳動</p>
+            <p>- 善用 AI 工具進行語法排查、架構優化與技術文件導讀</p>
+            <p>- 整合 GitHub Actions 串接 CI/CD 自動化雲端編譯與部署</p>
           </div>
         </div>
         <img :src="`${baseUrl}pic/personal-flower.png`" alt="about-img" class="about-img">
@@ -187,7 +189,7 @@ h2 {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 40px;
+  gap: 30px;
   z-index: 1;
   padding-bottom: 20px;
 }
@@ -195,7 +197,7 @@ h2 {
 .intr-text {
   display: flex;
   flex-direction: column;
-  line-height: 1.8;
+  line-height: 2;
 }
 
 .about-img {

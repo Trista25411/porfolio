@@ -10,7 +10,7 @@ const shufflePhotos = ref([...allPhotos]);
 const lastWidth = ref(window.innerWidth);
 
 const getImgUrl = (name: string) => {
-    const path = `${import.meta.env.BASE_URL}pic/life/${name}.JPEG`;
+    const path = `${import.meta.env.BASE_URL}pic/life/${name}.webp`;
     return path;
 };
 
@@ -172,9 +172,6 @@ onUnmounted(() => {
 
 .img-box {
     width: 100%;
-    /* ios 正確渲染，不讓圖片變暗或閃爍 */
-    transform: translateZ(0);
-    will-change: transform;
 }
 
 .img-box img {

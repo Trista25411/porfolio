@@ -10,10 +10,12 @@ export interface sourceItem {
 
 export interface imgItem {
     name: string;
+    // 將圖片都改成陣列，只需要用v-for去生成，不然分成string | string[] 匯入時要寫v-if跟v-else
     img: string[];
 };
 
 export interface linkItem {
+    icon?: string;
     name: string;
     link: string;
 };
@@ -33,6 +35,7 @@ export interface ProjectItem {
     logo: string;
     title: string;
     pic: string;
+    // 要放多個標籤，用陣列引入
     tech: techItem[];
     intr: string[];
     motivation: string;
@@ -51,7 +54,7 @@ export const Project: ProjectItem[] = [
         pic: 'ljh',
         tech: [
             { icon: 'vue', name: 'Vue 3' },
-            { icon: 'ts', name: 'TypeScript' },
+            { icon: 'js', name: 'JavaScript' },
             { icon: 'boostrap', name: 'Boostrap' },
             { icon: 'RWD', name: 'RWD' }
         ],
@@ -112,7 +115,7 @@ export const Project: ProjectItem[] = [
                 action: [
                     '使用 TS 定義型別 Interface，對原始 JSON 資料進行約束。',
                     '封裝資料專用的 Mapper 函式，對缺失的欄位手動提供安全的預設值（Fallback value）。',
-                    '在資料請求層加入 try...catch 捕捉 API 異常，確保單一接口故障時不會連帶影響其他正常模組',
+                    '在資料請求層加入 try...catch 捕捉 API 異常，確保單一接口故障時不會連帶影響其他正常模組。',
                 ],
                 result: '系統容錯與穩定度大幅提升，即使部分局處資料臨時故障，主頁面仍能維持正常顯示與運作。',
                 resultImg: ''
@@ -124,9 +127,9 @@ export const Project: ProjectItem[] = [
             { name: '手機 (375px)', img: ['ljh-phone'] },
         ],
         links: [
-            { name: 'Figma', link: 'https://www.figma.com/design/JWyOtRYrt2dizQXnjMqpkG/%E5%B0%91%E5%B9%B4%E8%8B%B1%E9%9B%84%E8%81%AF%E7%9B%9F-%E7%B6%B2%E7%AB%99%E6%94%B9%E7%89%88?node-id=0-1&t=UyEUi9r5smnDAMOq-1' },
-            { name: 'GITHUB', link: 'https://github.com/Trista25411/porfolio/tree/main/SourceCode/FCU-11404-LJH' },
-            { name: 'DEMO', link: 'https://trista25411.github.io/porfolio/projectsLink/LJH/index.html#/' },
+            { icon: 'draft', name: 'Figma', link: 'https://www.figma.com/design/JWyOtRYrt2dizQXnjMqpkG/%E5%B0%91%E5%B9%B4%E8%8B%B1%E9%9B%84%E8%81%AF%E7%9B%9F-%E7%B6%B2%E7%AB%99%E6%94%B9%E7%89%88?node-id=0-1&t=UyEUi9r5smnDAMOq-1' },
+            { icon: 'github', name: 'GITHUB', link: 'https://github.com/Trista25411/porfolio/tree/main/SourceCode/FCU-11404-LJH' },
+            { icon: 'demo', name: 'DEMO', link: 'https://trista25411.github.io/porfolio/projectsLink/LJH/index.html#/' },
         ],
     },
     {
@@ -154,7 +157,7 @@ export const Project: ProjectItem[] = [
             {
                 name: '數據延遲與渲染衝突',
                 img: 'rest-white-ori',
-                situation: '當網頁開啟或組件掛載時，因 API 資訊回傳存在時間差，Vue 在數據尚未完整載入前即嘗試存取屬性，引發渲染中斷與白屏',
+                situation: '當網頁開啟或組件掛載時，因 API 資訊回傳存在時間差，Vue 在數據尚未完整載入前即嘗試存取屬性，引發渲染中斷與白屏。',
                 task: '控制 DOM 的啟動時機，確保數據完整獲取並通過驗證後，才啟動畫面渲染流程。',
                 action: [
                     '在畫面最外層容器加入 v-if 設定「數據存在才顯示」指令。',
@@ -170,11 +173,11 @@ export const Project: ProjectItem[] = [
                 situation: '在國家詳情頁呈現「Native Name」資訊時，因直接抓取了整個原始 JSON 物件結構而非具體文字，導致頁面渲染出錯誤的程式碼片段。',
                 task: '校準物件的存取路徑，將複雜的巢狀結構資料正確轉譯為易讀的字串。',
                 action: [
-                    '檢查 API 回傳的 JSON 結構，定位出 Native Name 。',
+                    '檢查 API 回傳的 JSON 結構，定位出 Native Name。',
                     '修正屬性存取語法，指向數據結構中最內層的文字欄位（例如使用 Object.values() 取值）。',
                     '對解析後的數據類型進行過濾，排除多餘的程式結構碼，確保畫面僅接收純文字，顯示正確資訊。'
                 ],
-                result: '詳情頁的國家名稱顯示恢復正常，提升介面資訊的正確性',
+                result: '詳情頁的國家名稱顯示恢復正常，提升介面資訊的正確性。',
                 resultImg: 'rest-native-now'
             },
             {
@@ -193,11 +196,11 @@ export const Project: ProjectItem[] = [
             {
                 name: '圖片失效與資源備援',
                 img: 'rest-pic-ori',
-                situation: '受第三方 API 的 SVG 資源不穩定影響，首頁列表中部分國旗無法正常顯示，但點入詳情頁卻有圖片，造成兩端視圖不一致',
+                situation: '受第三方 API 的 SVG 資源不穩定影響，首頁列表中部分國旗無法正常顯示，但點入詳情頁卻有圖片，造成兩端視圖不一致。',
                 task: '統一兩端圖片資源的抓取規格，並建立穩定的 CDN 資源備援載入邏輯，確保兩邊圖片顯示一致。',
                 action: [
                     '檢查並對比首頁與詳情頁的資料源，統一加入格式的邏輯判斷，優先調用高穩定度的檔案連結。',
-                    '在 <img> 標籤上綁定 @error 事件，當外部 SVG 載入失敗時自動觸發 Fallback 備用邏輯。',
+                    '在 <img> 標籤上綁定 @error 事件，當外部 SVG 載入失敗時自動觸發 Fallback 。',
                     '優化加載路徑，確保首頁列表與詳情頁共享同一套經過驗證的圖片資源。'
                 ],
                 result: '解決首頁與詳情頁圖片不一致的問題，在外部第三方資源波動時，網頁仍保持視覺一致性。',
@@ -210,8 +213,8 @@ export const Project: ProjectItem[] = [
             { name: '手機 (375px)', img: ['rest-phone-w', 'rest-phone-b'] },
         ],
         links: [
-            { name: 'GITHUB', link: 'https://github.com/Trista25411/porfolio/tree/main/SourceCode/REST%20Countries%20API' },
-            { name: 'DEMO', link: 'https://trista25411.github.io/porfolio/projectsLink/RestCountriesVueTs/' },
+            { icon: 'github', name: 'GITHUB', link: 'https://github.com/Trista25411/porfolio/tree/main/SourceCode/REST%20Countries%20API' },
+            { icon: 'demo', name: 'DEMO', link: 'https://trista25411.github.io/porfolio/projectsLink/RestCountriesVueTs/' },
         ],
     },
     {
@@ -231,7 +234,7 @@ export const Project: ProjectItem[] = [
             '1. 學習將現有專案從 JS 遷移至 TS，掌握型別定義與靜態檢查，降低執行錯誤。',
             '2. 練習從本地 JSON 提取數據，並根據使用者操作動態切換內容。',
             '3. 強化對 UI 細節的觀察，確保間距、字級與切換動畫精準還原。',
-            '4. 處理多層級背景大圖，平衡畫面與加載速度 。'
+            '4. 處理多層級背景大圖，平衡畫面與加載速度。'
         ],
         source:
             [{ name: 'Frontend Mentor Space-tourism', link: 'https://www.frontendmentor.io/challenges/space-tourism-multipage-website-gRWj1URZ3' }],
@@ -240,7 +243,7 @@ export const Project: ProjectItem[] = [
                 name: '背景圖視覺失衡與載入問題',
                 img: '',
                 situation: '隨著分頁切換不同背景圖時，在極端螢幕尺寸（如 3K 螢幕或手機端）易出現顯示比例失真、局部被裁切或大圖載入過慢造成的白屏閃爍。',
-                task: '優化背景圖響應式加載，並利用 CSS 排版技術確保在大螢幕下版面配置不崩潰',
+                task: '優化背景圖響應式加載，並利用 CSS 排版技術確保在大螢幕下版面配置不崩潰。',
                 action: [
                     '在 Vue 動態組件中實作 Preload，在切換分頁前將下一張大圖寫入瀏覽器快取，消除閃爍。',
                     '採用 CSS Grid minmax() 與 grid-template-columns 靈活分配側邊間距，搭配 object-fit: cover 鎖定寬螢幕下的最大呈現邊界。'
@@ -258,7 +261,7 @@ export const Project: ProjectItem[] = [
                     '搭配 CSS Keyframes 與 transform 定義平移與透明度變化，模擬輕量級的空間推移效果。',
                     '為動畫容器設定固定的寬高或彈性排版，防止新舊組件在交替的一瞬間產生垂直排版被擠壓的推移 Bug。'
                 ],
-                result: '創造符合專案風格的流暢轉場，提升了使用者切換分頁的體驗感',
+                result: '創造符合專案風格的流暢轉場，提升了使用者切換分頁的體驗感。',
                 resultImg: ''
             },
             {
@@ -267,7 +270,7 @@ export const Project: ProjectItem[] = [
                 situation: '依賴本地 data.json 提供所有數據，若僅使用 JS 的 loose typing 容易在渲染過程中因拼寫錯誤或屬性缺失而引發執行期報錯。',
                 task: '利用 TS 建立嚴格的 Interface 與 Union Types，從開發端攔截所有不合規的資料存取。',
                 action: [
-                    '分析 data.json 的內容，為專案建立了層級化的型別宣告文件',
+                    '分析 data.json 的內容，為專案建立了層級化的型別宣告文件。',
                     '針對 Planet、Crew 等不同模組進行強型別約束，並利用 Union Types 鎖定特定的字串常數（如導覽標籤）。',
                     '重構 Vue 組件的 props 與 computed，全面修復 IDE 的紅字警告，確保編譯階段的安全性。'
                 ],
@@ -283,7 +286,7 @@ export const Project: ProjectItem[] = [
                     '當 404 發生時，自定義的錯誤頁面會攔截當前 URL 並將其轉換為查詢參數，隨後重定向至根目錄的 index.html。',
                     'Svelte Router 在初始化時解析查詢參數，將應用程序恢復至正確的狀態 。',
                 ],
-                result: '可正常切換頁面，重新刷新頁面時順暢，解決平台技術限制',
+                result: '可正常切換頁面，重新刷新頁面時順暢，解決平台技術限制。',
                 resultImg: ''
             },
         ],
@@ -293,8 +296,8 @@ export const Project: ProjectItem[] = [
             { name: '手機 (375px)', img: ['space-phone'] },
         ],
         links: [
-            { name: 'GITHUB', link: 'https://github.com/Trista25411/porfolio/tree/main/SourceCode/space-tourism%20completed' },
-            { name: 'DEMO', link: 'https://trista25411.github.io/porfolio/projectsLink/SpaceTourismVueTs/index.html' },
+            { icon: 'github', name: 'GITHUB', link: 'https://github.com/Trista25411/porfolio/tree/main/SourceCode/space-tourism%20completed' },
+            { icon: 'demo', name: 'DEMO', link: 'https://trista25411.github.io/porfolio/projectsLink/SpaceTourismVueTs/index.html' },
         ],
     },
 
@@ -329,7 +332,7 @@ export const Project: ProjectItem[] = [
                     '將非核心的亮色元素替換為一致的中性深色調，確保高對比度與易讀性。'
                 ],
                 result: '網站整體呈現出更為現代、清爽且具信賴感的醫療專業風格，提升長時間查找書籍時的閱讀舒適度。',
-                resultImg: ''
+                resultImg: 'hoji-color-now'
             },
             {
                 name: '導覽列目錄過長',
@@ -342,7 +345,7 @@ export const Project: ProjectItem[] = [
                     '在全站各節點加入「麵包屑（Breadcrumbs）」導覽，方便使用者隨時一鍵跳轉回上一層級。'
                 ],
                 result: '分類跳轉率顯著降低，平均查找書籍的盲目滑動時間縮短，大幅提升了讀者在行動端的留存意願。',
-                resultImg: 'hoji-color-now'
+                resultImg: 'hoji-dropdown-now'
             },
             {
                 name: '搜尋書籍流程過於繁瑣',
@@ -365,8 +368,8 @@ export const Project: ProjectItem[] = [
         ],
         links: [
             { name: 'PPT', link: 'https://canva.link/8fhi8vupcfgkt26' },
-            { name: 'Figma', link: 'https://www.figma.com/design/My72LeZ5UxFBYTfKYAeXRJ/%E5%B0%8F%E7%B5%84-%E5%90%88%E8%A8%98?node-id=21-7945&t=Oyxv41PRs1cRlCNw-1' },
-            { name: 'Prototype', link: 'https://www.figma.com/proto/My72LeZ5UxFBYTfKYAeXRJ/%E5%B0%8F%E7%B5%84-%E5%90%88%E8%A8%98?node-id=1338-25487&p=f&viewport=724%2C41%2C0.02&t=f32LruVcFzp9Dhcm-1&scaling=scale-down-width&content-scaling=fixed&starting-point-node-id=1338%3A25487&page-id=21%3A7945' },
+            { icon: 'draft', name: 'Figma', link: 'https://www.figma.com/design/My72LeZ5UxFBYTfKYAeXRJ/%E5%B0%8F%E7%B5%84-%E5%90%88%E8%A8%98?node-id=21-7945&t=Oyxv41PRs1cRlCNw-1' },
+            { icon: 'play', name: 'Prototype', link: 'https://www.figma.com/proto/My72LeZ5UxFBYTfKYAeXRJ/%E5%B0%8F%E7%B5%84-%E5%90%88%E8%A8%98?node-id=1338-25487&p=f&viewport=724%2C41%2C0.02&t=f32LruVcFzp9Dhcm-1&scaling=scale-down-width&content-scaling=fixed&starting-point-node-id=1338%3A25487&page-id=21%3A7945' },
         ],
     },
     {
@@ -382,7 +385,7 @@ export const Project: ProjectItem[] = [
         intr: ['商業網站 CSS 切版練習', '不依賴框架，僅使用原生 CSS 挑戰複雜的排版邏輯與響應式切換'],
         motivation: '深入理解 Layout Algorithms，掌握 Grid 與 Flexbox 的協作模式。',
         history: [
-            '1. 深入理解 Flexbox 與 Grid 佈局在複雜商務網站中的應用。',
+            '1. 理解 Flexbox 與 Grid 佈局在複雜商務網站中的應用。',
             '2. 掌握在無框架支援下，手寫響應式斷點的最佳實踐。',
             '3. 處理多層級導覽選單與卡片式元件的排列邏輯。'
         ],
@@ -435,19 +438,20 @@ export const Project: ProjectItem[] = [
             { name: '手機 (375px)', img: ['microsoft-phone'] },
         ],
         links: [
-            { name: 'GITHUB', link: 'https://github.com/Trista25411/porfolio/tree/main/SourceCode/Microsoft-index%20RWD' },
-            { name: 'DEMO', link: 'https://trista25411.github.io/porfolio/projectsLink/Microsoft/index.html' },
+            { icon: 'github', name: 'GITHUB', link: 'https://github.com/Trista25411/porfolio/tree/main/SourceCode/Microsoft-index%20RWD' },
+            { icon: 'demo', name: 'DEMO', link: 'https://trista25411.github.io/porfolio/projectsLink/Microsoft/index.html' },
         ],
     },
     {
         id: 6,
-        logo: 'icon',
+        logo: 'my',
         title: '此個人作品集網站製作',
         pic: 'porfolio',
         tech: [
             { icon: 'vue', name: 'Vue 3' },
             { icon: 'ts', name: 'TypeScript' },
-            { icon: 'storybook', name: 'StoryBook' }
+            { icon: 'storybook', name: 'StoryBook' },
+            { icon: 'RWD', name: 'RWD' }
         ],
         intr: ['結合 TypeScript、Vue、及 Storybook 進行開發，建立高維護性與自動化部署網站。'],
         motivation: '整合設計與開發技能，並優化作品集展示的資料管理流程。',
@@ -463,10 +467,10 @@ export const Project: ProjectItem[] = [
             {
                 name: '動態資料路徑與組件匯入失效',
                 img: '',
-                situation: '從 JSON 讀取圖片路徑或定義組件時，Vite 常無法正確解析動態拼接的路徑 。',
+                situation: '從 JSON 讀取圖片路徑或定義組件時，Vite 常無法正確解析動態拼接的路徑。',
                 task: '建立可靠的資源匯入邏輯，確保圖片與組件在 Build 後仍能正確顯示。',
                 action: [
-                    '使用 new URL(path, import.meta.url).href 明確路徑起點，提高編譯器解析成功率 。',
+                    '使用  import.meta.url 明確路徑起點，提高編譯器解析成功率。',
                     '建立組件 Mapping 物件，利用 <component :is="..."> 根據名稱動態切換，取代字串直接匯入。',
                 ],
                 result: '成功實作資料驅動介面，修改 JSON 即可自動更新全站作品。',
@@ -501,8 +505,8 @@ export const Project: ProjectItem[] = [
             {
                 name: '專案部署與線上環境衝突',
                 img: 'porfolio-git-ori',
-                situation: '要將多個獨立開發的 Vue 3 專案，以子資料夾的形式共同部署在同一個 GitHub Pages 伺服器中，但在上線後遇到了「白屏、404、以及只有顯示NavBar的現象',
-                task: '確保所有專案在線上環境能正常運作、流暢切換分頁，並且在線上 API 發生異常或延遲時，能無縫切換至本地的 data.json 備用資料進行渲染',
+                situation: '要將多個獨立開發的 Vue 3 專案，以子資料夾的形式共同部署在同一個 GitHub Pages 伺服器中，但在上線後遇到了「白屏、404、以及只有顯示NavBar的現象。',
+                task: '確保所有專案在線上環境能正常運作、流暢切換分頁，並且在線上 API 發生異常或延遲時，能無縫切換至本地的 data.json 備用資料進行渲染。',
                 action: [
                     '將 data.json 移至 public/ 根目錄中，並將原先的 import 語法改寫為瀏覽器原生 await fetch，解決失效問題。',
                     '伺服器 Jekyll 預設封鎖 Vite 底線開頭檔案（如 _plugin-vue），修改 GitHub 配置並將 Build 切換為 GitHub Actions (Static HTML)，解除伺服器的命名限制。',
@@ -518,8 +522,8 @@ export const Project: ProjectItem[] = [
             { name: '手機 (375px)', img: ['porfolio-phone'] },
         ],
         links: [
-            { name: 'Figma', link: 'https://www.figma.com/design/NUSFnOzYqcr6h4z3hhVRQw/Portfolio-website?node-id=807-9074&t=pPUb9uPevY8yr3PN-1' },
-            { name: 'GITHUB', link: 'https://github.com/Trista25411/porfolio/tree/main/SourceCode/porfolioPagesCode' },
+            { icon: 'draft', name: 'Figma', link: 'https://www.figma.com/design/NUSFnOzYqcr6h4z3hhVRQw/Portfolio-website?node-id=807-9074&t=pPUb9uPevY8yr3PN-1' },
+            { icon: 'github', name: 'GITHUB', link: 'https://github.com/Trista25411/porfolio/tree/main/SourceCode/porfolioPagesCode' },
         ],
     },
 ];

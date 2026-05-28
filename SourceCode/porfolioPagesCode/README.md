@@ -36,3 +36,14 @@ npm run dev
 ```sh
 npm run build
 ```
+
+
+
+## 📱 行動端本地即時測試
+為了方便在手機（如 iPhone）上即時調校 RWD 與測試 iOS 專屬渲染 Bug，
+在 `package.json` 的 `dev` 指令中加入 `--host`。
+
+### 測試步驟：
+1. 電腦端執行 `npm run dev`。
+2. 確保手機與電腦連線至同一個 Wi-Fi 區域網路。
+3. 手機瀏覽器輸入終端機顯示的 `Network` 網址即可同步預覽。
