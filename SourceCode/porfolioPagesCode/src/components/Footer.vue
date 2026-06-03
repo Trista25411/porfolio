@@ -61,7 +61,7 @@ const sendMail = () => {
                 <div>
                     <h2 class="left-name">
                         <ion-icon name="chevron-forward-outline"></ion-icon>
-                        <span>與我聯繫</span>
+                        <span>與我聯繫 Get In Touch</span>
                     </h2>
                     <a v-for="item in tagItems" :href="item.path" target="_blank" class="left-link">
                         <BaseButton :icon="item.icon" :name="item.name" />
@@ -73,7 +73,7 @@ const sendMail = () => {
             <form class="ts-big right" @submit.prevent="openAlert">
                 <h2>
                     <ion-icon name="chevron-forward-outline"></ion-icon>
-                    <span>歡迎留言</span>
+                    <span>歡迎留言 Guestbook</span>
                 </h2>
                 <p>請留下您的聯絡資訊及稱呼方式，方便回覆您！</p>
                 <div class="info">

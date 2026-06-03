@@ -8,6 +8,25 @@ const getImgUrl = (name: string) => {
   return `${baseUrl}icon/${name}.svg`;
 };
 
+const aboutItems = [
+  {
+    name: '現代化前端架構',
+    items: '以 Vue 3 為主進行模組化，並搭配 TypeScript 強型別開發，重視程式碼的重用性與可維護性。',
+  },
+  {
+    name: 'UI/UX 設計還原',
+    items: '還原 Figma 規劃，具備 RWD 網頁架構，並優化行動端效能（ CLS 畫面跳動）實務。',
+  },
+  {
+    name: '整合與自動化部署',
+    items: '實作 RESTful API 串接、Git 流程控制、Storybook 元件測試與 GitHub Actions CI/CD 流程。',
+  },
+  {
+    name: 'AI 協同',
+    items: '善用 AI 工具進行語法排查、架構優化與技術文件導讀。',
+  },
+]
+
 const skillItems = [
   {
     category: '程式語言',
@@ -66,29 +85,46 @@ const progressItems = [
 
 <template>
   <main class="container">
-    <section id="about">
+
+    <section id="my">
       <div class="intr-area">
         <div class="intr">
           <div class="title">I’m Trista.</div>
-          <p class="bigger">前端開發 | 網頁切版 | UI/UX </p>
+          <p class="title-main">「用設計思維規劃流程，用現代前端技術實踐體驗。」 </p>
           <div class="title-main intr-text">
-            <p>- 使用 Vue 3 Composition API 元件化開發與模組化抽離</p>
-            <p>- 運用 TypeScript 與 Vue.js 實作前端資料交互邏輯</p>
-            <p>- 還原 Figma 設計稿，具 RWD 網頁架構與行動端體驗優化</p>
-            <p>- 掌握 RESTful API 串接，主動排查與優化行動端 CLS 畫面跳動</p>
-            <p>- 善用 AI 工具進行語法排查、架構優化與技術文件導讀</p>
-            <p>- 整合 GitHub Actions 串接 CI/CD 自動化雲端編譯與部署</p>
+            <p>我是林蕙歆，擁有JLPT N2 認證與多元跨界背景的前端工程師。</p>
+            <p>對新技術充滿好奇，具執行力的跨界學習者。</p>
+            <p>運用不同工具完成網頁專案與 API 串接的實作經驗。</p>
           </div>
         </div>
-        <img :src="`${baseUrl}pic/personal-flower.png`" alt="about-img" class="about-img">
+        <img :src="`${baseUrl}pic/personal.png`" alt="about-img" class="about-img">
       </div>
       <img :src="`${baseUrl}pic/intr-bg.png`" alt="" class="intr-bg">
+    </section>
+
+    <section id="about">
+      <h2>
+        <ion-icon name="chevron-forward-outline"></ion-icon>
+        <span>關於我 About Me</span>
+      </h2>
+      <div class="ts-big">
+        <p>過去在電子業與家具業的工作經驗中，體會到實用又美觀的系統對使用者的重要性。</p>
+        <p>擁有UI/UX設計思維與前端製作概念，於團隊中擔任視覺設計與程式製作間的溝通橋樑。</p>
+      </div>
+      <div>
+        <div class="about-grid-area">
+          <div v-for="item in aboutItems" class="about-items">
+            <div class="ts-big about-name">{{ item.name }}</div>
+            <div>{{ item.items }}</div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section id="skill">
       <h2>
         <ion-icon name="chevron-forward-outline"></ion-icon>
-        <span>技能與專長</span>
+        <span>技能與專長 Skill & Expertise</span>
       </h2>
       <div class="skill-grid-area">
         <div v-for="(category, index) in skillItems" :key="category.category" :class="['skill-card', `card-${index}`]">
@@ -106,7 +142,7 @@ const progressItems = [
     <section id="projects">
       <h2>
         <ion-icon name="chevron-forward-outline"></ion-icon>
-        <span>專案作品</span>
+        <span>專案作品 Featured Projects</span>
       </h2>
       <div class="swipe">
         <span>向右滑動</span>
@@ -124,7 +160,7 @@ const progressItems = [
     <section id="progress">
       <h2>
         <ion-icon name="chevron-forward-outline"></ion-icon>
-        <span>技術演進與成長軌跡</span>
+        <span>技術演進與成長軌跡 Growth Timeline</span>
       </h2>
       <div class="progress-content">
         <div v-for="(group, index) in progressItems" :key="index" class="progress-area">
@@ -143,7 +179,7 @@ const progressItems = [
       <img :src="`${baseUrl}pic/bg-pic-2.png`" alt="bg-pic" class="bg-pic">
       <h2>
         <ion-icon name="chevron-forward-outline"></ion-icon>
-        <span>生活日常</span>
+        <span>生活日常 Journal</span>
       </h2>
       <LifeCard />
     </section>
@@ -165,7 +201,7 @@ h2 {
   max-width: 100%;
 }
 
-#about {
+#my {
   position: relative;
   display: flex;
   justify-content: center;
@@ -191,7 +227,6 @@ h2 {
   justify-content: center;
   gap: 30px;
   z-index: 1;
-  padding-bottom: 20px;
 }
 
 .intr-text {
@@ -201,9 +236,32 @@ h2 {
 }
 
 .about-img {
-  width: 100%;
+  width: 90%;
   border-radius: 20px;
   z-index: 2;
+  padding-top: 20px;
+}
+
+#about {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.about-grid-area {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+}
+
+.about-items {
+  background-color: #FFFBF5;
+  border-radius: 20px;
+  padding: 30px;
+}
+
+.about-name {
+  color: #F55C2D;
 }
 
 .skill-grid-area {
@@ -431,9 +489,15 @@ h2 {
   }
 
   .about-img {
-    width: 40%;
+    width: 50%;
     justify-self: center;
     order: -1;
+    padding-top: 0;
+    padding-left: 80px;
+  }
+
+  .about-grid-area{
+    grid-template-columns: 2fr 2fr;
   }
 
   .skill-grid-area {
@@ -444,13 +508,23 @@ h2 {
   }
 }
 
+@media (max-width:800px) {
+  .about-img {
+    width: 60%;
+    padding-left: 50px;
+  }
+}
+
 @media (max-width:550px) {
   .about-img {
-    width: 50%;
+    width: 80%;
   }
 
   .intr-text {
     display: inline;
+  }
+    .about-grid-area{
+    grid-template-columns: 1fr;
   }
 
   .progress {

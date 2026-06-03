@@ -24,7 +24,7 @@ const getImgUrl = (name: string) => {
                 <div class="intr-area">
                     <p v-for="(line, index) in item.intr" :key="index" class="intr ts-big">{{ line }}</p>
                 </div>
-                <div v-if="item.source[0].name" class="ts">
+                <div v-if="item.source[0].name" class="ts-min">
                     <span>來源：</span>
                     <span v-for="src in item.source" :key="src.name">{{ src.name }}</span>
                 </div>
