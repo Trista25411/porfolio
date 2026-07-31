@@ -403,8 +403,9 @@ export const Project: ProjectItem[] = [
         tech: [
             { icon: 'html', name: 'HTML 5' },
             { icon: 'css', name: 'CSS 3' },
+            { icon: 'RWD', name: 'RWD' },
         ],
-        intr: [''],
+        intr: ['使用純 CSS 製作篩選及表單功能之互動靜態網站'],
         motivation: '',
         time: '2026.7',
         history: [
