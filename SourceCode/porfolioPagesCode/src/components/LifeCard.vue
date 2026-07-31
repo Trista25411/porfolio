@@ -18,11 +18,11 @@ const getImgUrl = (name: string) => {
 const activeCategory = ref('全部');
 const getInitial = () => {
     const width = window.innerWidth
-    if (width < 650) return 1;
-    if (width < 1200) return 2;
-    if (width < 1900) return 3;
-    if (width < 2200) return 4;
-    if (width < 2500) return 5;
+    if (width < 600) return 1;
+    if (width < 800) return 2;
+    if (width < 1100) return 3;
+    if (width < 1400) return 4;
+    if (width < 1600) return 5;
     return 6;
 };
 
@@ -181,11 +181,11 @@ onUnmounted(() => {
 }
 
 .large {
-    width: 300px;
+    width: 200px;
 }
 
 .wide {
-    width: 350px;
+    width: 250px;
 }
 
 .card-text {
@@ -223,14 +223,6 @@ onUnmounted(() => {
     .life-container,
     .tags {
         gap: 20px;
-    }
-
-    .large {
-        width: 250px;
-    }
-
-    .wide {
-        width: 300px;
     }
 }
 </style>

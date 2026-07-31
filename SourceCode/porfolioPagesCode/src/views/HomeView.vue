@@ -10,12 +10,12 @@ const getImgUrl = (name: string) => {
 
 const aboutItems = [
   {
-    name: '現代化前端架構',
-    items: '以 Vue 3 為主進行模組化，並搭配 TypeScript 強型別開發，重視程式碼的重用性與可維護性。',
+    name: '前端架構',
+    items: '以 Vue 3 為主進行模組化，並搭配 TypeScript 開發，重視程式碼的重用性與可維護性。',
   },
   {
     name: 'UI/UX 設計還原',
-    items: '還原 Figma 規劃，具備 RWD 網頁架構，並優化行動端效能（ CLS 畫面跳動）實務。',
+    items: '還原 Figma 規劃，具備 RWD 網頁架構，並優化行動端效能（ CLS 畫面跳動）。',
   },
   {
     name: '整合與自動化部署',
@@ -43,7 +43,7 @@ const skillItems = [
       { icon: 'RWD', name: 'RWD' },
       { icon: 'vue', name: 'Vue 3' },
       { icon: 'tailwind', name: 'Tailwind' },
-      { icon: 'boostrap', name: 'Boostrap' },
+      { icon: 'bootstrap', name: 'Bootstrap' },
     ]
   },
   {
@@ -70,7 +70,7 @@ const progressItems = [
   },
   {
     mark: '階段二',
-    items: { name: '現代框架與設計系統', skill: 'Figma 設計規範、Vue 3 Composition API、Boostrap', project: '合記 / 少年英雄聯盟 ' }
+    items: { name: '現代框架與設計系統', skill: 'Figma 設計規範、Vue 3 Composition API、Bootstrap', project: '合記 / 少年英雄聯盟 ' }
   },
   {
     mark: '階段三',
@@ -102,14 +102,35 @@ const progressItems = [
       <img :src="`${baseUrl}pic/intr-bg.png`" alt="" class="intr-bg">
     </section>
 
-    <section id="about">
+    <section id="projects">
       <h2>
         <ion-icon name="chevron-forward-outline"></ion-icon>
-        <span>關於我 About Me</span>
+        <span>專案作品 Featured Projects</span>
       </h2>
-      <div class="ts-big">
-        <p>過去在電子業與家具業的工作經驗中，體會到實用又美觀的系統對使用者的重要性。</p>
-        <p>擁有UI/UX設計思維與前端製作概念，於團隊中擔任視覺設計與程式製作間的溝通橋樑。</p>
+      <div class="swipe">
+        <span>電腦版請點一下這區塊空白處後長按>鍵 / 手機平板請向右滑動</span>
+        <ion-icon name="chevron-forward-outline"></ion-icon>
+      </div>
+      <div class="project-scroll">
+        <div class="project-area">
+          <RouterLink v-for="project in Project" :key="project.id" :to="`/projects/${project.id}`">
+            <ProjectCard :item="project" class="projectcard" />
+          </RouterLink>
+        </div>
+      </div>
+    </section>
+    <hr>
+
+    <section id="about">
+      <div class="area-text ts">
+        <h2>
+          <ion-icon name="chevron-forward-outline"></ion-icon>
+          <span>關於我 About Me</span>
+        </h2>
+        <div>
+          <p>過去在電子業與家具業的工作經驗中，體會到實用又美觀的系統對使用者的重要性。</p>
+          <p>擁有UI/UX設計思維與前端製作概念，於團隊中擔任視覺設計與程式製作間的溝通橋樑。</p>
+        </div>
       </div>
       <div>
         <div class="about-grid-area">
@@ -139,23 +160,7 @@ const progressItems = [
       </div>
     </section>
 
-    <section id="projects">
-      <h2>
-        <ion-icon name="chevron-forward-outline"></ion-icon>
-        <span>專案作品 Featured Projects</span>
-      </h2>
-      <div class="swipe">
-        <span>向右滑動</span>
-        <ion-icon name="chevron-forward-outline"></ion-icon>
-      </div>
-      <div class="project-scroll">
-        <div class="project-area">
-          <RouterLink v-for="project in Project" :key="project.id" :to="`/projects/${project.id}`">
-            <ProjectCard :item="project" class="projectcard" />
-          </RouterLink>
-        </div>
-      </div>
-    </section>
+
 
     <section id="progress">
       <h2>
@@ -167,7 +172,7 @@ const progressItems = [
           <div class="progress-card">
             <div class="mark">{{ group.mark }}</div>
             <h3>{{ group.items.name }}</h3>
-            <p class="progress-skill">{{ group.items.skill }}</p>
+            <p>{{ group.items.skill }}</p>
             <div class="progress-project">{{ group.items.project }}</div>
           </div>
           <div v-if="index < progressItems.length - 1" class="progress-arrow">→</div>
@@ -177,10 +182,13 @@ const progressItems = [
 
     <section id="life">
       <img :src="`${baseUrl}pic/bg-pic-2.png`" alt="bg-pic" class="bg-pic">
-      <h2>
-        <ion-icon name="chevron-forward-outline"></ion-icon>
-        <span>生活日常 Journal</span>
-      </h2>
+      <div class="area-text ts">
+        <h2>
+          <ion-icon name="chevron-forward-outline"></ion-icon>
+          <span>生活日常 Journal</span>
+        </h2>
+        <div>圖片採隨機排序顯示、延遲載入優化效能，並修正 iOS Safari 色彩空間顯示偏色問題</div>
+      </div>
       <LifeCard />
     </section>
   </main>
@@ -341,7 +349,6 @@ h2 {
 .project-area {
   width: 800px;
   display: grid;
-  /* 向右排列 */
   grid-auto-flow: column;
   gap: 40px;
 }
@@ -442,8 +449,13 @@ h2 {
   z-index: -1;
 }
 
-@media (max-width:1500px) {
+.area-text {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 
+@media (max-width:1500px) {
   .intr-area {
     grid-template-columns: 60% 35%;
   }
@@ -455,16 +467,9 @@ h2 {
   }
 
   .progress-content {
-    flex-direction: column;
-    padding: 0 50px;
-  }
-
-  .progress-arrow {
-    right: auto;
-    top: auto;
-    left: 50%;
-    bottom: -40px;
-    transform: translateX(-50%) rotate(90deg);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 0;
   }
 }
 
@@ -496,7 +501,7 @@ h2 {
     padding-left: 80px;
   }
 
-  .about-grid-area{
+  .about-grid-area {
     grid-template-columns: 2fr 2fr;
   }
 
@@ -523,23 +528,34 @@ h2 {
   .intr-text {
     display: inline;
   }
-    .about-grid-area{
+
+  .about-grid-area {
     grid-template-columns: 1fr;
   }
 
   .progress {
     width: 250px;
   }
+
+  .progress-content {
+    grid-template-columns: 1fr;
+  }
+
+  .progress-arrow {
+    right: auto;
+    top: auto;
+    left: 50%;
+    bottom: -40px;
+    transform: translateX(-50%) rotate(90deg);
+  }
 }
 
 @media (max-width:500px) {
-
   .skill-grid-area {
     grid-template-columns: 1fr;
     grid-template-rows: 200px 200px 180px 150px;
     grid-template-areas:
-      "card0" "card1" "card2" "card3"
-    ;
+      "card0" "card1" "card2" "card3";
   }
 }
 </style>

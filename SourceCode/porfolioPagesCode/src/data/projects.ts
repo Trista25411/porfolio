@@ -32,6 +32,7 @@ export interface challengeItem {
 
 export interface ProjectItem {
     id: number,
+    size: 'large' | 'small';
     logo: string;
     title: string;
     pic: string;
@@ -39,6 +40,7 @@ export interface ProjectItem {
     tech: techItem[];
     intr: string[];
     motivation: string;
+    time: string;
     history: string[];
     source: sourceItem[];
     challenge: challengeItem[];
@@ -49,8 +51,182 @@ export interface ProjectItem {
 export const Project: ProjectItem[] = [
     {
         id: 1,
+        size: 'large',
+        logo: 'icon',
+        title: '此個人作品集網站製作',
+        pic: 'porfolio',
+        tech: [
+            { icon: 'vue', name: 'Vue 3' },
+            { icon: 'ts', name: 'TypeScript' },
+            { icon: 'storybook', name: 'Storybook' },
+            { icon: 'RWD', name: 'RWD' }
+        ],
+        intr: ['結合 TypeScript、Vue、及 Storybook 進行開發，建立高維護性與自動化部署網站。'],
+        motivation: '整合設計與開發技能，並優化作品集展示的資料管理流程。',
+        time: '2026.6-持續更新中',
+        history: [
+            '1. 學習運用 STAR 原則系統化闡述開發過程中的技術挑戰與對策。',
+            '2. 利用 Vue 動畫與轉場效果，提升使用者瀏覽作品時的層次感與引導性。',
+            '3. 學習運用 EmailJS 實作無後端發信系統及 Storybook 元件文件化。',
+            '4. 利用自動化部署與組件化開發，建立個人網站。'
+        ],
+        source:
+            [{ name: '', link: '' }],
+        challenge: [
+            {
+                name: '動態資料路徑與組件匯入失效',
+                img: '',
+                situation: '從 JSON 讀取圖片路徑或定義組件時，Vite 常無法正確解析動態拼接的路徑。',
+                task: '建立可靠的資源匯入邏輯，確保圖片與組件在 Build 後仍能正確顯示。',
+                action: [
+                    '使用  import.meta.url 明確路徑起點，提高編譯器解析成功率。',
+                    '建立組件 Mapping 物件，利用 <component :is="..."> 根據名稱動態切換，取代字串直接匯入。',
+                ],
+                result: '成功實作資料驅動介面，修改 JSON 即可自動更新全站作品。',
+                resultImg: ''
+            },
+            {
+                name: '留言功能與第三方服務整合',
+                img: 'porfolio-emailjs-ori',
+                situation: '作品集具備聯絡功能，但不使用後端伺服器與資料庫。',
+                task: '串接 EmailJS 第三方服務，實作純前端的發信功能。',
+                action: [
+                    '串接 EmailJS API，並在 Vue 組件中監聽 submit 事件以處理發信請求。',
+                    '使用原生 HTML5 驗證機制，對 Email 格式與內容長度進行雙重檢查。',
+                    '加入 Loading State 與 Debounce，避免使用者重覆點擊造成重複發信。'
+                ],
+                result: '成功建立輕量化的溝通管道，降低維護成本。',
+                resultImg: 'porfolio-emailjs-now'
+            },
+            {
+                name: '環境效能瓶頸與資源優化',
+                img: 'porfolio-eperm-ori',
+                situation: '製作專案存取圖片時，檔案資料夾頻繁出現卡死，在 VS Code 內部修改檔案卻完全正常，影響開發效率。',
+                task: '解除檔案系統被開發進程鎖定的狀態，恢復資料夾的操作權限。',
+                action: [
+                    '暫停 VS Code 終端機內執行的 npm run dev 伺服器，釋放其對目錄的監控控制碼。',
+                    '使用 Ctrl + Shift + P 執行 Reload Window ，強制中斷編輯器對路徑的佔用。',
+                    '檢查是否有雲端同步服務鎖定該目錄，重啟檔案資源管理器進行操作 。'
+                ],
+                result: '解決頻繁發生的環境鎖定問題，確保開發工作不因檔案操作受阻。',
+                resultImg: 'porfolio-eperm-now'
+            },
+            {
+                name: '專案部署與線上環境衝突',
+                img: 'porfolio-git-ori',
+                situation: '要將多個獨立開發的 Vue 3 專案，以子資料夾的形式共同部署在同一個 GitHub Pages 伺服器中，但在上線後遇到了「白屏、404、以及只有顯示NavBar的現象。',
+                task: '確保所有專案在線上環境能正常運作、流暢切換分頁，並且在線上 API 發生異常或延遲時，能無縫切換至本地的 data.json 備用資料進行渲染。',
+                action: [
+                    '將 data.json 移至 public/ 根目錄中，並將原先的 import 語法改寫為瀏覽器原生 await fetch，解決失效問題。',
+                    '伺服器 Jekyll 預設封鎖 Vite 底線開頭檔案（如 _plugin-vue），修改 GitHub 配置並將 Build 切換為 GitHub Actions (Static HTML)，解除伺服器的命名限制。',
+                    '因 Base URL 與入口網址（如夾帶 index.html）造成的認知落差，在 router/index.ts 導入了 alias（別名），將線上的特殊網址引導至首頁，順利觸發 onMounted 渲染。',
+                ],
+                result: '所有子專案皆部署成功，多個分頁切換流暢，學會 SPA 路由機制，並了解如何處理「本機與線上環境的行為落差」。',
+                resultImg: 'porfolio-git-now'
+            },
+        ],
+        RWD: [
+            { name: '電腦 (1440px)', img: ['porfolio-pc'] },
+            { name: '平板 (768px)', img: ['porfolio-tablet'] },
+            { name: '手機 (375px)', img: ['porfolio-phone'] },
+        ],
+        links: [
+            { icon: 'draft', name: 'Figma', link: 'https://www.figma.com/design/NUSFnOzYqcr6h4z3hhVRQw/Portfolio-website?node-id=807-9074&t=pPUb9uPevY8yr3PN-1' },
+            { icon: 'github', name: 'GITHUB', link: 'https://github.com/Trista25411/porfolio/tree/main/SourceCode/porfolioPagesCode' },
+        ],
+    },
+    {
+        id: 2,
+        size: 'large',
+        logo: 'ljhlogo',
+        title: '少年英雄聯盟 改版製作',
+        pic: 'ljh',
+        tech: [
+            { icon: 'vue', name: 'Vue 3' },
+            { icon: 'js', name: 'JavaScript' },
+            { icon: 'bootstrap', name: 'Bootstrap' },
+            { icon: 'RWD', name: 'RWD' }
+        ],
+        intr: ['針對政府大型活動網站進行網頁重構。負責優化資料架構、UI 設計以及全站響應式開發。'],
+        motivation: '改善現有網站資訊碎片化的問題，透過重構提升青少年的參與度與資訊獲取效率。',
+        time: '2025.7-8',
+        history: [
+            '1. 資訊架構規劃，掌握大型活動網站的分類系統 。',
+            '2. 整合不同局處資源，建立統一且流暢的數位服務入口。',
+            '3. 運用 @media，確保內容在不同裝置能夠完整呈現。'
+        ],
+        source:
+            [{ name: '少年英雄聯盟', link: 'https://ljh.taichung.gov.tw/' }],
+        challenge: [
+            {
+                name: '舊有資訊架構過於破碎',
+                img: '',
+                situation: '原網站資訊分散於各處，使用者難以在短時間內找到所需資訊，且各頁面風格不一。',
+                task: '規劃清晰的資訊層級、整合各局處資源，降低使用者獲取資訊的點擊次數。',
+                action: [
+                    '對現有資料清單進行分類，並將重複性質的功能進行歸納，定義核心與選配欄位。',
+                    '採用資訊階層化設計，將核心功能與次要資訊區隔，並設計直覺的導覽切換機制。',
+                    '建立統一的資料介面，確保前端各模組的渲染邏輯與視覺風格維持一致。'
+                ],
+                result: '簡化全站資訊架構，大幅降低了使用者尋找資訊步驟，提升資訊獲取效率。',
+                resultImg: ''
+            },
+            {
+                name: '動態內容擴充輪播組件',
+                img: 'ljh-card-ori',
+                situation: '反詐騙宣導區塊須承載長度不一的圖文資訊，原本卡片高度不一、圖片溢出且缺乏良好的跨裝置操作體驗。',
+                task: '加入「查看更多/收回」自動判斷功能，修復 Swiper 容器的渲染衝突，並優化雙指手勢觸控體驗。',
+                action: [
+                    '設定條件來計算字數，當內容超過 100 字時自動產生「查看更多」按鈕與漸層遮罩。',
+                    '結合 Swiper-slide 的高度自適應，強制同列卡片垂直高度對齊，修復與容器間的渲染衝突並解決圖片溢出邊界問題。',
+                    '加入平滑的展開動畫與 object-fit: cover 屬性，並支援觸控板/手勢滑動以提升操作直覺。'
+                ],
+                result: '解決所有解析度下的高度對齊與圖片變形缺陷，透過觸控手勢支援，讓跨裝置使用者皆享有同樣流暢的互動體驗。',
+                resultImg: 'ljh-card-now',
+            },
+            {
+                name: '影音載入黑屏與效能瓶頸',
+                img: 'ljh-youtube-ori',
+                situation: '網頁初次載入時須同時呈現多個 YouTube 影片資源，導致瀏覽器發出過多請求，造成頁面卡頓與大片黑塊的視覺缺陷。',
+                task: '為影片組件加入 Lazy Loading 機制，在使用者點擊前不載入實體影音資源。',
+                action: [
+                    '在 Vue 3 中建立 isLoaded 響應式狀態，預設為 false 阻止 iframe 渲染。',
+                    '利用 YouTube Image API 抓取縮圖，並用 CSS 偽元素製作播放按鈕引導使用者點擊。',
+                    '封裝組件化開發解析 URL，監聽點擊事件，當使用者主動點擊時才動態渲染 <iframe>。',
+                ],
+                result: '大幅減少初始頁面請求的資源，消除頁面載入期間的黑屏現象，顯著提升渲染效能。',
+                resultImg: 'ljh-youtube-now'
+            },
+            {
+                name: '跨部門資料同步完整度',
+                img: '',
+                situation: '整合多個政府局處 API 時，發現原始資料格式不一且常有欄位缺失，導致前端讀取屬性時報錯中斷。',
+                task: '建立資料驗證與轉換，確保異常或缺失的外部資料不會引發頁面崩潰。',
+                action: [
+                    '使用 TS 定義型別 Interface，對原始 JSON 資料進行約束。',
+                    '封裝資料專用的 Mapper 函式，對缺失的欄位手動提供安全的預設值（Fallback value）。',
+                    '在資料請求層加入 try...catch 捕捉 API 異常，確保單一接口故障時不會連帶影響其他正常模組。',
+                ],
+                result: '系統容錯與穩定度大幅提升，即使部分局處資料臨時故障，主頁面仍能維持正常顯示與運作。',
+                resultImg: ''
+            },
+        ],
+        RWD: [
+            { name: '電腦 (1440px)', img: ['ljh-pc'] },
+            { name: '平板 (768px)', img: ['ljh-tablet'] },
+            { name: '手機 (375px)', img: ['ljh-phone'] },
+        ],
+        links: [
+            { icon: 'draft', name: 'Figma', link: 'https://www.figma.com/design/JWyOtRYrt2dizQXnjMqpkG/%E5%B0%91%E5%B9%B4%E8%8B%B1%E9%9B%84%E8%81%AF%E7%9B%9F-%E7%B6%B2%E7%AB%99%E6%94%B9%E7%89%88?node-id=0-1&t=UyEUi9r5smnDAMOq-1' },
+            { icon: 'github', name: 'GITHUB', link: 'https://github.com/Trista25411/porfolio/tree/main/SourceCode/FCU-11404-LJH' },
+            { icon: 'demo', name: 'DEMO', link: 'https://trista25411.github.io/porfolio/projectsLink/LJH/index.html#/' },
+        ],
+    },
+    {
+        id: 3,
+        size: 'small',
         logo: 'frontendlogo',
-        title: 'REST-Counrties API ',
+        title: 'REST-Countries API ',
         pic: 'rest-b',
         tech: [
             { icon: 'vue', name: 'Vue 3' },
@@ -60,6 +236,7 @@ export const Project: ProjectItem[] = [
         ],
         intr: ['練習標準 RESTful API 串接流程，研究非同步資料處理、複雜 JSON 解析以及動態路由轉場。'],
         motivation: '透過實作掌握前端與後端資料交換的穩定性與錯誤處理。',
+        time: '2026.',
         history: [
             '1. 練習標準的 API 請求與錯誤處理流程。',
             '2. 將原始 JSON 資料轉化為前端渲染所需的格式。',
@@ -133,177 +310,8 @@ export const Project: ProjectItem[] = [
         ],
     },
     {
-        id: 2,
-        logo: 'icon',
-        title: '此個人作品集網站製作',
-        pic: 'porfolio',
-        tech: [
-            { icon: 'vue', name: 'Vue 3' },
-            { icon: 'ts', name: 'TypeScript' },
-            { icon: 'storybook', name: 'Storybook' },
-            { icon: 'RWD', name: 'RWD' }
-        ],
-        intr: ['結合 TypeScript、Vue、及 Storybook 進行開發，建立高維護性與自動化部署網站。'],
-        motivation: '整合設計與開發技能，並優化作品集展示的資料管理流程。',
-        history: [
-            '1. 學習運用 STAR 原則系統化闡述開發過程中的技術挑戰與對策。',
-            '2. 利用 Vue 動畫與轉場效果，提升使用者瀏覽作品時的層次感與引導性。',
-            '3. 學習運用 EmailJS 實作無後端發信系統及 Storybook 元件文件化。',
-            '4. 利用自動化部署與組件化開發，建立個人網站。'
-        ],
-        source:
-            [{ name: '', link: '' }],
-        challenge: [
-            {
-                name: '動態資料路徑與組件匯入失效',
-                img: '',
-                situation: '從 JSON 讀取圖片路徑或定義組件時，Vite 常無法正確解析動態拼接的路徑。',
-                task: '建立可靠的資源匯入邏輯，確保圖片與組件在 Build 後仍能正確顯示。',
-                action: [
-                    '使用  import.meta.url 明確路徑起點，提高編譯器解析成功率。',
-                    '建立組件 Mapping 物件，利用 <component :is="..."> 根據名稱動態切換，取代字串直接匯入。',
-                ],
-                result: '成功實作資料驅動介面，修改 JSON 即可自動更新全站作品。',
-                resultImg: ''
-            },
-            {
-                name: '留言功能與第三方服務整合',
-                img: 'porfolio-emailjs-ori',
-                situation: '作品集具備聯絡功能，但不使用後端伺服器與資料庫。',
-                task: '串接 EmailJS 第三方服務，實作純前端的發信功能。',
-                action: [
-                    '串接 EmailJS API，並在 Vue 組件中監聽 submit 事件以處理發信請求。',
-                    '使用原生 HTML5 驗證機制，對 Email 格式與內容長度進行雙重檢查。',
-                    '加入 Loading State 與 Debounce，避免使用者重覆點擊造成重複發信。'
-                ],
-                result: '成功建立輕量化的溝通管道，降低維護成本。',
-                resultImg: 'porfolio-emailjs-now'
-            },
-            {
-                name: '環境效能瓶頸與資源優化',
-                img: 'porfolio-eperm-ori',
-                situation: '製作專案存取圖片時，檔案資料夾頻繁出現卡死，在 VS Code 內部修改檔案卻完全正常，影響開發效率。',
-                task: '解除檔案系統被開發進程鎖定的狀態，恢復資料夾的操作權限。',
-                action: [
-                    '暫停 VS Code 終端機內執行的 npm run dev 伺服器，釋放其對目錄的監控控制碼。',
-                    '使用 Ctrl + Shift + P 執行 Reload Window ，強制中斷編輯器對路徑的佔用。',
-                    '檢查是否有雲端同步服務鎖定該目錄，重啟檔案資源管理器進行操作 。'
-                ],
-                result: '解決頻繁發生的環境鎖定問題，確保開發工作不因檔案操作受阻。',
-                resultImg: 'porfolio-eperm-now'
-            },
-            {
-                name: '專案部署與線上環境衝突',
-                img: 'porfolio-git-ori',
-                situation: '要將多個獨立開發的 Vue 3 專案，以子資料夾的形式共同部署在同一個 GitHub Pages 伺服器中，但在上線後遇到了「白屏、404、以及只有顯示NavBar的現象。',
-                task: '確保所有專案在線上環境能正常運作、流暢切換分頁，並且在線上 API 發生異常或延遲時，能無縫切換至本地的 data.json 備用資料進行渲染。',
-                action: [
-                    '將 data.json 移至 public/ 根目錄中，並將原先的 import 語法改寫為瀏覽器原生 await fetch，解決失效問題。',
-                    '伺服器 Jekyll 預設封鎖 Vite 底線開頭檔案（如 _plugin-vue），修改 GitHub 配置並將 Build 切換為 GitHub Actions (Static HTML)，解除伺服器的命名限制。',
-                    '因 Base URL 與入口網址（如夾帶 index.html）造成的認知落差，在 router/index.ts 導入了 alias（別名），將線上的特殊網址引導至首頁，順利觸發 onMounted 渲染。',
-                ],
-                result: '所有子專案皆部署成功，多個分頁切換流暢，學會 SPA 路由機制，並了解如何處理「本機與線上環境的行為落差」。',
-                resultImg: 'porfolio-git-now'
-            },
-        ],
-        RWD: [
-            { name: '電腦 (1440px)', img: ['porfolio-pc'] },
-            { name: '平板 (768px)', img: ['porfolio-tablet'] },
-            { name: '手機 (375px)', img: ['porfolio-phone'] },
-        ],
-        links: [
-            { icon: 'draft', name: 'Figma', link: 'https://www.figma.com/design/NUSFnOzYqcr6h4z3hhVRQw/Portfolio-website?node-id=807-9074&t=pPUb9uPevY8yr3PN-1' },
-            { icon: 'github', name: 'GITHUB', link: 'https://github.com/Trista25411/porfolio/tree/main/SourceCode/porfolioPagesCode' },
-        ],
-    },
-    {
-        id: 3,
-        logo: 'ljhlogo',
-        title: '少年英雄聯盟 改版製作',
-        pic: 'ljh',
-        tech: [
-            { icon: 'vue', name: 'Vue 3' },
-            { icon: 'js', name: 'JavaScript' },
-            { icon: 'boostrap', name: 'Boostrap' },
-            { icon: 'RWD', name: 'RWD' }
-        ],
-        intr: ['針對政府大型活動網站進行網頁重構。負責優化資料架構、UI 設計以及全站響應式開發。'],
-        motivation: '改善現有網站資訊碎片化的問題，透過重構提升青少年的參與度與資訊獲取效率。',
-        history: [
-            '1. 資訊架構規劃，掌握大型活動網站的分類系統 。',
-            '2. 整合不同局處資源，建立統一且流暢的數位服務入口。',
-            '3. 運用 @media，確保內容在不同裝置能夠完整呈現。'
-        ],
-        source:
-            [{ name: '少年英雄聯盟', link: 'https://ljh.taichung.gov.tw/' }],
-        challenge: [
-            {
-                name: '舊有資訊架構過於破碎',
-                img: '',
-                situation: '原網站資訊分散於各處，使用者難以在短時間內找到所需資訊，且各頁面風格不一。',
-                task: '規劃清晰的資訊層級、整合各局處資源，降低使用者獲取資訊的點擊次數。',
-                action: [
-                    '對現有資料清單進行分類，並將重複性質的功能進行歸納，定義核心與選配欄位。',
-                    '採用資訊階層化設計，將核心功能與次要資訊區隔，並設計直覺的導覽切換機制。',
-                    '建立統一的資料介面，確保前端各模組的渲染邏輯與視覺風格維持一致。'
-                ],
-                result: '簡化全站資訊架構，大幅降低了使用者尋找資訊步驟，提升資訊獲取效率。',
-                resultImg: ''
-            },
-            {
-                name: '動態內容擴充輪播組件',
-                img: 'ljh-card-ori',
-                situation: '反詐騙宣導區塊須承載長度不一的圖文資訊，原本卡片高度不一、圖片溢出且缺乏良好的跨裝置操作體驗。',
-                task: '加入「查看更多/收回」自動判斷功能，修復 Swiper 容器的渲染衝突，並優化雙指手勢觸控體驗。',
-                action: [
-                    '設定條件來計算字數，當內容超過 100 字時自動產生「查看更多」按鈕與漸層遮罩。',
-                    '結合 Swiper-slide 的高度自適應，強制同列卡片垂直高度對齊，修復與容器間的渲染衝突並解決圖片溢出邊界問題。',
-                    '加入平滑的展開動畫與 object-fit: cover 屬性，並支援觸控板/手勢滑動以提升操作直覺。'
-                ],
-                result: '解決所有解析度下的高度對齊與圖片變形缺陷，透過觸控手勢支援，讓跨裝置使用者皆享有同樣流暢的互動體驗。',
-                resultImg: 'ljh-card-now',
-            },
-            {
-                name: '影音載入黑屏與效能瓶頸',
-                img: 'ljh-youtube-ori',
-                situation: '網頁初次載入時須同時呈現多個 YouTube 影片資源，導致瀏覽器發出過多請求，造成頁面卡頓與大片黑塊的視覺缺陷。',
-                task: '為影片組件加入 Lazy Loading 機制，在使用者點擊前不載入實體影音資源。',
-                action: [
-                    '在 Vue 3 中建立 isLoaded 響應式狀態，預設為 false 阻止 iframe 渲染。',
-                    '利用 YouTube Image API 抓取縮圖，並用 CSS 偽元素製作播放按鈕引導使用者點擊。',
-                    '封裝組件化開發解析 URL，監聽點擊事件，當使用者主動點擊時才動態渲染 <iframe>。',
-                ],
-                result: '大幅減少初始頁面請求的資源，消除頁面載入期間的黑屏現象，顯著提升渲染效能。',
-                resultImg: 'ljh-youtube-now'
-            },
-            {
-                name: '跨部門資料同步完整度',
-                img: '',
-                situation: '整合多個政府局處 API 時，發現原始資料格式不一且常有欄位缺失，導致前端讀取屬性時報錯中斷。',
-                task: '建立資料驗證與轉換，確保異常或缺失的外部資料不會引發頁面崩潰。',
-                action: [
-                    '使用 TS 定義型別 Interface，對原始 JSON 資料進行約束。',
-                    '封裝資料專用的 Mapper 函式，對缺失的欄位手動提供安全的預設值（Fallback value）。',
-                    '在資料請求層加入 try...catch 捕捉 API 異常，確保單一接口故障時不會連帶影響其他正常模組。',
-                ],
-                result: '系統容錯與穩定度大幅提升，即使部分局處資料臨時故障，主頁面仍能維持正常顯示與運作。',
-                resultImg: ''
-            },
-        ],
-        RWD: [
-            { name: '電腦 (1440px)', img: ['ljh-pc'] },
-            { name: '平板 (768px)', img: ['ljh-tablet'] },
-            { name: '手機 (375px)', img: ['ljh-phone'] },
-        ],
-        links: [
-            { icon: 'draft', name: 'Figma', link: 'https://www.figma.com/design/JWyOtRYrt2dizQXnjMqpkG/%E5%B0%91%E5%B9%B4%E8%8B%B1%E9%9B%84%E8%81%AF%E7%9B%9F-%E7%B6%B2%E7%AB%99%E6%94%B9%E7%89%88?node-id=0-1&t=UyEUi9r5smnDAMOq-1' },
-            { icon: 'github', name: 'GITHUB', link: 'https://github.com/Trista25411/porfolio/tree/main/SourceCode/FCU-11404-LJH' },
-            { icon: 'demo', name: 'DEMO', link: 'https://trista25411.github.io/porfolio/projectsLink/LJH/index.html#/' },
-        ],
-    },
-
-    {
         id: 4,
+        size: 'small',
         logo: 'frontendlogo',
         title: 'Space-Tourism',
         pic: 'space',
@@ -315,6 +323,7 @@ export const Project: ProjectItem[] = [
         ],
         intr: ['根據設計稿還原，並練習將專案從純 JS 遷移至 TS 環境。'],
         motivation: '透過實際商業 UI 需求製作出，掌握 Data-Driven UI，透過 TS 檢查降低執行期錯誤，掌握更嚴謹的開發流程。',
+        time: '',
         history: [
             '1. 學習將現有專案從 JS 遷移至 TS，掌握型別定義與靜態檢查，降低執行錯誤。',
             '2. 練習從本地 JSON 提取數據，並根據使用者操作動態切換內容。',
@@ -386,7 +395,64 @@ export const Project: ProjectItem[] = [
         ],
     },
     {
-        id: 5,
+        id: 6,
+        size: 'small',
+        logo: 'migration',
+        title: '攝影工作室網站',
+        pic: 'studio',
+        tech: [
+            { icon: 'html', name: 'HTML 5' },
+            { icon: 'css', name: 'CSS 3' },
+        ],
+        intr: [''],
+        motivation: '',
+        time: '2026.7',
+        history: [
+            '在前端課程學習時，老師提供了一份網頁模板練習仿切，看要做什麼樣的形式。',
+            '把單純的靜態版型延伸成一個「攝影工作室」主題的網站，並在尚未學到 JavaScript，使用 HTML/CSS 完成互動功能，理解 CSS 的運作方式。'
+        ],
+        source:
+            [{ name: '', link: '' }],
+        challenge: [
+            {
+                name: '分類篩選功能',
+                img: '',
+                situation: '使用 CSS 直接撰寫篩選功能',
+                task: '不使用 JavaScript，讓使用者點擊標籤來切換顯示不同主題的作品照片。',
+                action: [
+                    '利用 CSS ~ 選擇器，將隱藏的 radio 按鈕放在標籤區塊前面，搭配 :checked 與 :not() 判斷非目前分類的照片。',
+                    '過程中發現 radio 忘記加上共用 name 會導致無法互斥切換、需要重新整理頁面才能生效，補上統一的 name 屬性後解決。',
+                ],
+                result: '完成不依賴 JavaScript 就能運作的分類篩選系統，了解 radio 分組機制與 CSS 選擇器的作用方向限制。',
+                resultImg: ''
+            },
+            {
+                name: '表單送出確認提示',
+                img: '',
+                situation: '製作表單送出會有通知框',
+                task: '希望使用者填寫預約表單後，點擊送出能看到確認訊息，但不希望整頁重新整理，且必須保留 required 欄位驗證。',
+                action: [
+                    '利用 :target 搭配 form action="#錨點"，讓表單驗證通過後由瀏覽器導向指定錨點來觸發顯示。',
+                    '排查了幾個錯誤:按鈕包在 <a> 標籤裡會跟 submit 行為衝突、hidden 屬性在 Bootstrap 裡被設為 !important 導致樣式失效、以及用 display 切換顯示會讓頁面在跳轉時先跳回最頂端。',
+                    '最後改用 opacity 搭配 pointer-events 取代 display，解決了顯示與跳動的問題。'
+                ],
+                result: '完成純 CSS、不須重新整理頁面的表單確認提示，理解 CSS 優先度、瀏覽器渲染時機與框架樣式可能造成的衝突。',
+                resultImg: ''
+            },
+        ],
+        RWD: [
+            { name: '電腦 (1440px)', img: ['studio-pc'] },
+            { name: '平板 (768px)', img: ['studio-tablet'] },
+            { name: '手機 (375px)', img: ['studio-phone'] },
+        ],
+        links: [
+            { name: 'github', link: 'https://github.com/Trista25411/porfolio/tree/main/SourceCode/studioWeb' },
+            { name: 'demo', link: 'https://trista25411.github.io/porfolio/projectsLink/studioWeb/studioWeb.html' },
+        ],
+    },
+    {
+        id: 6,
+        size: 'small',
         logo: 'microsoftlogo',
         title: 'Microsoft 首頁仿切',
         pic: 'microsoft',
@@ -397,6 +463,7 @@ export const Project: ProjectItem[] = [
         ],
         intr: ['商業網站 CSS 切版練習', '不依賴框架，僅使用原生 CSS 挑戰複雜的排版邏輯與響應式切換。'],
         motivation: '深入理解 Layout Algorithms，掌握 Grid 與 Flexbox 的協作模式。',
+        time: '',
         history: [
             '1. 理解 Flexbox 與 Grid 佈局在複雜商務網站中的應用。',
             '2. 掌握在無框架支援下，手寫響應式斷點的最佳實踐。',
@@ -456,7 +523,8 @@ export const Project: ProjectItem[] = [
         ],
     },
     {
-        id: 6,
+        id: 7,
+        size: 'small',
         logo: 'hojilogo',
         title: '合記出版社 改版設計',
         pic: 'hoji',
@@ -467,6 +535,7 @@ export const Project: ProjectItem[] = [
         ],
         intr: ['傳統醫學出版社官網現代化視覺重構。簡化配色系統建立專業感，優化書籍檢索流程。'],
         motivation: '解決目錄過長且難以查找需求書籍，建立以讀者為中心的數位體驗。',
+        time: '',
         history: [
             '1. 學習分類繁雜醫學文獻，重新規劃資訊層級以優化導覽流程。 ',
             '2. 分析使用者搜尋習慣，重塑過濾器與結果呈現頁面的互動邏輯。',
@@ -529,3 +598,60 @@ export const Project: ProjectItem[] = [
 ];
 
 
+// {
+//     id: ,
+//     size:'',
+//     logo: '',
+//     title: '',
+//     pic: '',
+//     tech: [
+//         { icon: '', name: '' },
+//         { icon: '', name: '' },
+//     ],
+//     intr: [''],
+//     motivation: '',
+//     time: '',
+//     history: [
+//         '1. ',
+//         '2. ',
+//         '3. ',
+//     ],
+//     source:
+//         [{ name: '', link: '' }],
+//     challenge: [
+//         {
+//             name: '',
+//             img: '',
+//             situation: '',
+//             task: '',
+//             action: [
+//                 '',
+//                 '',
+//                 ''
+//             ],
+//             result: '',
+//             resultImg: ''
+//         },
+//         {
+//             name: '',
+//             img: '',
+//             situation: '',
+//             task: '',
+//             action: [
+//                 '',
+//                 '',
+//                 ''
+//             ],
+//             result: '',
+//             resultImg: ''
+//         },
+//     ],
+//     RWD: [
+//         { name: '', img: [''] },
+//         { name: '', img: [''] },
+//     ],
+//     links: [
+//         { name: '', link: '' },
+//         { name: '', link: '' },
+//     ],
+// },

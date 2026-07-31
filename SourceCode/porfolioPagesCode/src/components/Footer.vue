@@ -13,9 +13,8 @@ const formData = reactive({
 const activeAlert = ref<number | null>(null);
 
 const tagItems = ([
-    { icon: 'email', name: 'Email', path: 'mailto:apple204023@gmail.com' },
-    { icon: 'blog', name: 'Pixnet', path: 'https://www.pixnet.net/pcard/mdaysunlight?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGn4OVmgK-eyvHnvWvq8gXYRWSfRxpQZntv4nS2STE68ayGu58kA3VUjmjoTr8_aem_HwxiLbAL7py1aK3jU3FeIg' },
-    { icon: 'instagram', name: 'Instagram', path: 'https://www.instagram.com/m.day_sunlight/' },
+    { icon: 'linkedin', name: 'LinkedIn', path: 'https://www.linkedin.com/in/trista4023/' },
+    // { icon: 'blog', name: '', path: '' },
 ]);
 
 // 點擊送出，先設定跳出 alert1視窗
@@ -57,33 +56,25 @@ const sendMail = () => {
     <div id="contact">
         <div class="wave"></div>
         <div class="content">
-            <div class="left">
-                <div>
-                    <h2 class="left-name">
-                        <ion-icon name="chevron-forward-outline"></ion-icon>
-                        <span>與我聯繫 Get In Touch</span>
-                    </h2>
-                    <a v-for="item in tagItems" :href="item.path" target="_blank" class="left-link">
-                        <BaseButton :icon="item.icon" :name="item.name" />
-                    </a>
-                </div>
-                <div>Copyright &copy; 2026 Trista’s portfolio All rights reserved.</div>
+            <h2>
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+                <span>與我聯繫 Get In Touch</span>
+            </h2>
+            <div class="link">
+                <a v-for="item in tagItems" :href="item.path" target="_blank">
+                    <BaseButton :icon="item.icon" :name="item.name" class="link-btn" />
+                </a>
             </div>
-
-            <form class="ts-big right" @submit.prevent="openAlert">
-                <h2>
-                    <ion-icon name="chevron-forward-outline"></ion-icon>
-                    <span>歡迎留言 Guestbook</span>
-                </h2>
-                <p>請留下您的聯絡資訊及稱呼方式，方便回覆您！</p>
+            <form class="ts-big comment" @submit.prevent="openAlert">
+                <h3>或是直接留言給我~ 請留下您的資料，方便回覆您！</h3>
                 <div class="info">
                     <div>
                         <div class="info-mid">如何稱呼：</div>
-                        <input type="text" v-model="formData.name" placeholder="似曾相似四神湯" class="ts-big">
+                        <input type="text" v-model="formData.name" placeholder="Trista" class="ts-big">
                     </div>
                     <div>
                         <div class="info-mid">信箱：</div>
-                        <input type="email" v-model="formData.email" placeholder="apple204023@gmail.com" class="ts-big">
+                        <input type="email" v-model="formData.email" placeholder="example@gmail.com" class="ts-big">
                     </div>
                 </div>
                 <div class="message">
@@ -92,13 +83,13 @@ const sendMail = () => {
                         <textarea id="say" v-model="formData.message" class="ts-big message-area"
                             placeholder="請留下想說的話..."></textarea>
                     </div>
-
                     <div class="btn-area">
                         <BaseButton name="重置" type="button" @click="resetBtn" />
                         <BaseButton name="送出" type="submit" />
                     </div>
                 </div>
             </form>
+            <div>Copyright &copy; 2026 Trista’s portfolio All rights reserved.</div>
         </div>
     </div>
 
@@ -149,56 +140,44 @@ button {
 
 .content {
     background-color: var(--nafo-white);
-    width: 100%;
-    padding: 0 80px 80px 80px;
-    display: flex;
-    gap: 180px;
-    display: flex;
-    justify-content: space-around;
+    padding: 0 80px 20px 80px;
+    flex-direction: column;
+    gap: 20px;
     margin-top: -2px;
 }
 
-.left {
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.left-name {
-    margin-bottom: 40px;
-}
-
-.left-link {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 30px;
-}
-
-.right {
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-}
-
-.info {
-    display: flex;
-    gap: 40px;
-}
-
-.info-mid {
-    padding-bottom: 20px;
-}
-
+.content,
+.comment,
+.link,
+.info,
 .message {
     display: flex;
-    gap: 30px;
+}
+
+.link-btn:hover {
+    background-color: #d27666;
+}
+
+.comment {
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.link,
+.info,
+.message {
+    gap: 20px;
+}
+
+.info-mid,
+.comment {
+    padding-bottom: 20px;
 }
 
 .form-group {
     width: 80%;
-    height: 200px;
+    height: 150px;
 }
 
 .message-area {
@@ -257,57 +236,27 @@ button {
     justify-content: center;
 }
 
-@media (max-width:1750px) {
-    .form-group {
-        width: 70%;
-    }
-
-    .left {
-        width: 40%;
-    }
-
-    .right {
-        width: 60%;
-    }
-}
-
-@media (max-width:1100px) {
-    .content {
-        gap: 80px;
-    }
-}
-
 @media (max-width:900px) {
     .content {
+        padding: 0 40px 30px 40px;
+    }
+
+}
+
+@media (max-width:600px) {
+
+    .link,
+    .message {
         flex-direction: column;
-    }
-
-    .left {
-        width: 100%;
-        gap: 10px;
-    }
-
-    .right {
-        width: 100%;
     }
 
     .info {
         flex-direction: column;
         gap: 20px;
     }
-}
-
-@media (max-width:550px) {
-    .content {
-        padding: 30px;
-    }
 
     .form-group {
         width: 100%;
-    }
-
-    .message {
-        flex-direction: column;
     }
 
     .btn-area {

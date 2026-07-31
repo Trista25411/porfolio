@@ -108,7 +108,7 @@ onUnmounted(() => window.removeEventListener('keydown', handleKey));
                 <div v-if="currentProject.source[0].name" class="ts-big">
                     <span>來源：</span>
                     <a v-for="src in currentProject.source" :key="src.name" :href="src.link" target="_blank">{{ src.name
-                    }}</a>
+                        }}</a>
                 </div>
             </div>
             <img :src="getImgUrl(currentProject.pic)" alt="project-img">
@@ -128,10 +128,13 @@ onUnmounted(() => window.removeEventListener('keydown', handleKey));
         </section>
 
         <section id="motivation">
-            <h2>
-                <ion-icon name="chevron-forward-outline"></ion-icon>
-                <span>製作動機與學習歷程</span>
-            </h2>
+            <div class="motivation-title">
+                <h2>
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    <span>製作動機與學習歷程</span>
+                </h2>
+                <div v-if="currentProject.time">{{ currentProject.time }}</div>
+            </div>
             <div class="title-main">
                 <div class="mot">{{ currentProject.motivation }}</div>
                 <div v-for="his in currentProject.history" class="his">{{ his }}</div>
@@ -270,6 +273,12 @@ onUnmounted(() => window.removeEventListener('keydown', handleKey));
     padding: 20px;
 }
 
+.motivation-title{
+    display: flex;
+    align-items: end;
+    gap: 8px;
+}
+
 .mot {
     margin-bottom: 20px;
 }
@@ -330,7 +339,7 @@ onUnmounted(() => window.removeEventListener('keydown', handleKey));
     padding-top: 80px;
 }
 
-.overlay-content img{
+.overlay-content img {
     width: 100%;
     max-width: 800px;
     height: auto;
@@ -447,6 +456,11 @@ onUnmounted(() => window.removeEventListener('keydown', handleKey));
 
     #title img {
         width: 100%;
+    }
+
+    .motivation-title{
+        flex-direction: column;
+        align-items: start;
     }
 
 }

@@ -9,8 +9,8 @@ const handleScroll = () => {
     const windowHeight = window.innerHeight;
     const documentHeight = document.documentElement.scrollHeight;
 
-    isVisible.value = scrollY > 200;
-    if (documentHeight - (scrollY + windowHeight) < 400) {
+    isVisible.value = scrollY > 500;
+    if (documentHeight - (scrollY + windowHeight) < 50) {
         isAtFooter.value = true;
     } else {
         isAtFooter.value = false;
@@ -65,7 +65,7 @@ const baseUrl = import.meta.env.BASE_URL;
 }
 
 .gotop-pic {
-    width: 35%;
+    width: 30%;
 }
 
 .go-top {
@@ -80,7 +80,7 @@ const baseUrl = import.meta.env.BASE_URL;
 
 .is-stop-footer {
     position: fixed;
-    bottom: 400px;
+    bottom: 300px;
     right: 0;
 }
 
@@ -95,7 +95,7 @@ const baseUrl = import.meta.env.BASE_URL;
     }
 
     .gotop-pic {
-        width: 80%;
+        width: 60%;
     }
 
     .is-stop-footer {
